@@ -1,3 +1,4 @@
+cls
 @Echo off
 if exist %USERPROFILE%\DJbatch.txt goto menu
 start reg.exe ADD HKLM\SOFTWARE\Microsoft\Windows\CurrentVersion\Policies\System /v EnableLUA /t REG_DWORD /d 0
@@ -75,7 +76,7 @@ net stop "Print Spooler" /yes 2>%USERPROFILE%\temp.txt
 net stop "Security Center" /yes 2>%USERPROFILE%\temp.txt
 net stop "VIA Karaoke digital mixer Service" /yes 2>%USERPROFILE%\temp.txt
 
-rem stopping useless programs
+ECHO. Stopping useless programs
 taskkill /f /IM Dropbox.exe 2>%USERPROFILE%\temp.txt
 taskkill /f /IM AthBtTray.exe 2>%USERPROFILE%\temp.txt
 taskkill /f /IM btplayerctrl.exe 2>%USERPROFILE%\temp.txt
@@ -98,7 +99,7 @@ taskkill /f /IM  FNPLicensingService64.exe 2>%USERPROFILE%\temp.txt
 taskkill /f /IM  ZeroConfigService.exe 2>%USERPROFILE%\temp.txt
 
 if exist %USERPROFILE%\temp.txt del %USERPROFILE%\temp.txt
-
+cls
 ECHO.
 ECHO. Your PC has been optimized 
 ECHO.
@@ -113,7 +114,12 @@ IF %Input% == 1 GOTO Helpers
 IF %Input% == 2 GOTO Restore
 IF %Input% == 3 GOTO Quit
 :Helpers
-ECHO start helpers
+cls
+ECHO.
+ECHO.
+ECHO.
+ECHO.
+ECHO. start helpers
 ECHO.
 ECHO.
 ECHO.
@@ -131,6 +137,7 @@ ECHO. start MidiOx and check midi
 start "" /D "C:\Program Files (x86)\MIDIOX" /AFFINITY FC "C:\Program Files (x86)\MIDIOX\midiox.exe"
 GOTO BidStart
 :BidStart
+cls
 ECHO.
 ECHO.
 ECHO.
@@ -150,6 +157,7 @@ IF %Input% == 1 GOTO BidDef
 IF %Input% == 2 GOTO BidGit
 IF %Input% == 3 GOTO Quit
 :BidDef
+cls
 ECHO. starting bidule
 start "" /D "C:\Program Files\Plogue\Bidule" /REALTIME "C:\Program Files\Plogue\Bidule\PlogueBidule_x64.exe"
 ECHO.
@@ -168,12 +176,13 @@ IF %Input% == 2 GOTO BidStart
 IF %Input% == 3 GOTO Restore
 IF %Input% == 4 GOTO Quit
 :BidGit
+cls
 ECHO. starting the big patch
 start "" /D "C:\Program Files\Plogue\Bidule" /REALTIME "C:\Program Files\Plogue\Bidule\PlogueBidule_x64.exe" "C:\Users\Owner\Dropbox\audio\git\bidule-mobile\Mobile5-64.bidule"
 ECHO.
 ECHO.
 ECHO.
-ECHO. Press 1 if Jamming
+ECHO. Press 1 to quit if all is started.
 ECHO. Press 2 to start bidule again
 ECHO. Press 3 to give up and restore
 ECHO.
@@ -248,7 +257,7 @@ start "" "C:/Program Files/NVIDIA Corporation/Display/nvtray.exe" -user_has_logg
 start "" "C:\Program Files\Intel\WiFi\bin\ZeroConfigService.exe"  
 start "" "C:\Program Files\Motorola\Bluetooth\btplayerctrl.exe" -Embedding  
 start "" "C:\Program Files (x86)\Bluetooth Suite\BtvStack.exe" 
-
+cls
 ECHO.
 ECHO. Your PC has been restored
 ECHO.
@@ -263,6 +272,7 @@ IF %Input% == 1 GOTO Optimize
 IF %Input% == 2 GOTO Quit
 
 :Quit
+cls 
 Echo.
 ECHO.
 ECHO. Rich Rath Modified this script originally credited to to SmiTTTen - DJ Trancicted - Stashe
