@@ -1,5 +1,5 @@
 # bidoptimize
-optimize a windows 97 computer for real time audio in bidule
+optimize a windows 7 computer for real time audio in bidule
 
 THis is a windows script/batchfile for optimizing a multicore processor to work with plogue bidule or another real-time audio application running on a single core in real time mode.  This script does several things.  
 
