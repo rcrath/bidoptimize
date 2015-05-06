@@ -4,21 +4,27 @@ if exist %USERPROFILE%\DJbatch.txt goto menu
 start reg.exe ADD HKLM\SOFTWARE\Microsoft\Windows\CurrentVersion\Policies\System /v EnableLUA /t REG_DWORD /d 0
 Echo Don't delete this file! The Ultimate Dj Batch file needs it to run fine! >> %USERPROFILE%\DJbatch.txt
 
-:menu
+:Menu
 ECHO.
 ECHO. Welcome to the bidulizer
 ECHO.
 ECHO.
-ECHO. Press 1 Optimize
-ECHO. Press 2 Restore
-ECHO. Press 3 Quit
+ECHO.  Press O Optimize
+ECHO.  Press H for Helper apps
+ECHO.  Press D for bidule Default patch
+ECHO.  Press B for bidule Big patch  
+ECHO.  Press R Restore
+ECHO.  Press Q Quit
 ECHO.
 ECHO.
-Set /p input=What do you want to do?
+Set /p input=What do you want to do? 
 
-IF %Input% == 1 GOTO Optimize
-IF %Input% == 2 GOTO Restore
-IF %Input% == 3 GOTO Quit
+IF %Input% == O GOTO Optimize
+IF %Input% == H GOTO Helpers 
+IF %Input% == D GOTO BidDef
+IF %Input% == B GOTO BidGit
+IF %Input% == R GOTO Restore
+IF %Input% == Q GOTO Quit
 
 :Optimize
 CLS
@@ -97,22 +103,17 @@ taskkill /f /IM  nvxdsync.exe 2>%USERPROFILE%\temp.txt
 taskkill /f /IM  nvvsvc.exe 2>%USERPROFILE%\temp.txt
 taskkill /f /IM  FNPLicensingService64.exe 2>%USERPROFILE%\temp.txt
 taskkill /f /IM  ZeroConfigService.exe 2>%USERPROFILE%\temp.txt
+taskkill /f /IM  Launchy.exe 2>%USERPROFILE%\temp.txt
+
+rem kill onboard audio
+"C:\Program Files (x86)\Windows Kits\8.1\Tools\x64\devcon.exe" disable hdaudio*
 
 if exist %USERPROFILE%\temp.txt del %USERPROFILE%\temp.txt
-cls
+CLS
 ECHO.
 ECHO. Your PC has been optimized 
-ECHO.
-ECHO.
-ECHO. Press 1 if you want to start the helper apps
-ECHO. Press 2 if you want to restore everything for normal use
-ECHO. Press 3 to quit
-ECHO.
-ECHO.
-Set /p input=What do you want to do?
-IF %Input% == 1 GOTO Helpers
-IF %Input% == 2 GOTO Restore
-IF %Input% == 3 GOTO Quit
+GOTO Menu
+
 :Helpers
 cls
 ECHO.
@@ -135,63 +136,34 @@ ECHO.
 ECHO.
 ECHO. start MidiOx and check midi
 start "" /D "C:\Program Files (x86)\MIDIOX" /AFFINITY FC "C:\Program Files (x86)\MIDIOX\midiox.exe"
-GOTO BidStart
-:BidStart
-cls
+CLS
 ECHO.
 ECHO.
-ECHO.
-ECHO. MIDI works?
-ECHO. MidiOx is closed?
-ECHO. OWCIT drive turned On?
-ECHO.
-ECHO.
-ECHO. Press 1 to start bidule with the default patch
-ECHO. Press 2 to start bidule with the big patch
-ECHO. Press 3 to quit
+ECHO. CHECK:
+ECHO.    * MIDI works?
+ECHO.    * MidiOx is closed?
+ECHO.    * OWCIT drive turned On?
 ECHO.
 ECHO.
-Set /p input=What do you want to do?
+GOTO Menu
 
-IF %Input% == 1 GOTO BidDef
-IF %Input% == 2 GOTO BidGit
-IF %Input% == 3 GOTO Quit
 :BidDef
-cls
-ECHO. starting bidule
+CLS
+ECHO. Running Default patch
 start "" /D "C:\Program Files\Plogue\Bidule" /REALTIME "C:\Program Files\Plogue\Bidule\PlogueBidule_x64.exe"
 ECHO.
 ECHO.
 ECHO.
-ECHO. Press 1 to start helpers again
-ECHO. Press 2 to start bidule again
-ECHO. Press 3 to give up and restore
-ECHO. Press 4 to quit
-ECHO.
-ECHO.
-ECHO.
-Set /p input=What do you want to do?
-IF %Input% == 1 GOTO Helpers
-IF %Input% == 2 GOTO BidStart
-IF %Input% == 3 GOTO Restore
-IF %Input% == 4 GOTO Quit
+GOTO Menu
+
 :BidGit
-cls
-ECHO. starting the big patch
+CLS
+ECHO. Running Big patch
 start "" /D "C:\Program Files\Plogue\Bidule" /REALTIME "C:\Program Files\Plogue\Bidule\PlogueBidule_x64.exe" "C:\Users\Owner\Dropbox\audio\git\bidule-mobile\Mobile5-64.bidule"
 ECHO.
 ECHO.
 ECHO.
-ECHO. Press 1 to quit if all is started.
-ECHO. Press 2 to start bidule again
-ECHO. Press 3 to give up and restore
-ECHO.
-ECHO.
-ECHO.
-Set /p input=What do you want to do?
-IF %Input% == 1 GOTO Quit
-IF %Input% == 2 GOTO BidStart
-IF %Input% == 3 GOTO Restore
+GOTO Menu
 
 :Restore
 CLS
@@ -257,23 +229,29 @@ start "" "C:/Program Files/NVIDIA Corporation/Display/nvtray.exe" -user_has_logg
 start "" "C:\Program Files\Intel\WiFi\bin\ZeroConfigService.exe"  
 start "" "C:\Program Files\Motorola\Bluetooth\btplayerctrl.exe" -Embedding  
 start "" "C:\Program Files (x86)\Bluetooth Suite\BtvStack.exe" 
-cls
+start "" "C:\Program Files (x86)\Launchy\Launchy.exe" /show"
+
+rem restore onboard audio
+"C:\Program Files (x86)\Windows Kits\8.1\Tools\x64\devcon.exe" enable hdaudio*
+CLS
+ECHO.
 ECHO.
 ECHO. Your PC has been restored
 ECHO.
 ECHO.
-ECHO. Press 1 if you want to optimize your laptop for a gig
-ECHO. Press 2 to quit
-ECHO.
-ECHO.
-Set /p input=What do you want to do?
-
-IF %Input% == 1 GOTO Optimize
-IF %Input% == 2 GOTO Quit
+GOTO Menu
 
 :Quit
-cls 
-Echo.
+CLS
 ECHO.
-ECHO. Rich Rath Modified this script originally credited to to SmiTTTen - DJ Trancicted - Stashe
-ping 123.45.67.89 -n 1 -w 2000 > nul
+ECHO.
+ECHO.
+ECHO. See ya!
+ECHO.
+ECHO. Rich Rath Modified this script in 2015
+ECHO. Originally credited to to SmiTTTen - DJ Trancicted - Stashe
+ECHO.
+ECHO.
+ECHO.
+ECHO.
+TIMEOUT /T 5
