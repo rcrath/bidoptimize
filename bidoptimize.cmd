@@ -9,107 +9,96 @@ ECHO.
 ECHO. Welcome to the bidulizer
 ECHO.
 ECHO.
-ECHO.  Press O Optimize
-ECHO.  Press H for Helper apps
-ECHO.  Press D for bidule Default patch
-ECHO.  Press B for bidule Big patch  
-ECHO.  Press R Restore
-ECHO.  Press Q Quit
+ECHO.  Press o Optimize
+ECHO.  Press h for Helper apps
+ECHO.  Press d for bidule Default patch
+ECHO.  Press b for bidule Big patch  
+ECHO.  Press e for bidule Empty patch
+ECHO.  Press r Restore
+ECHO.  Press q Quit
 ECHO.
 ECHO.
 Set /p input=What do you want to do? 
 
-IF %Input% == O GOTO Optimize
-IF %Input% == H GOTO Helpers 
-IF %Input% == D GOTO BidDef
-IF %Input% == B GOTO BidGit
-IF %Input% == R GOTO Restore
-IF %Input% == Q GOTO Quit
+IF %Input% == o GOTO Optimize
+IF %Input% == h GOTO Helpers 
+IF %Input% == d GOTO BidDef
+IF %Input% == b GOTO BidGit
+IF %Input% == e GOTO BidEmpty
+IF %Input% == r GOTO Restore
+IF %Input% == q GOTO Quit
 
 :Optimize
-CLS
+cls
 ECHO.
 ECHO. Optimizing your computer now!
 ECHO.
 
-net stop "Application Experience" /yes 2>%USERPROFILE%\temp.txt
-net stop "AtherosSvc" /yes 2>%USERPROFILE%\temp.txt
-net stop "Background Intelligent Transfer Service" /yes 2>%USERPROFILE%\temp.txt
-net stop "Bluetooth Device Manager" /yes 2>%USERPROFILE%\temp.txt
-net stop "Bluetooth Media Service" /yes 2>%USERPROFILE%\temp.txt
-net stop "Bluetooth OBEX Service" /yes 2>%USERPROFILE%\temp.txt
-net stop "Bluetooth Support Service" /yes 2>%USERPROFILE%\temp.txt
-net stop "CNG Key Isolation" /yes 2>%USERPROFILE%\temp.txt
-net stop "Diagnostic Policy Service" /yes 2>%USERPROFILE%\temp.txt
-net stop "Diagnostic Service Host" /yes 2>%USERPROFILE%\temp.txt
-net stop "Diagnostic System Host" /yes 2>%USERPROFILE%\temp.txt
-net stop "Distributed Link Tracking Client" /yes 2>%USERPROFILE%\temp.txt
-net stop "Extensible Authentication Protocol" /yes 2>%USERPROFILE%\temp.txt
-net stop "FLEXnet Licensing Service 64" /yes 2>%USERPROFILE%\temp.txt
-net stop "Function Discovery Provider Host" /yes 2>%USERPROFILE%\temp.txt
-net stop "Function Discovery Resource Publication" /yes 2>%USERPROFILE%\temp.txt
-net stop "HomeGroup Listener" /yes 2>%USERPROFILE%\temp.txt
-net stop "HomeGroup Provider" /yes 2>%USERPROFILE%\temp.txt
-net stop "Human Interface Device Access" /yes 2>%USERPROFILE%\temp.txt
-net stop "IP Helper" /yes 2>%USERPROFILE%\temp.txt
-net stop "iPod Service" /yes 2>%USERPROFILE%\temp.txt
-net stop "Network Connections" /yes 2>%USERPROFILE%\temp.txt
-net stop "Network List Service" /yes 2>%USERPROFILE%\temp.txt
-net stop "Network Location Awareness" /yes 2>%USERPROFILE%\temp.txt
-net stop "NVIDIA Display Driver Service" /yes 2>%USERPROFILE%\temp.txt
-net stop "Peer Name Resolution Protocol" /yes 2>%USERPROFILE%\temp.txt
-net stop "Peer Networking Grouping" /yes 2>%USERPROFILE%\temp.txt
-net stop "Peer Networking Identity Manager" /yes 2>%USERPROFILE%\temp.txt
-net stop "Portable Device Enumerator Service" /yes 2>%USERPROFILE%\temp.txt
-net stop "Tablet PC Input Service" /yes 2>%USERPROFILE%\temp.txt
-net stop "Windows Firewall" /yes 2>%USERPROFILE%\temp.txt
-net stop "Base Filtering Engine" /yes 2>%USERPROFILE%\temp.txt
-net stop "IPsec Policy Agent" /yes 2>%USERPROFILE%\temp.txt
-net stop "Windows Search" /yes 2>%USERPROFILE%\temp.txt
-net stop "WinHTTP Web Proxy Auto-Discovery Service" /yes 2>%USERPROFILE%\temp.txt
-net stop "WLAN AutoConfig" /yes 2>%USERPROFILE%\temp.txt
-net stop "ZAtheros Bt&Wlan Coex Agent" /yes 2>%USERPROFILE%\temp.txt
-net stop "Adobe Acrobat Update Service" /yes 2>%USERPROFILE%\temp.txt
-net stop "Apple Mobile Device" /yes 2>%USERPROFILE%\temp.txt
-net stop "Bonjour Service" /yes 2>%USERPROFILE%\temp.txt
-net stop "FLEXnet Licensing Service" /yes 2>%USERPROFILE%\temp.txt
-net stop "Google Update Service (gupdate)" /yes 2>%USERPROFILE%\temp.txt
-net stop "Google Update Service (gupdatem)" /yes 2>%USERPROFILE%\temp.txt
-net stop "Mozilla Maintenance Service" /yes 2>%USERPROFILE%\temp.txt
-net stop "NIHardwareService" /yes 2>%USERPROFILE%\temp.txt
-net stop "NVIDIA Update Service Daemon" /yes 2>%USERPROFILE%\temp.txt
-net stop "Print Spooler" /yes 2>%USERPROFILE%\temp.txt
-net stop "Security Center" /yes 2>%USERPROFILE%\temp.txt
-net stop "VIA Karaoke digital mixer Service" /yes 2>%USERPROFILE%\temp.txt
+C:\windows\system32\net.exe  stop "AdobeARMservice" /yes 2>%USERPROFILE%\temp.txt
+C:\windows\system32\net.exe  stop "Apple Mobile Device Service" /yes 2>%USERPROFILE%\temp.txt
+C:\windows\system32\net.exe  stop "BDESVC" /yes 2>%USERPROFILE%\temp.txt
+C:\windows\system32\net.exe  stop "Bonjour Service" /yes 2>%USERPROFILE%\temp.txt
+C:\windows\system32\net.exe  stop "ClipSVC" /yes 2>%USERPROFILE%\temp.txt
+C:\windows\system32\net.exe  stop "cpextender" /yes 2>%USERPROFILE%\temp.txt
+C:\windows\system32\net.exe  stop "DiagTrack" /yes 2>%USERPROFILE%\temp.txt
+C:\windows\system32\net.exe  stop "DbxSvc" /yes 2>%USERPROFILE%\temp.txt
+C:\windows\system32\net.exe  stop "lfsvc" /yes 2>%USERPROFILE%\temp.txt
+C:\windows\system32\net.exe  stop "HomeGroupProvider" /yes 2>%USERPROFILE%\temp.txt
+C:\windows\system32\net.exe  stop "LicenseManager" /yes 2>%USERPROFILE%\temp.txt
+C:\windows\system32\net.exe  stop "NcdAutoSetup" /yes 2>%USERPROFILE%\temp.txt
+C:\windows\system32\net.exe  stop "NcbService" /yes 2>%USERPROFILE%\temp.txt
+C:\windows\system32\net.exe  stop "Spooler" /yes 2>%USERPROFILE%\temp.txt
+C:\windows\system32\net.exe  stop "TimeBrokerSvc" /yes 2>%USERPROFILE%\temp.txt
+C:\windows\system32\net.exe  stop "TabletInputService" /yes 2>%USERPROFILE%\temp.txt
+C:\windows\system32\net.exe  stop "wbengine" /yes 2>%USERPROFILE%\temp.txt
+C:\windows\system32\net.exe  stop "AppXSvc" /yes 2>%USERPROFILE%\temp.txt
+C:\windows\system32\net.exe  stop "wscsvc" /yes 2>%USERPROFILE%\temp.txt
+C:\windows\system32\net.exe  stop "wuauserv" /yes 2>%USERPROFILE%\temp.txt
+C:\windows\system32\net.exe  stop "WlanSvc" /yes 2>%USERPROFILE%\temp.txt
+C:\windows\system32\net.exe  stop "VIAKaraokeService" /yes 2>%USERPROFILE%\temp.txt
+C:\windows\system32\net.exe  stop "VMUSBArbService" /yes 2>%USERPROFILE%\temp.txt
+C:\windows\system32\net.exe  stop "SDRSVC" /yes 2>%USERPROFILE%\temp.txt
+C:\windows\system32\net.exe  stop "WdNisSvc" /yes 2>%USERPROFILE%\temp.txt
+C:\windows\system32\net.exe  stop "WinDefend" /yes 2>%USERPROFILE%\temp.txt
+C:\windows\system32\net.exe  stop "MpsSvc" /yes 2>%USERPROFILE%\temp.txt
+C:\windows\system32\net.exe  stop "stisvc" /yes 2>%USERPROFILE%\temp.txt
+C:\windows\system32\net.exe  stop "WSearch" /yes 2>%USERPROFILE%\temp.txt
+C:\windows\system32\net.exe  stop "BITS" /yes 2>%USERPROFILE%\temp.txt
+C:\windows\system32\net.exe  stop "bthserv" /yes 2>%USERPROFILE%\temp.txt
+C:\windows\system32\net.exe  stop "iPod Service" /yes 2>%USERPROFILE%\temp.txt
+C:\windows\system32\net.exe  stop "Apple Mobile Device Service" /yes 2>%USERPROFILE%\temp.txt
+C:\windows\system32\net.exe  stop "SmsRouter" /yes 2>%USERPROFILE%\temp.txt
+C:\windows\system32\net.exe  stop "cpextender" /yes 2>%USERPROFILE%\temp.txt
+C:\windows\system32\net.exe  stop "AdobeFlashPlayerUpdateSvc" /yes 2>%USERPROFILE%\temp.txt
+C:\windows\system32\net.exe  stop "CscService" /yes 2>%USERPROFILE%\temp.txt
+C:\windows\system32\net.exe  stop "gupdate" /yes 2>%USERPROFILE%\temp.txt
+C:\windows\system32\net.exe  stop "Google Update Service (gupdatem)" /yes 2>%USERPROFILE%\temp.txt
+C:\windows\system32\net.exe  stop "Mozilla Maintenance Service" /yes 2>%USERPROFILE%\temp.txt
 
 ECHO. Stopping useless programs
-taskkill /f /IM Dropbox.exe 2>%USERPROFILE%\temp.txt
-taskkill /f /IM AthBtTray.exe 2>%USERPROFILE%\temp.txt
-taskkill /f /IM btplayerctrl.exe 2>%USERPROFILE%\temp.txt
-taskkill /f /IM BtvStack.exe 2>%USERPROFILE%\temp.txt
-taskkill /f /IM  GoogleCrashHandler.exe 2>%USERPROFILE%\temp.txt
-taskkill /f /IM  GoogleCrashHandler64.exe 2>%USERPROFILE%\temp.txt
-taskkill /f /IM  armsvc.exe  2>%USERPROFILE%\temp.txt
-taskkill /f /IM  iTunesHelper.exe 2>%USERPROFILE%\temp.txt
-taskkill /f /IM  iPodService.exe 2>%USERPROFILE%\temp.txt
-taskkill /f /IM  ONENOTEM.EXE 2>%USERPROFILE%\temp.txt
-taskkill /f /IM  ClipMate.exe 2>%USERPROFILE%\temp.txt
-taskkill /f /IM  AdobeARM.exe 2>%USERPROFILE%\temp.txt
-taskkill /f /IM  jusched.exe 2>%USERPROFILE%\temp.txt
-taskkill /f /IM  nvtray.exe 2>%USERPROFILE%\temp.txt
-taskkill /f /IM  VDeck.exe 2>%USERPROFILE%\temp.txt
-taskkill /f /IM  obexsrv.exe 2>%USERPROFILE%\temp.txt
-taskkill /f /IM  nvxdsync.exe 2>%USERPROFILE%\temp.txt
-taskkill /f /IM  nvvsvc.exe 2>%USERPROFILE%\temp.txt
-taskkill /f /IM  FNPLicensingService64.exe 2>%USERPROFILE%\temp.txt
-taskkill /f /IM  ZeroConfigService.exe 2>%USERPROFILE%\temp.txt
-taskkill /f /IM  Launchy.exe 2>%USERPROFILE%\temp.txt
+rem chicony camera
+C:\windows\system32\taskkill.exe /f /IM CECAPLF.exe 2>%USERPROFILE%\temp.txt
+C:\windows\system32\taskkill.exe /f /IM ClipMate.exe 2>%USERPROFILE%\temp.txt
+C:\windows\system32\taskkill.exe /f /IM Dropbox.exe 2>%USERPROFILE%\temp.txt
+rem windows defender notices
+C:\windows\system32\taskkill.exe /f /IM MSASCuiL.exe 2>%USERPROFILE%\temp.txt
+rem antimalware service executable
+C:\windows\system32\taskkill.exe /f /IM MsMpEng.exe 2>%USERPROFILE%\temp.txt
+rem chrome phone home
+C:\windows\system32\taskkill.exe /f /IM nacl64.exe 2>%USERPROFILE%\temp.txt
+rem Microsoft Network Realtime Inspection Service
+C:\windows\system32\taskkill.exe /f /IM NisSrv.exe 2>%USERPROFILE%\temp.txt
+C:\windows\system32\taskkill.exe /f /IM  SearchFilterHost.exe 2>%USERPROFILE%\temp.txt
+C:\windows\system32\taskkill.exe /f /IM  SearchIndexer.exe 2>%USERPROFILE%\temp.txt
+C:\windows\system32\taskkill.exe /f /IM  SkypeHost.exe  2>%USERPROFILE%\temp.txt
+C:\windows\system32\taskkill.exe /f /IM  ClipMate.exe  2>%USERPROFILE%\temp.txt
+C:\windows\system32\taskkill.exe /f /IM  Launchy.exe  2>%USERPROFILE%\temp.txt
 
 rem kill onboard audio
-"C:\Program Files (x86)\Windows Kits\8.1\Tools\x64\devcon.exe" disable hdaudio*
+"C:\WINDOWS\system32\devcon.exe" disable hdaudio*
 
 if exist %USERPROFILE%\temp.txt del %USERPROFILE%\temp.txt
-CLS
+cls
 ECHO.
 ECHO. Your PC has been optimized 
 GOTO Menu
@@ -124,12 +113,12 @@ ECHO. start helpers
 ECHO.
 ECHO.
 ECHO.
-ECHO. start vpedal
-start "" /D "C:\Program Files (x86)\vPedal Hotkey Application 2" /AFFINITY FC  "C:\Program Files (x86)\vPedal Hotkey Application 2\vphotkey2.exe"
+
 ECHO. start SoftStep
 start "" /D "C:\Program Files (x86)\McMillen\SoftStep\v.2\SoftStepAdvancedEditor" /AFFINITY FC "C:\Program Files (x86)\McMillen\SoftStep\v.2\SoftStepAdvancedEditor\SoftStep Advanced Editor.exe"
 ECHO. Start Max
-start "" /D "C:\Program Files (x86)\Cycling '74\Max 5.0" /AFFINITY FC "C:\Program Files (x86)\Cycling '74\Max 5.0\Max.exe" "C:\Users\Owner\Dropbox\audio\Max-MSP\controllers\bamboo\OSC-Wacom-rcr\OSC-wacom.maxpat"
+start "" /D "C:\Program Files (x86)\Cycling '74\Max 5.0" /AFFINITY FC "C:\Program Files (x86)\Cycling '74\Max 5.0\Max.exe" 
+
 ECHO.
 ECHO.
 ECHO.
@@ -159,11 +148,21 @@ GOTO Menu
 :BidGit
 CLS
 ECHO. Running Big patch
-start "" /D "C:\Program Files\Plogue\Bidule" /REALTIME "C:\Program Files\Plogue\Bidule\PlogueBidule_x64.exe" "C:\Users\Owner\Dropbox\audio\git\bidule-mobile\Mobile5-64.bidule"
+start "" /D "C:\Program Files\Plogue\Bidule" /REALTIME "C:\Program Files\Plogue\Bidule\PlogueBidule_x64.exe" "C:\Users\Owner\Dropbox\audio\git\bidule-mobile\Mobile6-64.bidule"
 ECHO.
 ECHO.
 ECHO.
 GOTO Menu
+
+:BidEmpty
+CLS
+ECHO. blank bidule layout
+start "" /D "C:\Program Files\Plogue\Bidule" /REALTIME "C:\Program Files\Plogue\Bidule\PlogueBidule_x64.exe" "C:\Users\Owner\Dropbox\audio\git\bidule-mobile\NoU3xM0G.bidule"
+ECHO.
+ECHO.
+ECHO.
+GOTO Menu
+
 
 :Restore
 CLS
@@ -171,68 +170,66 @@ ECHO.
 ECHO. Restoring everything for normal use!
 ECHO.
 
-net start "Application Experience" /yes 2>%USERPROFILE%\temp.txt
-net start "AtherosSvc" /yes 2>%USERPROFILE%\temp.txt
-net start "Background Intelligent Transfer Service" /yes 2>%USERPROFILE%\temp.txt
-net start "Bluetooth Device Manager" /yes 2>%USERPROFILE%\temp.txt
-net start "Bluetooth Media Service" /yes 2>%USERPROFILE%\temp.txt
-net start "Bluetooth OBEX Service" /yes 2>%USERPROFILE%\temp.txt
-net start "Bluetooth Support Service" /yes 2>%USERPROFILE%\temp.txt
-net start "CNG Key Isolation" /yes 2>%USERPROFILE%\temp.txt
-net start "Diagnostic Policy Service" /yes 2>%USERPROFILE%\temp.txt
-net start "Diagnostic Service Host" /yes 2>%USERPROFILE%\temp.txt
-net start "Diagnostic System Host" /yes 2>%USERPROFILE%\temp.txt
-net start "Distributed Link Tracking Client" /yes 2>%USERPROFILE%\temp.txt
-net start "Extensible Authentication Protocol" /yes 2>%USERPROFILE%\temp.txt
-net start "FLEXnet Licensing Service 64" /yes 2>%USERPROFILE%\temp.txt
-net start "Function Discovery Provider Host" /yes 2>%USERPROFILE%\temp.txt
-net start "Function Discovery Resource Publication" /yes 2>%USERPROFILE%\temp.txt
-net start "HomeGroup Listener" /yes 2>%USERPROFILE%\temp.txt
-net start "HomeGroup Provider" /yes 2>%USERPROFILE%\temp.txt
-net start "Human Interface Device Access" /yes 2>%USERPROFILE%\temp.txt
-net start "IP Helper" /yes 2>%USERPROFILE%\temp.txt
-net start "iPod Service" /yes 2>%USERPROFILE%\temp.txt
-net start "Network Connections" /yes 2>%USERPROFILE%\temp.txt
-net start "Network List Service" /yes 2>%USERPROFILE%\temp.txt
-net start "Network Location Awareness" /yes 2>%USERPROFILE%\temp.txt
-net start "NVIDIA Display Driver Service" /yes 2>%USERPROFILE%\temp.txt
-net start "Peer Name Resolution Protocol" /yes 2>%USERPROFILE%\temp.txt
-net start "Peer Networking Grouping" /yes 2>%USERPROFILE%\temp.txt
-net start "Peer Networking Identity Manager" /yes 2>%USERPROFILE%\temp.txt
-net start "Portable Device Enumerator Service" /yes 2>%USERPROFILE%\temp.txt
-net start "Tablet PC Input Service" /yes 2>%USERPROFILE%\temp.txt
-net start "Windows Firewall" /yes 2>%USERPROFILE%\temp.txt
-net start "Base Filtering Engine" /yes 2>%USERPROFILE%\temp.txt
-net start "IPsec Policy Agent" /yes 2>%USERPROFILE%\temp.txt
-net start "Windows Search" /yes 2>%USERPROFILE%\temp.txt
-net start "WinHTTP Web Proxy Auto-Discovery Service" /yes 2>%USERPROFILE%\temp.txt
-net start "WLAN AutoConfig" /yes 2>%USERPROFILE%\temp.txt
-net start "ZAtheros Bt&Wlan Coex Agent" /yes 2>%USERPROFILE%\temp.txt
-net start "Adobe Acrobat Update Service" /yes 2>%USERPROFILE%\temp.txt
-net start "Apple Mobile Device" /yes 2>%USERPROFILE%\temp.txt
-net start "Bonjour Service" /yes 2>%USERPROFILE%\temp.txt
-net start "FLEXnet Licensing Service" /yes 2>%USERPROFILE%\temp.txt
-net start "Google Update Service (gupdate)" /yes 2>%USERPROFILE%\temp.txt
-net start "Google Update Service (gupdatem)" /yes 2>%USERPROFILE%\temp.txt
-net start "Mozilla Maintenance Service" /yes 2>%USERPROFILE%\temp.txt
-net start "NIHardwareService" /yes 2>%USERPROFILE%\temp.txt
-net start "NVIDIA Update Service Daemon" /yes 2>%USERPROFILE%\temp.txt
-net start "Print Spooler" /yes 2>%USERPROFILE%\temp.txt
-net start "Security Center" /yes 2>%USERPROFILE%\temp.txt
-net start "VIA Karaoke digital mixer Service" /yes 2>%USERPROFILE%\temp.txt
+C:\windows\system32\net.exe  start "AdobeARMservice" /yes"
+C:\windows\system32\net.exe  start "Apple Mobile Device Service" /yes"
+C:\windows\system32\net.exe  start "BDESVC" /yes"
+C:\windows\system32\net.exe  start "Bonjour Service" /yes"
+C:\windows\system32\net.exe  start "ClipSVC" /yes"
+C:\windows\system32\net.exe  start "cpextender" /yes"
+C:\windows\system32\net.exe  start "DiagTrack" /yes"
+C:\windows\system32\net.exe  start "DbxSvc" /yes"
+C:\windows\system32\net.exe  start "lfsvc" /yes"
+C:\windows\system32\net.exe  start "HomeGroupProvider" /yes"
+C:\windows\system32\net.exe  start "LicenseManager" /yes"
+C:\windows\system32\net.exe  start "NcdAutoSetup" /yes"
+C:\windows\system32\net.exe  start "NcbService" /yes"
+C:\windows\system32\net.exe  start "Spooler" /yes"
+C:\windows\system32\net.exe  start "TimeBrokerSvc" /yes"
+C:\windows\system32\net.exe  start "TabletInputService" /yes"
+C:\windows\system32\net.exe  start "wbengine" /yes"
+C:\windows\system32\net.exe  start "AppXSvc" /yes"
+C:\windows\system32\net.exe  start "wscsvc" /yes"
+C:\windows\system32\net.exe  start "wuauserv" /yes"
+C:\windows\system32\net.exe  start "WlanSvc" /yes"
+C:\windows\system32\net.exe  start "VIAKaraokeService" /yes"
+C:\windows\system32\net.exe  start "VMUSBArbService" /yes"
+C:\windows\system32\net.exe  start "SDRSVC" /yes"
+C:\windows\system32\net.exe  start "WdNisSvc" /yes"
+C:\windows\system32\net.exe  start "WinDefend" /yes"
+C:\windows\system32\net.exe  start "MpsSvc" /yes"
+C:\windows\system32\net.exe  start "stisvc" /yes"
+C:\windows\system32\net.exe  start "WSearch" /yes"
+C:\windows\system32\net.exe  start "BITS" /yes"
+C:\windows\system32\net.exe  start "bthserv" /yes"
+C:\windows\system32\net.exe  start "iPod Service" /yes"
+C:\windows\system32\net.exe  start "Apple Mobile Device Service" /yes"
+C:\windows\system32\net.exe  start "SmsRouter" /yes"
+C:\windows\system32\net.exe  start "cpextender" /yes"
+C:\windows\system32\net.exe  start "AdobeFlashPlayerUpdateSvc" /yes"
+C:\windows\system32\net.exe  start "CscService" /yes"
+C:\windows\system32\net.exe  start "gupdate" /yes"
+C:\windows\system32\net.exe  start "Google Update Service (gupdatem)" /yes"
+C:\windows\system32\net.exe  start "Mozilla Maintenance Service" /yes"
 
-start "" "C:\Program Files (x86)\Bluetooth Suite\AthBtTray.exe" 
-start "" "C:\Users\Owner\AppData\Roaming\Dropbox\bin\Dropbox.exe"
-start "" "C:\Program Files (x86)\iTunes\iTunesHelper.exe" 
+ECHO. Stopping useless programs
+rem chicony camera
+start "" "C:\Program Files (x86)\ChiconyCam\CECAPLF.exe"
 start "" "C:\Program Files (x86)\ClipMate7\ClipMate.exe"
-start "" "C:/Program Files/NVIDIA Corporation/Display/nvtray.exe" -user_has_logged_in 1
-start "" "C:\Program Files\Intel\WiFi\bin\ZeroConfigService.exe"  
-start "" "C:\Program Files\Motorola\Bluetooth\btplayerctrl.exe" -Embedding  
-start "" "C:\Program Files (x86)\Bluetooth Suite\BtvStack.exe" 
-start "" "C:\Program Files (x86)\Launchy\Launchy.exe" /show"
+start "" "C:\Program Files (x86)\Dropbox\Client\Dropbox.exe"
+rem windows defender notices
+start "" "C:\Program Files\Windows Defender\MSASCuiL.exe"
+rem antimalware service executable
+start "" "C:\Program Files\Windows Defender\MsMpEng.exe"
+rem chrome phone home (the directory will change every update)
+rem start "" "C:\Program Files (x86)\Google\Chrome\Application\57.0.2987.133\nacl64.exe"
+rem Microsoft Network Realtime Inspection Service
+start "" "C:\Program Files\Windows Defender\NisSrv.exe"
+rem start "" "C:\Windows\System32\SearchFilterHost.exe"
+start "" "C:\Windows\System32\SearchIndexer.exe"
+start "" "C:\Program Files (x86)\Launchy\Launchy.exe"
 
 rem restore onboard audio
-"C:\Program Files (x86)\Windows Kits\8.1\Tools\x64\devcon.exe" enable hdaudio*
+"C:\WINDOWS\system32\devcon.exe" enable hdaudio*
 CLS
 ECHO.
 ECHO.
