@@ -148,7 +148,7 @@ GOTO Menu
 :BidGit
 CLS
 ECHO. Running Big patch
-start "" /D "C:\Program Files\Plogue\Bidule" /REALTIME "C:\Program Files\Plogue\Bidule\PlogueBidule_x64.exe" "C:\Users\Owner\Dropbox\audio\git\bidule-mobile\Mobile6-64.bidule"
+start "" /D "C:\Program Files\Plogue\Bidule" /REALTIME "C:\Program Files\Plogue\Bidule\PlogueBidule_x64.exe" "C:\Users\rich\Dropbox\audio\git\bidule-mobile\Mobile6-64.bidule"
 ECHO.
 ECHO.
 ECHO.
@@ -157,7 +157,7 @@ GOTO Menu
 :BidEmpty
 CLS
 ECHO. blank bidule layout
-start "" /D "C:\Program Files\Plogue\Bidule" /REALTIME "C:\Program Files\Plogue\Bidule\PlogueBidule_x64.exe" "C:\Users\Owner\Dropbox\audio\git\bidule-mobile\NoU3xM0G.bidule"
+start "" /D "C:\Program Files\Plogue\Bidule" /REALTIME "C:\Program Files\Plogue\Bidule\PlogueBidule_x64.exe" "C:\Users\rich\Dropbox\audio\git\bidule-mobile\NoU3xM0G.bidule"
 ECHO.
 ECHO.
 ECHO.
