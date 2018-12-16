@@ -156,8 +156,8 @@ GOTO Menu
 
 :BidEmpty
 CLS
-ECHO. blank bidule layout
-start "" /D "C:\Program Files\Plogue\Bidule" /REALTIME "C:\Program Files\Plogue\Bidule\PlogueBidule_x64.exe" "C:\Users\rich\Dropbox\audio\git\bidule-mobile\NoU3xM0G.bidule"
+ECHO. Empty bidule layout
+start "" /D "C:\Program Files\Plogue\Bidule" /REALTIME "C:\Program Files\Plogue\Bidule\PlogueBidule_x64.exe" "C:\Users\rich\Dropbox\audio\git\empty bidule\NoU3xM0G.bidule"
 ECHO.
 ECHO.
 ECHO.
