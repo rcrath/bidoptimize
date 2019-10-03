@@ -33,72 +33,122 @@ cls
 ECHO.
 ECHO. Optimizing your computer now!
 ECHO.
+ECHO. adobe updater
+NET STOP "Adobe Acrobat Update Service"
 
-C:\windows\system32\net.exe  stop "AdobeARMservice" /yes 2>%USERPROFILE%\temp.txt
-C:\windows\system32\net.exe  stop "Apple Mobile Device Service" /yes 2>%USERPROFILE%\temp.txt
-C:\windows\system32\net.exe  stop "BDESVC" /yes 2>%USERPROFILE%\temp.txt
-C:\windows\system32\net.exe  stop "Bonjour Service" /yes 2>%USERPROFILE%\temp.txt
-C:\windows\system32\net.exe  stop "ClipSVC" /yes 2>%USERPROFILE%\temp.txt
-C:\windows\system32\net.exe  stop "cpextender" /yes 2>%USERPROFILE%\temp.txt
-C:\windows\system32\net.exe  stop "DiagTrack" /yes 2>%USERPROFILE%\temp.txt
-C:\windows\system32\net.exe  stop "DbxSvc" /yes 2>%USERPROFILE%\temp.txt
-C:\windows\system32\net.exe  stop "lfsvc" /yes 2>%USERPROFILE%\temp.txt
-C:\windows\system32\net.exe  stop "HomeGroupProvider" /yes 2>%USERPROFILE%\temp.txt
-C:\windows\system32\net.exe  stop "LicenseManager" /yes 2>%USERPROFILE%\temp.txt
-C:\windows\system32\net.exe  stop "NcdAutoSetup" /yes 2>%USERPROFILE%\temp.txt
-C:\windows\system32\net.exe  stop "NcbService" /yes 2>%USERPROFILE%\temp.txt
-C:\windows\system32\net.exe  stop "Spooler" /yes 2>%USERPROFILE%\temp.txt
-C:\windows\system32\net.exe  stop "TimeBrokerSvc" /yes 2>%USERPROFILE%\temp.txt
-C:\windows\system32\net.exe  stop "TabletInputService" /yes 2>%USERPROFILE%\temp.txt
-C:\windows\system32\net.exe  stop "wbengine" /yes 2>%USERPROFILE%\temp.txt
-C:\windows\system32\net.exe  stop "AppXSvc" /yes 2>%USERPROFILE%\temp.txt
-C:\windows\system32\net.exe  stop "wscsvc" /yes 2>%USERPROFILE%\temp.txt
-C:\windows\system32\net.exe  stop "wuauserv" /yes 2>%USERPROFILE%\temp.txt
-C:\windows\system32\net.exe  stop "WlanSvc" /yes 2>%USERPROFILE%\temp.txt
-C:\windows\system32\net.exe  stop "VIAKaraokeService" /yes 2>%USERPROFILE%\temp.txt
-C:\windows\system32\net.exe  stop "VMUSBArbService" /yes 2>%USERPROFILE%\temp.txt
-C:\windows\system32\net.exe  stop "SDRSVC" /yes 2>%USERPROFILE%\temp.txt
-C:\windows\system32\net.exe  stop "WdNisSvc" /yes 2>%USERPROFILE%\temp.txt
-C:\windows\system32\net.exe  stop "WinDefend" /yes 2>%USERPROFILE%\temp.txt
-C:\windows\system32\net.exe  stop "MpsSvc" /yes 2>%USERPROFILE%\temp.txt
-C:\windows\system32\net.exe  stop "stisvc" /yes 2>%USERPROFILE%\temp.txt
-C:\windows\system32\net.exe  stop "WSearch" /yes 2>%USERPROFILE%\temp.txt
-C:\windows\system32\net.exe  stop "BITS" /yes 2>%USERPROFILE%\temp.txt
-C:\windows\system32\net.exe  stop "bthserv" /yes 2>%USERPROFILE%\temp.txt
-C:\windows\system32\net.exe  stop "iPod Service" /yes 2>%USERPROFILE%\temp.txt
-C:\windows\system32\net.exe  stop "Apple Mobile Device Service" /yes 2>%USERPROFILE%\temp.txt
-C:\windows\system32\net.exe  stop "SmsRouter" /yes 2>%USERPROFILE%\temp.txt
-C:\windows\system32\net.exe  stop "cpextender" /yes 2>%USERPROFILE%\temp.txt
-C:\windows\system32\net.exe  stop "AdobeFlashPlayerUpdateSvc" /yes 2>%USERPROFILE%\temp.txt
-C:\windows\system32\net.exe  stop "CscService" /yes 2>%USERPROFILE%\temp.txt
-C:\windows\system32\net.exe  stop "gupdate" /yes 2>%USERPROFILE%\temp.txt
-C:\windows\system32\net.exe  stop "Google Update Service (gupdatem)" /yes 2>%USERPROFILE%\temp.txt
-C:\windows\system32\net.exe  stop "Mozilla Maintenance Service" /yes 2>%USERPROFILE%\temp.txt
+NET STOP "Apple Mobile Device Service"
 
-ECHO. Stopping useless programs
-rem chicony camera
-C:\windows\system32\taskkill.exe /f /IM CECAPLF.exe 2>%USERPROFILE%\temp.txt
-C:\windows\system32\taskkill.exe /f /IM ClipMate.exe 2>%USERPROFILE%\temp.txt
-C:\windows\system32\taskkill.exe /f /IM Dropbox.exe 2>%USERPROFILE%\temp.txt
-rem windows defender notices
-C:\windows\system32\taskkill.exe /f /IM MSASCuiL.exe 2>%USERPROFILE%\temp.txt
-rem antimalware service executable
-C:\windows\system32\taskkill.exe /f /IM MsMpEng.exe 2>%USERPROFILE%\temp.txt
+NET STOP "AppXSvc" 
+
+NET STOP "BDESVC" 
+
+NET STOP "Bonjour Service" 
+
+NET STOP "BITS" 
+
+NET STOP "bthserv" 
+
+NET STOP "BthAvctpSvc" 
+
+NET STOP "CscService" 
+
+rem Connected User Experiences and Telemetry
+NET STOP "DiagTrack" 
+
+rem dropbox service
+NET STOP "DbxSvc" 
+
+NET STOP "DusmSvc" 
+
+NET STOP "gupdate" 
+
+NET STOP "Google Update Service (gupdatem)" 
+
+NET STOP "iPod Service" 
+
+NET STOP "lfsvc" 
+
+NET STOP "LicenseManager" 
+
+NET STOP "Mozilla Maintenance Service" 
+
+NET STOP "NcdAutoSetup" 
+
+NET STOP "NcbService" /yes
+
+NET STOP "NIHardwareService" 
+
+NET STOP "RasMan" 
+
+NET STOP "RtkBtManServ" 
+
+NET STOP "SDRSVC" 
+
+NET STOP "SEMgrSvc" 
+
+NET STOP "SessionEnv" 
+
+NET STOP "SmsRouter" 
+
+NET STOP "Spooler" 
+
+NET STOP "SstpSvc" 
+
+NET STOP "stisvc" 
+
+NET STOP "TermService" /yes
+
+NET STOP "TimeBrokerSvc" 
+
+NET STOP "UmRdpService" 
+
+NET STOP "wbengine" 
+
+NET STOP "wlidsvc" 
+
+NET STOP "wuauserv" 
+
+NET STOP "WlanSvc" 
+
+NET STOP "WSearch" 
+
+
+
+ECHO. Stopping some programs
+
+C:\windows\system32\taskkill.exe /IM ClipMate.exe /T
+
+C:\windows\system32\taskkill.exe /IM  ctfmon.exe /T
+
+C:\windows\system32\taskkill.exe /f /IM Dropbox.exe /T
+
+C:\windows\system32\taskkill.exe /f /IM DropboxUpdate.exe /T
+
+C:\windows\system32\taskkill.exe /IM iTunesHelper.exe /T
+
+rem java updater
+C:\windows\system32\taskkill.exe /IM jucheck.exe /T
+
+rem java updater
+C:\windows\system32\taskkill.exe /IM jusched.exe /T
+
 rem chrome phone home
-C:\windows\system32\taskkill.exe /f /IM nacl64.exe 2>%USERPROFILE%\temp.txt
-rem Microsoft Network Realtime Inspection Service
-C:\windows\system32\taskkill.exe /f /IM NisSrv.exe 2>%USERPROFILE%\temp.txt
-C:\windows\system32\taskkill.exe /f /IM  SearchFilterHost.exe 2>%USERPROFILE%\temp.txt
-C:\windows\system32\taskkill.exe /f /IM  SearchIndexer.exe 2>%USERPROFILE%\temp.txt
-C:\windows\system32\taskkill.exe /f /IM  SkypeHost.exe  2>%USERPROFILE%\temp.txt
-C:\windows\system32\taskkill.exe /f /IM  ClipMate.exe  2>%USERPROFILE%\temp.txt
-C:\windows\system32\taskkill.exe /f /IM  Launchy.exe  2>%USERPROFILE%\temp.txt
+C:\windows\system32\taskkill.exe /IM nacl64.exe /T
+
+C:\windows\system32\taskkill.exe /IM OneDrive.exe /T
+
+C:\windows\system32\taskkill.exe /IM  SearchFilterHost.exe /T
+
+C:\windows\system32\taskkill.exe /IM  SearchIndexer.exe /T
+
+C:\windows\system32\taskkill.exe /IM  SkypeHost.exe /T
+
+C:\windows\system32\taskkill.exe /IM  Launchy.exe /T
 
 rem kill onboard audio
-"C:\WINDOWS\system32\devcon.exe" disable hdaudio*
+"C:\Program Files (x86)\Windows Kits\10\Tools\x64\devcon.exe" disable hdaudio*
 
-if exist %USERPROFILE%\temp.txt del %USERPROFILE%\temp.txt
-cls
+CLS
 ECHO.
 ECHO. Your PC has been optimized 
 GOTO Menu
@@ -157,7 +207,8 @@ GOTO Menu
 :BidEmpty
 CLS
 ECHO. Empty bidule layout
-start "" /D "C:\Program Files\Plogue\Bidule" /REALTIME "C:\Program Files\Plogue\Bidule\PlogueBidule_x64.exe" "C:\Users\rich\Dropbox\audio\git\empty bidule\NoU3xM0G.bidule"
+start "" /D "C:\Program Files\Plogue\Bidule" /REALTIME "C:\Program Files\Plogue\Bidule\PlogueBidule_x64.exe" "C:\Users\rich\Dropbox\audio\git\empty bidule
+oU3xM0G.bidule"
 ECHO.
 ECHO.
 ECHO.
@@ -169,67 +220,104 @@ CLS
 ECHO.
 ECHO. Restoring everything for normal use!
 ECHO.
+NET START "Apple Mobile Device Service"
+rem NET START "AppXSvc" 
+rem NET START "BDESVC" 
+
+NET START "Bonjour Service" 
+
+NET START "BITS" 
+
+NET START "bthserv" 
+
+NET START "BthAvctpSvc" 
+
+rem Connected User Experiences and Telemetry
+NET START "DiagTrack" 
+
+rem dropbox service
+NET START "DbxSvc" 
+
+rem NET START "DusmSvc" 
+
+rem NET START "gupdate" 
+
+rem NET START "Google Update Service (gupdatem)" 
+
+NET START "iPod Service" 
+
+rem geolocation
+NET START "lfsvc" 
+
+NET START "LicenseManager" 
+
+NET START "Mozilla Maintenance Service" 
+
+NET START "NcdAutoSetup" 
+
+NET START "NcbService" /yes
+
+NET START "NIHardwareService" 
+
+rem remote access mgr
+NET START "RasMan" 
+
+rem bluetooth stuff
+NET START "RtkBtManServ" 
+
+rem win backup
+NET START "SDRSVC" 
+
+rem payment mgr
+rem NET START "SEMgrSvc" 
+ 
+rem remote desktop config
+rem NET START "SessionEnv" 
+
+rem Microsoft Windows SMS Router Service. will start itself if needed
+rem NET START "SmsRouter" 
+
+NET START "Spooler" 
+
+rem Secure Socket Tunneling Protocol (SSTP) to connect to remote computers using VPN
+NET START "SstpSvc" 
+
+rem Still Image Acquisition
+NET START "stisvc" 
+
+rem connect to remote desktops
+NET START "TermService" /yes
+
+NET START "TimeBrokerSvc" 
+
+rem Remote Desktop Services UserMode Port Redirector
+rem NET START "UmRdpService" 
+
+rem Block Level Backup Engine Service
+NET START "wbengine" 
+
+rem Microsoft Account Sign-in Assistant
+NET START "wlidsvc" 
+
+rem Win update
+NET START "wuauserv" 
+
+rem WLAN AutoConfig
+NET START "WlanSvc" 
+
+rem NET START "WSearch" 
 
-C:\windows\system32\net.exe  start "AdobeARMservice" /yes"
-C:\windows\system32\net.exe  start "Apple Mobile Device Service" /yes"
-C:\windows\system32\net.exe  start "BDESVC" /yes"
-C:\windows\system32\net.exe  start "Bonjour Service" /yes"
-C:\windows\system32\net.exe  start "ClipSVC" /yes"
-C:\windows\system32\net.exe  start "cpextender" /yes"
-C:\windows\system32\net.exe  start "DiagTrack" /yes"
-C:\windows\system32\net.exe  start "DbxSvc" /yes"
-C:\windows\system32\net.exe  start "lfsvc" /yes"
-C:\windows\system32\net.exe  start "HomeGroupProvider" /yes"
-C:\windows\system32\net.exe  start "LicenseManager" /yes"
-C:\windows\system32\net.exe  start "NcdAutoSetup" /yes"
-C:\windows\system32\net.exe  start "NcbService" /yes"
-C:\windows\system32\net.exe  start "Spooler" /yes"
-C:\windows\system32\net.exe  start "TimeBrokerSvc" /yes"
-C:\windows\system32\net.exe  start "TabletInputService" /yes"
-C:\windows\system32\net.exe  start "wbengine" /yes"
-C:\windows\system32\net.exe  start "AppXSvc" /yes"
-C:\windows\system32\net.exe  start "wscsvc" /yes"
-C:\windows\system32\net.exe  start "wuauserv" /yes"
-C:\windows\system32\net.exe  start "WlanSvc" /yes"
-C:\windows\system32\net.exe  start "VIAKaraokeService" /yes"
-C:\windows\system32\net.exe  start "VMUSBArbService" /yes"
-C:\windows\system32\net.exe  start "SDRSVC" /yes"
-C:\windows\system32\net.exe  start "WdNisSvc" /yes"
-C:\windows\system32\net.exe  start "WinDefend" /yes"
-C:\windows\system32\net.exe  start "MpsSvc" /yes"
-C:\windows\system32\net.exe  start "stisvc" /yes"
-C:\windows\system32\net.exe  start "WSearch" /yes"
-C:\windows\system32\net.exe  start "BITS" /yes"
-C:\windows\system32\net.exe  start "bthserv" /yes"
-C:\windows\system32\net.exe  start "iPod Service" /yes"
-C:\windows\system32\net.exe  start "Apple Mobile Device Service" /yes"
-C:\windows\system32\net.exe  start "SmsRouter" /yes"
-C:\windows\system32\net.exe  start "cpextender" /yes"
-C:\windows\system32\net.exe  start "AdobeFlashPlayerUpdateSvc" /yes"
-C:\windows\system32\net.exe  start "CscService" /yes"
-C:\windows\system32\net.exe  start "gupdate" /yes"
-C:\windows\system32\net.exe  start "Google Update Service (gupdatem)" /yes"
-C:\windows\system32\net.exe  start "Mozilla Maintenance Service" /yes"
 
-ECHO. Stopping useless programs
-rem chicony camera
-start "" "C:\Program Files (x86)\ChiconyCam\CECAPLF.exe"
+
+ECHO. restarting programs
 start "" "C:\Program Files (x86)\ClipMate7\ClipMate.exe"
 start "" "C:\Program Files (x86)\Dropbox\Client\Dropbox.exe"
-rem windows defender notices
-start "" "C:\Program Files\Windows Defender\MSASCuiL.exe"
-rem antimalware service executable
-start "" "C:\Program Files\Windows Defender\MsMpEng.exe"
-rem chrome phone home (the directory will change every update)
-rem start "" "C:\Program Files (x86)\Google\Chrome\Application\57.0.2987.133\nacl64.exe"
-rem Microsoft Network Realtime Inspection Service
-start "" "C:\Program Files\Windows Defender\NisSrv.exe"
-rem start "" "C:\Windows\System32\SearchFilterHost.exe"
-start "" "C:\Windows\System32\SearchIndexer.exe"
-start "" "C:\Program Files (x86)\Launchy\Launchy.exe"
+start "" "C:\Program Files\iTunes\iTunesHelper.exe"
+
 
 rem restore onboard audio
-"C:\WINDOWS\system32\devcon.exe" enable hdaudio*
+"C:\Program Files (x86)\Windows Kits\10\Tools\x64\devcon.exe" enable hdaudio*
+
 CLS
 ECHO.
 ECHO.
