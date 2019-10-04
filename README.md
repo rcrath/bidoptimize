@@ -1,6 +1,8 @@
 # bidoptimize
 optimize a windows 10 computer for real time audio in bidule
 
+* must be run as administrator.
+
 This is a windows script/batchfile for optimizing a multicore processor to work with plogue bidule or another real-time audio application running on a single core in real time mode.  This script does several things.  
 
 First, it closes down unneeded services and programs that swipe processor cycles and make interruptions that can cause glitches in real time, low latency audio.  You may need them for other things though, so there is a restore script too.  You will probably need to tweak the script for your own particular setup, but it should get the major windows services you want to close down.  Be forewarned, it turns off networking, so your browser won't get a connection until you run the restore script.
