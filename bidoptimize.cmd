@@ -33,23 +33,30 @@ cls
 ECHO.
 ECHO. Optimizing your computer now!
 ECHO.
-ECHO. adobe updater
+ECHO. 
+rem adobe updater
 NET STOP "Adobe Acrobat Update Service"
 
 NET STOP "Apple Mobile Device Service"
 
+rem AppX Deployment Service (AppXSVC) (tends to restart itself even on manual)
 NET STOP "AppXSvc" 
 
+Bitlocker
 NET STOP "BDESVC" 
 
 NET STOP "Bonjour Service" 
 
+rem Background Intell xfer srvce (tends to restart)
 NET STOP "BITS" 
 
+rem Bluetooth Support Service 
 NET STOP "bthserv" 
 
+rem Bluetooth Support Service for Bluetooth Audio Device or Wireless Headphones.
 NET STOP "BthAvctpSvc" 
 
+rem offline files
 NET STOP "CscService" 
 
 rem Connected User Experiences and Telemetry
@@ -58,58 +65,81 @@ NET STOP "DiagTrack"
 rem dropbox service
 NET STOP "DbxSvc" 
 
+rem Data Usage (DusmSvc) Service. 
 NET STOP "DusmSvc" 
 
+rem google. this and next one seem to be out of commission.
 NET STOP "gupdate" 
-
+rem google. this and prev one seem to be out of commission.
 NET STOP "Google Update Service (gupdatem)" 
 
 NET STOP "iPod Service" 
 
+rem geolocation
 NET STOP "lfsvc" 
 
+Win Lic Mgr
 NET STOP "LicenseManager" 
 
 NET STOP "Mozilla Maintenance Service" 
 
+Network Connected Devices Auto-Setup 
 NET STOP "NcdAutoSetup" 
 
+Network Connection Broker
 NET STOP "NcbService" /yes
 
+rem Native Instruments Hardware service. I think this remains from an old Guitar rig install.
 NET STOP "NIHardwareService" 
 
+rem Remote Access Connection Manager.  needed for connecting TO remote computer via vpn 
 NET STOP "RasMan" 
 
+rem Realtek Bluetooth Device Manager Service
 NET STOP "RtkBtManServ" 
 
+rem  Windows Backup
 NET STOP "SDRSVC" 
 
+rem Payments and NFC/SE Manager
 NET STOP "SEMgrSvc" 
 
+rem Remote Desktop Configuration
 NET STOP "SessionEnv" 
 
+rem Microsoft Windows SMS Router Service
 NET STOP "SmsRouter" 
 
+rem print spooler
 NET STOP "Spooler" 
 
+rem Secure Socket Tunneling Protocol Service
 NET STOP "SstpSvc" 
 
+rem Windows Image Acquisition (WIA)
 NET STOP "stisvc" 
 
+rem Remote Desktop Services
 NET STOP "TermService" /yes
 
 NET STOP "TimeBrokerSvc" 
 
+rem Remote Desktop Services UserMode Port Redirector
 NET STOP "UmRdpService" 
 
+rem Block Level Backup Engine Service
 NET STOP "wbengine" 
 
+rem Microsoft Account Sign-in Assistant
 NET STOP "wlidsvc" 
 
+rem Windows Update
 NET STOP "wuauserv" 
 
+rem WLAN AutoConfig
 NET STOP "WlanSvc" 
 
+rem Windows Search
 NET STOP "WSearch" 
 
 
@@ -118,6 +148,7 @@ ECHO. Stopping some programs
 
 C:\windows\system32\taskkill.exe /IM ClipMate.exe /T
 
+rem activates the language bar and alternative user input. 
 C:\windows\system32\taskkill.exe /IM  ctfmon.exe /T
 
 C:\windows\system32\taskkill.exe /f /IM Dropbox.exe /T
@@ -132,8 +163,8 @@ C:\windows\system32\taskkill.exe /IM jucheck.exe /T
 rem java updater
 C:\windows\system32\taskkill.exe /IM jusched.exe /T
 
-rem chrome phone home
-C:\windows\system32\taskkill.exe /IM nacl64.exe /T
+rem chrome debugger...probably deprecated
+rem C:\windows\system32\taskkill.exe /IM nacl64.exe /T
 
 C:\windows\system32\taskkill.exe /IM OneDrive.exe /T
 
