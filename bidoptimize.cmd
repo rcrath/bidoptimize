@@ -42,7 +42,7 @@ NET STOP "Apple Mobile Device Service"
 rem AppX Deployment Service (AppXSVC) (tends to restart itself even on manual)
 NET STOP "AppXSvc" 
 
-Bitlocker
+rem Bitlocker
 NET STOP "BDESVC" 
 
 NET STOP "Bonjour Service" 
@@ -55,6 +55,9 @@ NET STOP "bthserv"
 
 rem Bluetooth Support Service for Bluetooth Audio Device or Wireless Headphones.
 NET STOP "BthAvctpSvc" 
+
+rem Connected Device Platform Service. seems to keep restarting
+Net STOP "CDPSvc"
 
 rem offline files
 NET STOP "CscService" 
@@ -78,15 +81,15 @@ NET STOP "iPod Service"
 rem geolocation
 NET STOP "lfsvc" 
 
-Win Lic Mgr
+rem Win Lic Mgr. tends to restart itself
 NET STOP "LicenseManager" 
 
 NET STOP "Mozilla Maintenance Service" 
 
-Network Connected Devices Auto-Setup 
+rem Network Connected Devices Auto-Setup 
 NET STOP "NcdAutoSetup" 
 
-Network Connection Broker
+rem Network Connection Broker
 NET STOP "NcbService" /yes
 
 rem Native Instruments Hardware service. I think this remains from an old Guitar rig install.
@@ -121,8 +124,6 @@ NET STOP "stisvc"
 
 rem Remote Desktop Services
 NET STOP "TermService" /yes
-
-NET STOP "TimeBrokerSvc" 
 
 rem Remote Desktop Services UserMode Port Redirector
 NET STOP "UmRdpService" 
@@ -178,7 +179,7 @@ C:\windows\system32\taskkill.exe /IM  Launchy.exe /T
 
 rem kill onboard audio
 "C:\Program Files (x86)\Windows Kits\10\Tools\x64\devcon.exe" disable hdaudio*
-
+pause
 CLS
 ECHO.
 ECHO. Your PC has been optimized 
@@ -285,7 +286,7 @@ NET START "LicenseManager"
 NET START "Mozilla Maintenance Service" 
 
 NET START "NcdAutoSetup" 
-
+rem Network Connection Broker Service
 NET START "NcbService" /yes
 
 NET START "NIHardwareService" 
@@ -319,8 +320,6 @@ NET START "stisvc"
 rem connect to remote desktops
 NET START "TermService" /yes
 
-NET START "TimeBrokerSvc" 
-
 rem Remote Desktop Services UserMode Port Redirector
 rem NET START "UmRdpService" 
 
@@ -348,7 +347,7 @@ start "" "C:\Program Files\iTunes\iTunesHelper.exe"
 
 rem restore onboard audio
 "C:\Program Files (x86)\Windows Kits\10\Tools\x64\devcon.exe" enable hdaudio*
-
+pause
 CLS
 ECHO.
 ECHO.
