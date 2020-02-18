@@ -59,6 +59,9 @@ NET STOP "BthAvctpSvc"
 rem Connected Device Platform Service. seems to keep restarting
 Net STOP "CDPSvc"
 
+rem Docker zombie
+NET STOP "com.docker.service"
+
 rem offline files
 NET STOP "CscService" 
 
@@ -67,6 +70,10 @@ NET STOP "DiagTrack"
 
 rem dropbox service
 NET STOP "DbxSvc" 
+
+rem Intel DSA service 
+NET STOP "DSAService"
+NET STOP "DSAUpdateService"
 
 rem Data Usage (DusmSvc) Service. 
 NET STOP "DusmSvc" 
@@ -77,6 +84,9 @@ rem google. this and prev one seem to be out of commission.
 NET STOP "Google Update Service (gupdatem)" 
 
 NET STOP "iPod Service" 
+
+rem Windows Phone IP over USB Transport (IpOverUsbSvc)
+NET STOP "IpOverUsbSvc"
 
 rem geolocation
 NET STOP "lfsvc" 
@@ -125,11 +135,20 @@ NET STOP "stisvc"
 rem Remote Desktop Services
 NET STOP "TermService" /yes
 
+rem Web Account Manager
+NET STOP "TokenBroker"
+
 rem Remote Desktop Services UserMode Port Redirector
 NET STOP "UmRdpService" 
 
+rem Update Orchestrator Service
+NET STOP "UsoSvc"
+
 rem Block Level Backup Engine Service
 NET STOP "wbengine" 
+
+rem Windows Biometric Service
+NET STOP "WbioSrvc"
 
 rem Microsoft Account Sign-in Assistant
 NET STOP "wlidsvc" 
@@ -176,6 +195,8 @@ C:\windows\system32\taskkill.exe /IM  SearchIndexer.exe /T
 C:\windows\system32\taskkill.exe /IM  SkypeHost.exe /T
 
 C:\windows\system32\taskkill.exe /IM  Launchy.exe /T
+rem onscreen keyboard for typing
+C:\windows\system32\taskkill.exe /IM  TabTip.exe /T
 
 rem kill onboard audio
 "C:\Program Files (x86)\Windows Kits\10\Tools\x64\devcon.exe" disable hdaudio*
@@ -268,7 +289,7 @@ NET START "DiagTrack"
 
 rem dropbox service
 NET START "DbxSvc" 
-
+
 rem NET START "DusmSvc" 
 
 rem NET START "gupdate" 
@@ -320,7 +341,11 @@ rem connect to remote desktops
 NET START "TermService" /yes
 
 rem Remote Desktop Services UserMode Port Redirector
-rem NET START "UmRdpService" 
+NET START "UmRdpService" 
+
+
+rem Update Orchestrator Service
+NET START "UsoSvc"
 
 rem Block Level Backup Engine Service
 NET START "wbengine" 
