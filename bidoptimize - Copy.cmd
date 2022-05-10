@@ -242,7 +242,7 @@ GOTO Menu
 :BidDef
 CLS
 ECHO. Running Default patch
-start "" /D "C:\Program Files\Plogue\Bidule" /REALTIME "C:\Program Files\Plogue\Bidule\Bidule.exe"
+start "" /D "C:\Program Files\Plogue\Bidule" /REALTIME "C:\Program Files\Plogue\Bidule\Bidule P64.exe"
 ECHO.
 ECHO.
 ECHO.
@@ -251,7 +251,7 @@ GOTO Menu
 :BidGit
 CLS
 ECHO. Running Big patch
-start "" /D "C:\Program Files\Plogue\Bidule" /REALTIME "C:\Program Files\Plogue\Bidule\Bidule.exe" "C:\Users\rich\Dropbox\audio\git\bidule-mobile\Mobile6-64.bidule"
+start "" /D "C:\Program Files\Plogue\Bidule" /REALTIME "C:\Program Files\Plogue\Bidule\Bidule P64.exe" "C:\Users\rich\Dropbox\audio\git\bidule-mobile\Mobile6-64.bidule"
 ECHO.
 ECHO.
 ECHO.
@@ -260,7 +260,7 @@ GOTO Menu
 :BidEmpty
 CLS
 ECHO. Empty bidule layout
-start "" /D "C:\Program Files\Plogue\Bidule" /REALTIME "C:\Program Files\Plogue\Bidule\Bidule.exe" "C:\Users\rich\Dropbox\audio\git\empty bidule\NoU3xM0G.bidule"
+start "" /D "C:\Program Files\Plogue\Bidule" /REALTIME "C:\Program Files\Plogue\Bidule\Bidule P64.exe" "C:\Users\rich\Dropbox\audio\git\empty bidule\NoU3xM0G.bidule"
 
 ECHO.
 ECHO.
