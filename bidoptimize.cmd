@@ -10,11 +10,15 @@ ECHO. Welcome to the bidulizer
 ECHO.
 ECHO.
 ECHO.  Press o Optimize
+ECHO.  Press r Restore
+ECHO.  Press t Restore blueTooth only
+
 ECHO.  Press h for Helper apps
+
 ECHO.  Press d for bidule Default patch
 ECHO.  Press b for bidule Big patch  
 ECHO.  Press e for bidule Empty patch
-ECHO.  Press r Restore
+
 ECHO.  Press q Quit
 ECHO.
 ECHO.
@@ -22,11 +26,15 @@ Set /p input=What do you want to do?
 
 IF %Input% == o GOTO Optimize
 IF %Input% == h GOTO Helpers 
+
 IF %Input% == d GOTO BidDef
 IF %Input% == b GOTO BidGit
 IF %Input% == e GOTO BidEmpty
+
 IF %Input% == r GOTO Restore
+IF %Input% == t GOTO BTonly
 IF %Input% == q GOTO Quit
+
 
 :Optimize
 cls
@@ -34,139 +42,85 @@ ECHO.
 ECHO. Optimizing your computer now!
 ECHO.
 ECHO. 
-rem adobe updater
-NET STOP "Adobe Acrobat Update Service"
+rem conversational agents
+NET STOP "AarSvc_50234""
 
+rem DESC
 NET STOP "Apple Mobile Device Service"
 
-rem AppX Deployment Service (AppXSVC) (tends to restart itself even on manual)
-NET STOP "AppXSvc" 
+rem Background Intelligent Transfer Service
+NET STOP "BITS"
 
-rem Bitlocker
-NET STOP "BDESVC" 
+rem Bluetooth Audio Gateway Service
+NET STOP "BTAGService"
 
-NET STOP "Bonjour Service" 
+rem Bluetooth Support Service
+NET STOP "bthserv"
 
-rem Background Intell xfer srvce (tends to restart)
-NET STOP "BITS" 
+rem BluetoothUserService_50234
+NET STOP "BluetoothUserService_50234"
 
-rem Bluetooth Support Service 
-NET STOP "bthserv" 
+rem Bonjour Service
+NET STOP "Bonjour Service"
 
-rem Bluetooth Support Service for Bluetooth Audio Device or Wireless Headphones.
-NET STOP "BthAvctpSvc" 
+rem The Connected User Experiences and Telemetry service enables features that support in-application and connected user experiences. Additionally, this service manages the event driven collection and transmission of diagnostic and usage information (used to improve the experience and quality of the Windows Platform) when the diagnostics and usage privacy option settings are enabled under Feedback and Diagnostics.
+NET STOP "NAME"
 
-rem Connected Device Platform Service. seems to keep restarting
-Net STOP "CDPSvc"
+rem Data Usage
+NET STOP "DusmSvc"
 
-rem Docker zombie
+rem Dropbox Service
+NET STOP "DbxSvc"
+
+rem Diagnostic Policy Service
+NET STOP "DPS"
+
+rem Diagnostic Service Host
+NET STOP "WdiServiceHost"
+
+rem Docker Desktop Service
 NET STOP "com.docker.service"
 
-rem offline files
-NET STOP "CscService" 
+rem logitech hub
+NET STOP "LGHUBUpdaterService"
 
-rem Connected User Experiences and Telemetry
-NET STOP "DiagTrack" 
+rem Machine Debug Manager
+NET STOP "MDM"
 
-rem dropbox service
-NET STOP "DbxSvc" 
+rem Microsoft Office Click-to-Run Service
+NET STOP "ClickToRunSvc"
 
-rem Intel DSA service 
-NET STOP "DSAService"
-NET STOP "DSAUpdateService"
+rem Manages the telephony state on the device
+NET STOP "PhoneSvc"
 
-rem Data Usage (DusmSvc) Service. 
-NET STOP "DusmSvc" 
+rem Print Spooler
+NET STOP "Spooler"
 
-rem google. this and next one seem to be out of commission.
-NET STOP "gupdate" 
-rem google. this and prev one seem to be out of commission.
-NET STOP "Google Update Service (gupdatem)" 
+rem Radio Management and Airplane Mode Service
+NET STOP "RmSvc"
 
-NET STOP "iPod Service" 
-
-rem Windows Phone IP over USB Transport (IpOverUsbSvc)
-NET STOP "IpOverUsbSvc"
-
-rem geolocation
-NET STOP "lfsvc" 
-
-rem Win Lic Mgr. tends to restart itself
-NET STOP "LicenseManager" 
-
-NET STOP "Mozilla Maintenance Service" 
-
-rem Network Connected Devices Auto-Setup 
-NET STOP "NcdAutoSetup" 
-
-rem Network Connection Broker
-NET STOP "NcbService" /yes
-
-rem Native Instruments Hardware service. I think this remains from an old Guitar rig install.
-NET STOP "NIHardwareService" 
-
-rem Remote Access Connection Manager.  needed for connecting TO remote computer via vpn 
-NET STOP "RasMan" 
-
-rem Realtek Bluetooth Device Manager Service
-NET STOP "RtkBtManServ" 
-
-rem  Windows Backup
-NET STOP "SDRSVC" 
-
-rem Payments and NFC/SE Manager
-NET STOP "SEMgrSvc" 
-
-rem Remote Desktop Configuration
-NET STOP "SessionEnv" 
-
-rem Microsoft Windows SMS Router Service
-NET STOP "SmsRouter" 
-
-rem print spooler
-NET STOP "Spooler" 
-
-rem Secure Socket Tunneling Protocol Service
-NET STOP "SstpSvc" 
-
-rem Windows Image Acquisition (WIA)
-NET STOP "stisvc" 
-
-rem Remote Desktop Services
-NET STOP "TermService" /yes
-
-rem Web Account Manager
-NET STOP "TokenBroker"
-
-rem Remote Desktop Services UserMode Port Redirector
-NET STOP "UmRdpService" 
+rem Realtek Audio Universal Service
+NET STOP "RtkAudioUniversalService"
 
 rem Update Orchestrator Service
 NET STOP "UsoSvc"
 
-rem Block Level Backup Engine Service
-NET STOP "wbengine" 
-
-rem Windows Biometric Service
+rem Windows Biometric Servic
 NET STOP "WbioSrvc"
 
-rem Microsoft Account Sign-in Assistant
-NET STOP "wlidsvc" 
-
-rem Windows Update
-NET STOP "wuauserv" 
-
-rem WLAN AutoConfig
-NET STOP "WlanSvc" 
+rem Provides image acquisition services for scanners and cameras
+NET STOP "stisvc"
 
 rem Windows Search
-NET STOP "WSearch" 
+NET STOP "WSearch"
+
+rem Microsoft Store Install Service
+NET STOP "InstallService"
 
 
 
 ECHO. Stopping some programs
 
-C:\windows\system32\taskkill.exe /IM ClipMate.exe /T
 
 rem activates the language bar and alternative user input. 
 C:\windows\system32\taskkill.exe /IM  ctfmon.exe /T
@@ -183,23 +137,17 @@ C:\windows\system32\taskkill.exe /IM jucheck.exe /T
 rem java updater
 C:\windows\system32\taskkill.exe /IM jusched.exe /T
 
-rem chrome debugger...probably deprecated
-rem C:\windows\system32\taskkill.exe /IM nacl64.exe /T
-
 C:\windows\system32\taskkill.exe /IM OneDrive.exe /T
 
 C:\windows\system32\taskkill.exe /IM  SearchFilterHost.exe /T
 
 C:\windows\system32\taskkill.exe /IM  SearchIndexer.exe /T
 
-C:\windows\system32\taskkill.exe /IM  SkypeHost.exe /T
-
-C:\windows\system32\taskkill.exe /IM  Launchy.exe /T
 rem onscreen keyboard for typing
 C:\windows\system32\taskkill.exe /IM  TabTip.exe /T
 
 rem kill onboard audio
-"C:\Program Files (x86)\Windows Kits\10\Tools\x64\devcon.exe" disable hdaudio*
+"C:\Program Files\Windows DevCon\DevCon.exe" disable hdaudio*
 pause
 CLS
 ECHO.
@@ -234,7 +182,7 @@ ECHO.
 ECHO. CHECK:
 ECHO.    * MIDI works?
 ECHO.    * MidiOx is closed?
-ECHO.    * OWCIT drive turned On?
+ECHO.    
 ECHO.
 ECHO.
 GOTO Menu
@@ -272,132 +220,86 @@ CLS
 ECHO.
 ECHO. Restoring everything for normal use!
 ECHO.
+rem conversational agents
+NET START "AarSvc_50234""
+
+rem Apple Mobile Device Support
 NET START "Apple Mobile Device Service"
 
-rem NET START "AppXSvc" 
+rem Background Intelligent Transfer Service
+NET START "BITS"
 
-rem NET START "BDESVC" 
+rem Bluetooth Audio Gateway Service
+NET START "BTAGService"
 
+rem Bluetooth Support Service
+NET START "bthserv"
 
-NET START "Bonjour Service" 
+rem BluetoothUserService_50234
+NET START "BluetoothUserService_50234"
 
+rem Bonjour Service
+NET START "Bonjour Service"
 
-NET START "BITS" 
+rem The Connected User Experiences and Telemetry service enables features that support in-application and connected user experiences. Additionally, this service manages the event driven collection and transmission of diagnostic and usage information (used to improve the experience and quality of the Windows Platform) when the diagnostics and usage privacy option settings are enabled under Feedback and Diagnostics.
+NET START "NAME"
 
+rem Data Usage
+NET START "DusmSvc"
 
-NET START "bthserv" 
+rem Dropbox Service
+NET START "DbxSvc"
 
+rem Diagnostic Policy Service
+NET START "DPS"
 
-NET START "BthAvctpSvc" 
+rem Diagnostic Service Host
+NET START "WdiServiceHost"
 
+rem Docker Desktop Service
+NET START "com.docker.service"
 
-rem Connected User Experiences and Telemetry
-NET START "DiagTrack" 
+rem logitech hub
+NET START "LGHUBUpdaterService"
 
+rem Machine Debug Manager
+NET START "MDM"
 
-rem dropbox service
-NET START "DbxSvc" 
+rem Microsoft Office Click-to-Run Service
+NET START "ClickToRunSvc"
 
-rem NET START "DusmSvc" 
+rem Manages the telephony state on the device
+NET START "PhoneSvc"
 
+rem Print Spooler
+NET START "Spooler"
 
-rem NET START "gupdate" 
+rem Radio Management and Airplane Mode Service
+NET START "RmSvc"
 
-
-rem NET START "Google Update Service (gupdatem)" 
-
-
-NET START "iPod Service" 
-
-
-rem geolocation
-NET START "lfsvc" 
-
-
-NET START "LicenseManager" 
-
-
-NET START "Mozilla Maintenance Service" 
-
-
-NET START "NcdAutoSetup" 
-
-rem Network Connection Broker Service
-NET START "NcbService" /yes
-
-
-NET START "NIHardwareService" 
-
-
-rem remote access mgr
-NET START "RasMan" 
-
-
-rem bluetooth stuff
-NET START "RtkBtManServ" 
-
-
-rem win backup
-NET START "SDRSVC" 
-
-
-rem payment mgr
-rem NET START "SEMgrSvc" 
-
- 
-rem remote desktop config
-rem NET START "SessionEnv" 
-
-
-rem Microsoft Windows SMS Router Service. will start itself if needed
-rem NET START "SmsRouter" 
-
-
-NET START "Spooler" 
-
-
-rem Secure Socket Tunneling Protocol (SSTP) to connect to remote computers using VPN
-NET START "SstpSvc" 
-
-
-rem Still Image Acquisition
-NET START "stisvc" 
-
-
-rem connect to remote desktops
-NET START "TermService" /yes
-
-
-rem Remote Desktop Services UserMode Port Redirector
-NET START "UmRdpService" 
-
+rem Realtek Audio Universal Service
+NET START "RtkAudioUniversalService"
 
 rem Update Orchestrator Service
 NET START "UsoSvc"
 
+rem Windows Biometric Servic
+NET START "WbioSrvc"
 
-rem Block Level Backup Engine Service
-NET START "wbengine" 
+rem Provides image acquisition services for scanners and cameras
+NET START "stisvc"
 
+rem Windows Search
+NET START "WSearch"
 
-rem Microsoft Account Sign-in Assistant
-NET START "wlidsvc" 
-
-
-rem Win update
-NET START "wuauserv" 
-
-
-rem WLAN AutoConfig
-NET START "WlanSvc" 
+rem Microsoft Store Install Service
+NET START "InstallService"
 
 
-rem NET START "WSearch" 
 
 
 
 ECHO. restarting programs
-start "" "C:\Program Files (x86)\ClipMate7\ClipMate.exe"
 start "" "C:\Program Files (x86)\Dropbox\Client\Dropbox.exe"
 start "" "C:\Program Files\iTunes\iTunesHelper.exe"
 
@@ -414,14 +316,32 @@ ECHO.
 ECHO.
 GOTO Menu
 
-:VST3off
+:BTonly
 CLS
 ECHO.
-ECHO. temp rename VST3 folder for lightworks
+ECHO. Restoring Bluetooth only
 ECHO.
-c:
-rename C:\Program Files\Common Files\VST3 VST-tmp
 
+rem Bluetooth Audio Gateway Service
+NET START "BTAGService"
+
+rem Bluetooth Support Service
+NET START "bthserv"
+
+rem BluetoothUserService_50234
+NET START "BluetoothUserService_50234"
+
+rem Bonjour Service
+NET START "Bonjour Service"
+
+pause
+CLS
+ECHO.
+ECHO.
+ECHO. Your Bluetooth has been restored
+ECHO.
+ECHO.
+GOTO Menu
 
 :Quit
 CLS
