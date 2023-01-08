@@ -112,7 +112,7 @@ rem Provides image acquisition services for scanners and cameras
 NET STOP "stisvc"
 
 rem Windows Search
-NET STOP "WSearch"
+rem NET STOP "WSearch"
 
 rem Microsoft Store Install Service
 NET STOP "InstallService"
@@ -123,7 +123,7 @@ ECHO. Stopping some programs
 
 
 rem activates the language bar and alternative user input. 
-C:\windows\system32\taskkill.exe /IM  ctfmon.exe /T
+rem C:\windows\system32\taskkill.exe /IM  ctfmon.exe /T
 
 C:\windows\system32\taskkill.exe /f /IM Dropbox.exe /T
 
@@ -139,15 +139,16 @@ C:\windows\system32\taskkill.exe /IM jusched.exe /T
 
 C:\windows\system32\taskkill.exe /IM OneDrive.exe /T
 
-C:\windows\system32\taskkill.exe /IM  SearchFilterHost.exe /T
+rem C:\windows\system32\taskkill.exe /IM  SearchFilterHost.exe /T
 
-C:\windows\system32\taskkill.exe /IM  SearchIndexer.exe /T
+rem C:\windows\system32\taskkill.exe /IM  SearchIndexer.exe /T
 
 rem onscreen keyboard for typing
 C:\windows\system32\taskkill.exe /IM  TabTip.exe /T
 
 rem kill onboard audio
-"C:\Program Files\Windows DevCon\DevCon.exe" disable hdaudio*
+"C:\Users\rich\bin\audio\util\devcon.exe" disable hdaudio*
+
 pause
 CLS
 ECHO.
@@ -283,14 +284,14 @@ NET START "RtkAudioUniversalService"
 rem Update Orchestrator Service
 NET START "UsoSvc"
 
-rem Windows Biometric Servic
+rem Windows Biometric Service
 NET START "WbioSrvc"
 
 rem Provides image acquisition services for scanners and cameras
 NET START "stisvc"
 
 rem Windows Search
-NET START "WSearch"
+rem NET START "WSearch"
 
 rem Microsoft Store Install Service
 NET START "InstallService"
@@ -311,7 +312,7 @@ pause
 CLS
 ECHO.
 ECHO.
-ECHO. Your PC has been restored
+ECHO. Your PC has been restored 
 ECHO.
 ECHO.
 GOTO Menu
