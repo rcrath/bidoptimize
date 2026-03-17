@@ -5,28 +5,22 @@ start reg.exe ADD HKLM\SOFTWARE\Microsoft\Windows\CurrentVersion\Policies\System
 Echo Don't delete this file! The Ultimate Dj Batch file needs it to run fine! >> %USERPROFILE%\DJbatch.txt
 
 :Menu
-rem CLS
-ECHO. rewrite logic. move dropbox restart from 3 to one location and make bluetooth a toggle
 ECHO.
 ECHO. Welcome to the bidulizer
 ECHO.
 ECHO.
-ECHO.  Press 'o' Optimize
-ECHO.  Press 'r' Restore
-ECHO. 
-ECHO.  Press 'h' for Helper apps
-ECHO. 
-ECHO.  Press 'd' for bidule Default patch
-ECHO.  Press 'b' for bidule Big patch  
-ECHO.  Press 'e' for bidule Empty patch
-ECHO. 
-ECHO.  Press 'q' to Quit
+ECHO.  Press o Optimize
+ECHO.  Press r Restore
+ECHO.  Press t Restore blueTooth only
 
+ECHO.  Press h for Helper apps
+
+ECHO.  Press d for bidule Default patch
+ECHO.  Press b for bidule Big patch  
+ECHO.  Press e for bidule Empty patch
+
+ECHO.  Press q Quit
 ECHO.
-ECHO.       \/ only on as 't' implemented\/
-ECHO.       Press 'ti' or 'to' toggle blueTooth only
-ECHO.       \/ not implemented yet\/
-ECHO.       Press 'ri' or 'ro' to toggle Dropbox
 ECHO.
 Set /p input=What do you want to do? 
 
@@ -196,69 +190,31 @@ GOTO Menu
 
 :BidDef
 CLS
-ECHO. Stop Dropbox and load Default patch
-NET STOP "DbxSvc"
-C:\windows\system32\taskkill.exe /f /IM Dropbox.exe /T
-start /WAIT "" /D "C:\Program Files\Plogue\Bidule" /REALTIME "C:\Program Files\Plogue\Bidule\Bidule.exe"
-ECHO. Restarting Dropbox after exit. 
-rem Dropbox Service
-NET START "DbxSvc"
-start "" "C:\Program Files (x86)\Dropbox\Client\Dropbox.exe"
-CLS
-ECHO. dropbox restarted
+ECHO. Running Default patch
+start "" /D "C:\Program Files\Plogue\Bidule" /REALTIME "C:\Program Files\Plogue\Bidule\Bidule.exe"
+ECHO.
 ECHO.
 ECHO.
 GOTO Menu
 
 :BidGit
 CLS
-ECHO. Stop dropbox and load and Run Big patch
-NET STOP "DbxSvc"
-C:\windows\system32\taskkill.exe /f /IM Dropbox.exe /T
-start /WAIT "" /D "C:\Program Files\Plogue\Bidule" /REALTIME "C:\Program Files\Plogue\Bidule\Bidule.exe" "C:\Users\rich\Dropbox\audio\git\bidule-mobile\Mobile7-64.bidule"
-ECHO. Restarting Dropbox after exit. 
-rem Dropbox Service
-NET START "DbxSvc"
-start "" "C:\Program Files (x86)\Dropbox\Client\Dropbox.exe"
-CLS
-ECHO. dropbox restarted
+ECHO. Running Big patch
+start "" /D "C:\Program Files\Plogue\Bidule" /REALTIME "C:\Program Files\Plogue\Bidule\Bidule.exe" "C:\Users\rich\Dropbox\audio\git\bidule-mobile\Mobile7-64.bidule"
+ECHO.
 ECHO.
 ECHO.
 GOTO Menu
 
 :BidEmpty
 CLS
-ECHO. Stop dropbox and load Empty bidule layout
-NET STOP "DbxSvc"
-C:\windows\system32\taskkill.exe /f /IM Dropbox.exe /T
-start /WAIT "" /D "C:\Program Files\Plogue\Bidule" /REALTIME "C:\Program Files\Plogue\Bidule\Bidule.exe" "C:\Users\rich\Dropbox\audio\git\empty bidule\NoU3xM0G.bidule"
-rem GOTO Menu
-rem should be 
-GOTO DropboxMenu
-:DropboxMenu
-CLS
-ECHO.
-Set /p input=Restart Dropbox?
-ECHO "y" for "yes"
-ECHO "n" for "no"
-IF %Input% == y GOTO DropboxStart
-IF %Input% == n GOTO DropboxDead
+ECHO. Empty bidule layout
+start "" /D "C:\Program Files\Plogue\Bidule" /REALTIME "C:\Program Files\Plogue\Bidule\Bidule.exe" "C:\Users\rich\Dropbox\audio\git\empty bidule\NoU3xM0G.bidule"
 
-:DropboxStart
-rem Dropbox Service
-start "" "C:\Program Files (x86)\Dropbox\Client\Dropbox.exe"
-CLS
-ECHO. dropbox restarted
 ECHO.
 ECHO.
 GOTO Menu
 
-:DropboxDead
-CLS
-ECHO. dropbox NOT restarted
-ECHO.
-ECHO.
-GOTO Menu
 
 :Restore
 CLS
@@ -350,7 +306,7 @@ start "" "C:\Program Files\iTunes\iTunesHelper.exe"
 
 
 rem restore onboard audio
-"C:\Users\rich\bin\audio\util\devcon.exe" enable hdaudio*
+"C:\Program Files (x86)\Windows Kits\10\Tools\x64\devcon.exe" enable hdaudio*
 
 pause
 CLS
