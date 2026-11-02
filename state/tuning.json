@@ -1,0 +1,11 @@
+﻿{
+    "Apps|Bidule":  {
+                        "prio":  "RealTime",
+                        "cores":  [
+                                      0,
+                                      1,
+                                      2,
+                                      3
+                                  ]
+                    }
+}

@@ -1,0 +1,2068 @@
+﻿[
+    {
+        "value":  [
+                      {
+                          "value":  [
+                                        {
+                                            "value":  [
+                                                          {
+                                                              "value":  [
+                                                                            "@{value=   ; Count=4}",
+                                                                            "@{kind=radio; key=Bluetooth; when=2026-10-21T12:03:12; data=@{kind=Bluetooth; prev=Off}}"
+                                                                        ],
+                                                              "Count":  2
+                                                          },
+                                                          {
+                                                              "kind":  "service",
+                                                              "key":  "BluetoothUserService_a6329",
+                                                              "when":  "2026-10-21T12:03:24",
+                                                              "data":  {
+                                                                           "changed":  false,
+                                                                           "running":  true
+                                                                       }
+                                                          }
+                                                      ],
+                                            "Count":  2
+                                        },
+                                        {
+                                            "kind":  "service",
+                                            "key":  "bthserv",
+                                            "when":  "2026-10-21T12:03:24",
+                                            "data":  {
+                                                         "changed":  false,
+                                                         "running":  true,
+                                                         "delayed":  null,
+                                                         "start":  3
+                                                     }
+                                        }
+                                    ],
+                          "Count":  2
+                      },
+                      {
+                          "kind":  "service",
+                          "key":  "BTAGService",
+                          "when":  "2026-10-21T12:03:24",
+                          "data":  {
+                                       "changed":  false,
+                                       "running":  true,
+                                       "delayed":  null,
+                                       "start":  3
+                                   }
+                      }
+                  ],
+        "Count":  2
+    },
+    {
+        "kind":  "service",
+        "key":  "BthAvctpSvc",
+        "when":  "2026-10-21T12:03:24",
+        "data":  {
+                     "changed":  false,
+                     "running":  true,
+                     "delayed":  null,
+                     "start":  3
+                 }
+    },
+    {
+        "kind":  "radio",
+        "key":  "Bluetooth",
+        "when":  "2026-10-21T12:08:29",
+        "data":  {
+                     "kind":  "Bluetooth",
+                     "prev":  "On"
+                 }
+    },
+    {
+        "kind":  "service",
+        "key":  "BluetoothUserService_a6329",
+        "when":  "2026-10-21T12:08:29",
+        "data":  {
+                     "changed":  false,
+                     "running":  true
+                 }
+    },
+    {
+        "kind":  "service",
+        "key":  "bthserv",
+        "when":  "2026-10-21T12:08:30",
+        "data":  {
+                     "changed":  false,
+                     "running":  true,
+                     "delayed":  null,
+                     "start":  3
+                 }
+    },
+    {
+        "kind":  "service",
+        "key":  "BTAGService",
+        "when":  "2026-10-21T12:18:53",
+        "data":  {
+                     "changed":  false,
+                     "running":  true,
+                     "delayed":  null,
+                     "start":  3
+                 }
+    },
+    {
+        "kind":  "process",
+        "key":  "Dropbox",
+        "when":  "2026-10-21T18:23:32",
+        "data":  {
+                     "path":  "C:\\Program Files (x86)\\Dropbox\\Client\\Dropbox.exe"
+                 }
+    },
+    {
+        "kind":  "power",
+        "key":  "plan",
+        "when":  "2026-10-21T18:23:51",
+        "data":  {
+                     "prev":  "381b4222-f694-41f0-9685-ff5bb260df2e",
+                     "new":  "0637fa82-e2e1-4cb6-8e1f-5774bca33b1c"
+                 }
+    },
+    {
+        "kind":  "reg",
+        "key":  "HKLM:\\SOFTWARE\\Microsoft\\Windows\\CurrentVersion\\Policies\\System|ConsentPromptBehaviorAdmin",
+        "when":  "2026-10-21T18:23:51",
+        "data":  {
+                     "path":  "HKLM:\\SOFTWARE\\Microsoft\\Windows\\CurrentVersion\\Policies\\System",
+                     "had":  true,
+                     "name":  "ConsentPromptBehaviorAdmin",
+                     "value":  5,
+                     "kind":  "DWord"
+                 }
+    },
+    {
+        "kind":  "reg",
+        "key":  "HKCU:\\Software\\Microsoft\\GameBar|AutoGameModeEnabled",
+        "when":  "2026-10-21T18:23:51",
+        "data":  {
+                     "path":  "HKCU:\\Software\\Microsoft\\GameBar",
+                     "had":  false,
+                     "name":  "AutoGameModeEnabled"
+                 }
+    },
+    {
+        "kind":  "reg",
+        "key":  "HKCU:\\System\\GameConfigStore|GameDVR_Enabled",
+        "when":  "2026-10-21T18:23:51",
+        "data":  {
+                     "path":  "HKCU:\\System\\GameConfigStore",
+                     "had":  true,
+                     "name":  "GameDVR_Enabled",
+                     "value":  1,
+                     "kind":  "DWord"
+                 }
+    },
+    {
+        "kind":  "process",
+        "key":  "ProtonDrive",
+        "when":  "2026-10-21T18:23:51",
+        "data":  {
+                     "path":  "C:\\Users\\rich\\AppData\\Local\\Programs\\Proton\\Drive\\ProtonDrive.exe"
+                 }
+    },
+    {
+        "kind":  "process",
+        "key":  "Gajim",
+        "when":  "2026-10-21T18:23:53",
+        "data":  {
+                     "path":  "C:\\Program Files\\WindowsApps\\2126Gajim.Gajim_2.5.36.0_x64__cyk1dwtbfm75p\\bin\\Gajim.exe"
+                 }
+    },
+    {
+        "kind":  "process",
+        "key":  "SDXHelper",
+        "when":  "2026-10-21T18:23:54",
+        "data":  {
+                     "path":  "C:\\Program Files\\Microsoft Office\\Root\\Office16\\SDXHelper.exe"
+                 }
+    },
+    {
+        "kind":  "service",
+        "key":  "DiagTrack",
+        "when":  "2026-10-21T18:23:56",
+        "data":  {
+                     "changed":  true,
+                     "running":  true,
+                     "delayed":  null,
+                     "start":  2
+                 }
+    },
+    {
+        "kind":  "service",
+        "key":  "DusmSvc",
+        "when":  "2026-10-21T18:23:56",
+        "data":  {
+                     "changed":  false,
+                     "running":  true,
+                     "delayed":  null,
+                     "start":  2
+                 }
+    },
+    {
+        "kind":  "service",
+        "key":  "UsoSvc",
+        "when":  "2026-10-21T18:23:56",
+        "data":  {
+                     "changed":  true,
+                     "running":  true,
+                     "delayed":  1,
+                     "start":  2
+                 }
+    },
+    {
+        "kind":  "service",
+        "key":  "wuauserv",
+        "when":  "2026-10-21T18:23:56",
+        "data":  {
+                     "changed":  true,
+                     "running":  false,
+                     "delayed":  null,
+                     "start":  3
+                 }
+    },
+    {
+        "kind":  "service",
+        "key":  "BITS",
+        "when":  "2026-10-21T18:23:56",
+        "data":  {
+                     "changed":  true,
+                     "running":  true,
+                     "delayed":  1,
+                     "start":  2
+                 }
+    },
+    {
+        "kind":  "service",
+        "key":  "DoSvc",
+        "when":  "2026-10-21T18:23:56",
+        "data":  {
+                     "changed":  true,
+                     "running":  true,
+                     "delayed":  1,
+                     "start":  2
+                 }
+    },
+    {
+        "kind":  "service",
+        "key":  "InstallService",
+        "when":  "2026-10-21T18:23:58",
+        "data":  {
+                     "changed":  true,
+                     "running":  false,
+                     "delayed":  null,
+                     "start":  3
+                 }
+    },
+    {
+        "kind":  "service",
+        "key":  "WSearch",
+        "when":  "2026-10-21T18:23:58",
+        "data":  {
+                     "changed":  true,
+                     "running":  true,
+                     "delayed":  1,
+                     "start":  2
+                 }
+    },
+    {
+        "kind":  "service",
+        "key":  "SysMain",
+        "when":  "2026-10-21T18:23:58",
+        "data":  {
+                     "changed":  true,
+                     "running":  true,
+                     "delayed":  null,
+                     "start":  2
+                 }
+    },
+    {
+        "kind":  "service",
+        "key":  "Spooler",
+        "when":  "2026-10-21T18:23:58",
+        "data":  {
+                     "changed":  false,
+                     "running":  true,
+                     "delayed":  null,
+                     "start":  2
+                 }
+    },
+    {
+        "kind":  "service",
+        "key":  "DPS",
+        "when":  "2026-10-21T18:23:58",
+        "data":  {
+                     "changed":  false,
+                     "running":  true,
+                     "delayed":  0,
+                     "start":  2
+                 }
+    },
+    {
+        "kind":  "service",
+        "key":  "PcaSvc",
+        "when":  "2026-10-21T18:23:59",
+        "data":  {
+                     "changed":  false,
+                     "running":  true,
+                     "delayed":  1,
+                     "start":  2
+                 }
+    },
+    {
+        "kind":  "service",
+        "key":  "lfsvc",
+        "when":  "2026-10-21T18:23:59",
+        "data":  {
+                     "changed":  false,
+                     "running":  true,
+                     "delayed":  null,
+                     "start":  3
+                 }
+    },
+    {
+        "kind":  "service",
+        "key":  "MapsBroker",
+        "when":  "2026-10-21T18:24:00",
+        "data":  {
+                     "changed":  true,
+                     "running":  false,
+                     "delayed":  1,
+                     "start":  2
+                 }
+    },
+    {
+        "kind":  "service",
+        "key":  "PhoneSvc",
+        "when":  "2026-10-21T18:24:00",
+        "data":  {
+                     "changed":  false,
+                     "running":  true,
+                     "delayed":  null,
+                     "start":  3
+                 }
+    },
+    {
+        "kind":  "service",
+        "key":  "stisvc",
+        "when":  "2026-10-21T18:24:00",
+        "data":  {
+                     "changed":  false,
+                     "running":  true,
+                     "delayed":  null,
+                     "start":  2
+                 }
+    },
+    {
+        "kind":  "service",
+        "key":  "edgeupdate",
+        "when":  "2026-10-21T18:24:00",
+        "data":  {
+                     "changed":  true,
+                     "running":  false,
+                     "delayed":  1,
+                     "start":  2
+                 }
+    },
+    {
+        "kind":  "service",
+        "key":  "edgeupdatem",
+        "when":  "2026-10-21T18:24:00",
+        "data":  {
+                     "changed":  true,
+                     "running":  false,
+                     "delayed":  1,
+                     "start":  3
+                 }
+    },
+    {
+        "kind":  "service",
+        "key":  "ClickToRunSvc",
+        "when":  "2026-10-21T18:24:00",
+        "data":  {
+                     "changed":  false,
+                     "running":  true,
+                     "delayed":  null,
+                     "start":  2
+                 }
+    },
+    {
+        "kind":  "service",
+        "key":  "Bonjour Service",
+        "when":  "2026-10-21T18:24:00",
+        "data":  {
+                     "changed":  false,
+                     "running":  true,
+                     "delayed":  null,
+                     "start":  2
+                 }
+    },
+    {
+        "kind":  "service",
+        "key":  "LenovoVantageService",
+        "when":  "2026-10-21T18:24:00",
+        "data":  {
+                     "changed":  false,
+                     "running":  true,
+                     "delayed":  null,
+                     "start":  2
+                 }
+    },
+    {
+        "kind":  "task",
+        "key":  "\\BraveSoftwareUpdateTaskMachineCore{137CAE5D-42A2-4C8E-BFCE-DF0B392A5526}",
+        "when":  "2026-10-21T18:24:02",
+        "data":  {
+                     "name":  "BraveSoftwareUpdateTaskMachineCore{137CAE5D-42A2-4C8E-BFCE-DF0B392A5526}",
+                     "path":  "\\"
+                 }
+    },
+    {
+        "kind":  "task",
+        "key":  "\\BraveSoftwareUpdateTaskMachineUA{061867A0-FDB0-4961-8907-5DA2FB3C66BC}",
+        "when":  "2026-10-21T18:24:03",
+        "data":  {
+                     "name":  "BraveSoftwareUpdateTaskMachineUA{061867A0-FDB0-4961-8907-5DA2FB3C66BC}",
+                     "path":  "\\"
+                 }
+    },
+    {
+        "kind":  "task",
+        "key":  "\\LastPassUpdater",
+        "when":  "2026-10-21T18:24:03",
+        "data":  {
+                     "name":  "LastPassUpdater",
+                     "path":  "\\"
+                 }
+    },
+    {
+        "kind":  "task",
+        "key":  "\\MicrosoftEdgeUpdateTaskMachineCore{D2799CF4-E121-4922-8B77-AD0646920725}",
+        "when":  "2026-10-21T18:24:04",
+        "data":  {
+                     "name":  "MicrosoftEdgeUpdateTaskMachineCore{D2799CF4-E121-4922-8B77-AD0646920725}",
+                     "path":  "\\"
+                 }
+    },
+    {
+        "kind":  "task",
+        "key":  "\\MicrosoftEdgeUpdateTaskMachineUA{883A5E2A-0595-480E-A4EC-536F847650F5}",
+        "when":  "2026-10-21T18:24:05",
+        "data":  {
+                     "name":  "MicrosoftEdgeUpdateTaskMachineUA{883A5E2A-0595-480E-A4EC-536F847650F5}",
+                     "path":  "\\"
+                 }
+    },
+    {
+        "kind":  "task",
+        "key":  "\\Proton VPN NRPT watchdog",
+        "when":  "2026-10-21T18:24:06",
+        "data":  {
+                     "name":  "Proton VPN NRPT watchdog",
+                     "path":  "\\"
+                 }
+    },
+    {
+        "kind":  "task",
+        "key":  "\\ZoomUpdateTaskUser-S-1-5-21-546694188-126083826-4013810330-1001",
+        "when":  "2026-10-21T18:24:07",
+        "data":  {
+                     "name":  "ZoomUpdateTaskUser-S-1-5-21-546694188-126083826-4013810330-1001",
+                     "path":  "\\"
+                 }
+    },
+    {
+        "kind":  "task",
+        "key":  "\\DropboxSystem\\DropboxUpdater\\DropboxUpdaterTaskSystem123.0.6299.152{857AC886-0701-4EE0-A53F-DFBBEC026671}",
+        "when":  "2026-10-21T18:24:07",
+        "data":  {
+                     "name":  "DropboxUpdaterTaskSystem123.0.6299.152{857AC886-0701-4EE0-A53F-DFBBEC026671}",
+                     "path":  "\\DropboxSystem\\DropboxUpdater\\"
+                 }
+    },
+    {
+        "kind":  "task",
+        "key":  "\\GoogleSystem\\GoogleUpdater\\GoogleUpdaterTaskSystem152.0.7933.0{94F9AC43-B1EA-45F7-AA84-098CCE5B7CFB}",
+        "when":  "2026-10-21T18:24:08",
+        "data":  {
+                     "name":  "GoogleUpdaterTaskSystem152.0.7933.0{94F9AC43-B1EA-45F7-AA84-098CCE5B7CFB}",
+                     "path":  "\\GoogleSystem\\GoogleUpdater\\"
+                 }
+    },
+    {
+        "kind":  "task",
+        "key":  "\\GoogleSystem\\GoogleUpdater\\GoogleUpdaterTaskSystem157.0.8089.0{5678B8B9-7C76-41CB-B179-6DC74F67A85F}",
+        "when":  "2026-10-21T18:24:09",
+        "data":  {
+                     "name":  "GoogleUpdaterTaskSystem157.0.8089.0{5678B8B9-7C76-41CB-B179-6DC74F67A85F}",
+                     "path":  "\\GoogleSystem\\GoogleUpdater\\"
+                 }
+    },
+    {
+        "kind":  "task",
+        "key":  "\\Lenovo\\LenovoMachineFixUser_OOBE_AUTO_Notification",
+        "when":  "2026-10-21T18:24:10",
+        "data":  {
+                     "name":  "LenovoMachineFixUser_OOBE_AUTO_Notification",
+                     "path":  "\\Lenovo\\"
+                 }
+    },
+    {
+        "kind":  "task",
+        "key":  "\\Lenovo\\ImController\\Lenovo iM Controller Monitor",
+        "when":  "2026-10-21T18:24:11",
+        "data":  {
+                     "name":  "Lenovo iM Controller Monitor",
+                     "path":  "\\Lenovo\\ImController\\"
+                 }
+    },
+    {
+        "kind":  "task",
+        "key":  "\\Lenovo\\ImController\\Lenovo iM Controller Scheduled Maintenance",
+        "when":  "2026-10-21T18:24:11",
+        "data":  {
+                     "name":  "Lenovo iM Controller Scheduled Maintenance",
+                     "path":  "\\Lenovo\\ImController\\"
+                 }
+    },
+    {
+        "kind":  "task",
+        "key":  "\\Lenovo\\ImController\\TimeBasedEvents\\231a179f-2b74-40d1-8dff-caa05d507608",
+        "when":  "2026-10-21T18:24:12",
+        "data":  {
+                     "name":  "231a179f-2b74-40d1-8dff-caa05d507608",
+                     "path":  "\\Lenovo\\ImController\\TimeBasedEvents\\"
+                 }
+    },
+    {
+        "kind":  "task",
+        "key":  "\\Lenovo\\UDC\\Lenovo UDC Lazy Deployment",
+        "when":  "2026-10-21T18:24:13",
+        "data":  {
+                     "name":  "Lenovo UDC Lazy Deployment",
+                     "path":  "\\Lenovo\\UDC\\"
+                 }
+    },
+    {
+        "kind":  "task",
+        "key":  "\\Lenovo\\UDC\\Lenovo UDC Maintainance Task",
+        "when":  "2026-10-21T18:24:15",
+        "data":  {
+                     "name":  "Lenovo UDC Maintainance Task",
+                     "path":  "\\Lenovo\\UDC\\"
+                 }
+    },
+    {
+        "kind":  "task",
+        "key":  "\\Lenovo\\UDC\\Lenovo UDC Monitor",
+        "when":  "2026-10-21T18:24:15",
+        "data":  {
+                     "name":  "Lenovo UDC Monitor",
+                     "path":  "\\Lenovo\\UDC\\"
+                 }
+    },
+    {
+        "kind":  "task",
+        "key":  "\\Lenovo\\Vantage\\Lenovo.Vantage.ServiceMaintainance",
+        "when":  "2026-10-21T18:24:16",
+        "data":  {
+                     "name":  "Lenovo.Vantage.ServiceMaintainance",
+                     "path":  "\\Lenovo\\Vantage\\"
+                 }
+    },
+    {
+        "kind":  "task",
+        "key":  "\\Lenovo\\Vantage\\Schedule\\BatteryGaugeAddinDailyScheduleTask",
+        "when":  "2026-10-21T18:24:17",
+        "data":  {
+                     "name":  "BatteryGaugeAddinDailyScheduleTask",
+                     "path":  "\\Lenovo\\Vantage\\Schedule\\"
+                 }
+    },
+    {
+        "kind":  "task",
+        "key":  "\\Lenovo\\Vantage\\Schedule\\ConsumerAddinDailyScheduleTask",
+        "when":  "2026-10-21T18:24:18",
+        "data":  {
+                     "name":  "ConsumerAddinDailyScheduleTask",
+                     "path":  "\\Lenovo\\Vantage\\Schedule\\"
+                 }
+    },
+    {
+        "kind":  "task",
+        "key":  "\\Lenovo\\Vantage\\Schedule\\DailyTelemetryTransmission",
+        "when":  "2026-10-21T18:24:19",
+        "data":  {
+                     "name":  "DailyTelemetryTransmission",
+                     "path":  "\\Lenovo\\Vantage\\Schedule\\"
+                 }
+    },
+    {
+        "kind":  "task",
+        "key":  "\\Lenovo\\Vantage\\Schedule\\GenericMessagingAddin",
+        "when":  "2026-10-21T18:24:19",
+        "data":  {
+                     "name":  "GenericMessagingAddin",
+                     "path":  "\\Lenovo\\Vantage\\Schedule\\"
+                 }
+    },
+    {
+        "kind":  "task",
+        "key":  "\\Lenovo\\Vantage\\Schedule\\GenericMessagingAddin_Pulsation",
+        "when":  "2026-10-21T18:24:20",
+        "data":  {
+                     "name":  "GenericMessagingAddin_Pulsation",
+                     "path":  "\\Lenovo\\Vantage\\Schedule\\"
+                 }
+    },
+    {
+        "kind":  "task",
+        "key":  "\\Lenovo\\Vantage\\Schedule\\HeartbeatAddinDailyScheduleTask",
+        "when":  "2026-10-21T18:24:21",
+        "data":  {
+                     "name":  "HeartbeatAddinDailyScheduleTask",
+                     "path":  "\\Lenovo\\Vantage\\Schedule\\"
+                 }
+    },
+    {
+        "kind":  "task",
+        "key":  "\\Lenovo\\Vantage\\Schedule\\IdeaNotebookAddinDailyEvent",
+        "when":  "2026-10-21T18:24:22",
+        "data":  {
+                     "name":  "IdeaNotebookAddinDailyEvent",
+                     "path":  "\\Lenovo\\Vantage\\Schedule\\"
+                 }
+    },
+    {
+        "kind":  "task",
+        "key":  "\\Lenovo\\Vantage\\Schedule\\Lenovo.Vantage.SmartPerformance.MonthlyReport",
+        "when":  "2026-10-21T18:24:22",
+        "data":  {
+                     "name":  "Lenovo.Vantage.SmartPerformance.MonthlyReport",
+                     "path":  "\\Lenovo\\Vantage\\Schedule\\"
+                 }
+    },
+    {
+        "kind":  "task",
+        "key":  "\\Lenovo\\Vantage\\Schedule\\Lenovo.Vantage.SmartPerformance.SScan",
+        "when":  "2026-10-21T18:24:23",
+        "data":  {
+                     "name":  "Lenovo.Vantage.SmartPerformance.SScan",
+                     "path":  "\\Lenovo\\Vantage\\Schedule\\"
+                 }
+    },
+    {
+        "kind":  "task",
+        "key":  "\\Lenovo\\Vantage\\Schedule\\LenovoCompanionAppAddinDailyScheduleTask",
+        "when":  "2026-10-21T18:24:24",
+        "data":  {
+                     "name":  "LenovoCompanionAppAddinDailyScheduleTask",
+                     "path":  "\\Lenovo\\Vantage\\Schedule\\"
+                 }
+    },
+    {
+        "kind":  "task",
+        "key":  "\\Lenovo\\Vantage\\Schedule\\LenovoSupportContextEngineDaily",
+        "when":  "2026-10-21T18:24:25",
+        "data":  {
+                     "name":  "LenovoSupportContextEngineDaily",
+                     "path":  "\\Lenovo\\Vantage\\Schedule\\"
+                 }
+    },
+    {
+        "kind":  "task",
+        "key":  "\\Lenovo\\Vantage\\Schedule\\LenovoSupportHealthReportSchedule",
+        "when":  "2026-10-21T18:24:26",
+        "data":  {
+                     "name":  "LenovoSupportHealthReportSchedule",
+                     "path":  "\\Lenovo\\Vantage\\Schedule\\"
+                 }
+    },
+    {
+        "kind":  "task",
+        "key":  "\\Lenovo\\Vantage\\Schedule\\LenovoSystemUpdateAddin_WeeklyTask",
+        "when":  "2026-10-21T18:24:26",
+        "data":  {
+                     "name":  "LenovoSystemUpdateAddin_WeeklyTask",
+                     "path":  "\\Lenovo\\Vantage\\Schedule\\"
+                 }
+    },
+    {
+        "kind":  "task",
+        "key":  "\\Lenovo\\Vantage\\Schedule\\LiveWallpaperDailyScheduleTask",
+        "when":  "2026-10-21T18:24:27",
+        "data":  {
+                     "name":  "LiveWallpaperDailyScheduleTask",
+                     "path":  "\\Lenovo\\Vantage\\Schedule\\"
+                 }
+    },
+    {
+        "kind":  "task",
+        "key":  "\\Lenovo\\Vantage\\Schedule\\LiveWallpaperScheduleTask",
+        "when":  "2026-10-21T18:24:28",
+        "data":  {
+                     "name":  "LiveWallpaperScheduleTask",
+                     "path":  "\\Lenovo\\Vantage\\Schedule\\"
+                 }
+    },
+    {
+        "kind":  "task",
+        "key":  "\\Lenovo\\Vantage\\Schedule\\SettingsWidgetAddinDailyScheduleTask",
+        "when":  "2026-10-21T18:24:29",
+        "data":  {
+                     "name":  "SettingsWidgetAddinDailyScheduleTask",
+                     "path":  "\\Lenovo\\Vantage\\Schedule\\"
+                 }
+    },
+    {
+        "kind":  "task",
+        "key":  "\\Lenovo\\Vantage\\Schedule\\SmartLock.ExpireReminder",
+        "when":  "2026-10-21T18:24:29",
+        "data":  {
+                     "name":  "SmartLock.ExpireReminder",
+                     "path":  "\\Lenovo\\Vantage\\Schedule\\"
+                 }
+    },
+    {
+        "kind":  "task",
+        "key":  "\\Lenovo\\Vantage\\Schedule\\SmartPerformance.ExpireReminder",
+        "when":  "2026-10-21T18:24:30",
+        "data":  {
+                     "name":  "SmartPerformance.ExpireReminder",
+                     "path":  "\\Lenovo\\Vantage\\Schedule\\"
+                 }
+    },
+    {
+        "kind":  "task",
+        "key":  "\\Lenovo\\Vantage\\Schedule\\VantageCoreAddinDailyScheduleTask",
+        "when":  "2026-10-21T18:24:31",
+        "data":  {
+                     "name":  "VantageCoreAddinDailyScheduleTask",
+                     "path":  "\\Lenovo\\Vantage\\Schedule\\"
+                 }
+    },
+    {
+        "kind":  "task",
+        "key":  "\\Lenovo\\Vantage\\Schedule\\VantageCoreAddinIdleScheduleTask",
+        "when":  "2026-10-21T18:24:32",
+        "data":  {
+                     "name":  "VantageCoreAddinIdleScheduleTask",
+                     "path":  "\\Lenovo\\Vantage\\Schedule\\"
+                 }
+    },
+    {
+        "kind":  "task",
+        "key":  "\\Lenovo\\Vantage\\Schedule\\VantageCoreAddinWeekScheduleTask",
+        "when":  "2026-10-21T18:24:32",
+        "data":  {
+                     "name":  "VantageCoreAddinWeekScheduleTask",
+                     "path":  "\\Lenovo\\Vantage\\Schedule\\"
+                 }
+    },
+    {
+        "kind":  "task",
+        "key":  "\\McAfee\\wps\\McAfee Sync Agent Pilot",
+        "when":  "2026-10-21T18:24:33",
+        "data":  {
+                     "name":  "McAfee Sync Agent Pilot",
+                     "path":  "\\McAfee\\wps\\"
+                 }
+    },
+    {
+        "kind":  "task",
+        "key":  "\\Microsoft\\Office\\Office Actions Server",
+        "when":  "2026-10-21T18:24:34",
+        "data":  {
+                     "name":  "Office Actions Server",
+                     "path":  "\\Microsoft\\Office\\"
+                 }
+    },
+    {
+        "kind":  "task",
+        "key":  "\\Microsoft\\Office\\Office Automatic Updates 2.0",
+        "when":  "2026-10-21T18:24:35",
+        "data":  {
+                     "name":  "Office Automatic Updates 2.0",
+                     "path":  "\\Microsoft\\Office\\"
+                 }
+    },
+    {
+        "kind":  "task",
+        "key":  "\\Microsoft\\Office\\Office Background Push Maintenance",
+        "when":  "2026-10-21T18:24:35",
+        "data":  {
+                     "name":  "Office Background Push Maintenance",
+                     "path":  "\\Microsoft\\Office\\"
+                 }
+    },
+    {
+        "kind":  "task",
+        "key":  "\\Microsoft\\Office\\Office ClickToRun Service Monitor",
+        "when":  "2026-10-21T18:24:36",
+        "data":  {
+                     "name":  "Office ClickToRun Service Monitor",
+                     "path":  "\\Microsoft\\Office\\"
+                 }
+    },
+    {
+        "kind":  "task",
+        "key":  "\\Microsoft\\Office\\Office Feature Updates",
+        "when":  "2026-10-21T18:24:37",
+        "data":  {
+                     "name":  "Office Feature Updates",
+                     "path":  "\\Microsoft\\Office\\"
+                 }
+    },
+    {
+        "kind":  "task",
+        "key":  "\\Microsoft\\Office\\Office Feature Updates Logon",
+        "when":  "2026-10-21T18:24:38",
+        "data":  {
+                     "name":  "Office Feature Updates Logon",
+                     "path":  "\\Microsoft\\Office\\"
+                 }
+    },
+    {
+        "kind":  "task",
+        "key":  "\\Microsoft\\Office\\Office Performance Monitor",
+        "when":  "2026-10-21T18:24:38",
+        "data":  {
+                     "name":  "Office Performance Monitor",
+                     "path":  "\\Microsoft\\Office\\"
+                 }
+    },
+    {
+        "kind":  "task",
+        "key":  "\\Microsoft\\Office\\Office Startup Maintenance",
+        "when":  "2026-10-21T18:24:39",
+        "data":  {
+                     "name":  "Office Startup Maintenance",
+                     "path":  "\\Microsoft\\Office\\"
+                 }
+    },
+    {
+        "kind":  "task",
+        "key":  "\\Microsoft\\VisualStudio\\Updates\\BackgroundDownload",
+        "when":  "2026-10-21T18:24:40",
+        "data":  {
+                     "name":  "BackgroundDownload",
+                     "path":  "\\Microsoft\\VisualStudio\\Updates\\"
+                 }
+    },
+    {
+        "kind":  "task",
+        "key":  "\\Microsoft\\Windows\\.NET Framework\\.NET Framework NGEN v4.0.30319",
+        "when":  "2026-10-21T18:24:41",
+        "data":  {
+                     "name":  ".NET Framework NGEN v4.0.30319",
+                     "path":  "\\Microsoft\\Windows\\.NET Framework\\"
+                 }
+    },
+    {
+        "kind":  "task",
+        "key":  "\\Microsoft\\Windows\\.NET Framework\\.NET Framework NGEN v4.0.30319 64",
+        "when":  "2026-10-21T18:24:42",
+        "data":  {
+                     "name":  ".NET Framework NGEN v4.0.30319 64",
+                     "path":  "\\Microsoft\\Windows\\.NET Framework\\"
+                 }
+    },
+    {
+        "kind":  "task",
+        "key":  "\\Microsoft\\Windows\\Application Experience\\MareBackup",
+        "when":  "2026-10-21T18:24:42",
+        "data":  {
+                     "name":  "MareBackup",
+                     "path":  "\\Microsoft\\Windows\\Application Experience\\"
+                 }
+    },
+    {
+        "kind":  "task",
+        "key":  "\\Microsoft\\Windows\\Application Experience\\Microsoft Compatibility Appraiser Exp",
+        "when":  "2026-10-21T18:24:43",
+        "data":  {
+                     "name":  "Microsoft Compatibility Appraiser Exp",
+                     "path":  "\\Microsoft\\Windows\\Application Experience\\"
+                 }
+    },
+    {
+        "kind":  "task",
+        "key":  "\\Microsoft\\Windows\\Application Experience\\PcaPatchDbTask",
+        "when":  "2026-10-21T18:24:45",
+        "data":  {
+                     "name":  "PcaPatchDbTask",
+                     "path":  "\\Microsoft\\Windows\\Application Experience\\"
+                 }
+    },
+    {
+        "kind":  "task",
+        "key":  "\\Microsoft\\Windows\\Application Experience\\SdbinstMergeDbTask",
+        "when":  "2026-10-21T18:24:46",
+        "data":  {
+                     "name":  "SdbinstMergeDbTask",
+                     "path":  "\\Microsoft\\Windows\\Application Experience\\"
+                 }
+    },
+    {
+        "kind":  "task",
+        "key":  "\\Microsoft\\Windows\\Application Experience\\StartupAppTask",
+        "when":  "2026-10-21T18:24:46",
+        "data":  {
+                     "name":  "StartupAppTask",
+                     "path":  "\\Microsoft\\Windows\\Application Experience\\"
+                 }
+    },
+    {
+        "kind":  "task",
+        "key":  "\\Microsoft\\Windows\\AppListBackup\\Backup",
+        "when":  "2026-10-21T18:24:47",
+        "data":  {
+                     "name":  "Backup",
+                     "path":  "\\Microsoft\\Windows\\AppListBackup\\"
+                 }
+    },
+    {
+        "kind":  "task",
+        "key":  "\\Microsoft\\Windows\\AppListBackup\\BackupNonMaintenance",
+        "when":  "2026-10-21T18:24:48",
+        "data":  {
+                     "name":  "BackupNonMaintenance",
+                     "path":  "\\Microsoft\\Windows\\AppListBackup\\"
+                 }
+    },
+    {
+        "kind":  "task",
+        "key":  "\\Microsoft\\Windows\\BitLocker\\BitLocker Encrypt All Drives",
+        "when":  "2026-10-21T18:24:49",
+        "data":  {
+                     "name":  "BitLocker Encrypt All Drives",
+                     "path":  "\\Microsoft\\Windows\\BitLocker\\"
+                 }
+    },
+    {
+        "kind":  "task",
+        "key":  "\\Microsoft\\Windows\\BitLocker\\BitLocker MDM policy Refresh",
+        "when":  "2026-10-21T18:24:50",
+        "data":  {
+                     "name":  "BitLocker MDM policy Refresh",
+                     "path":  "\\Microsoft\\Windows\\BitLocker\\"
+                 }
+    },
+    {
+        "kind":  "task",
+        "key":  "\\Microsoft\\Windows\\Chkdsk\\ProactiveScan",
+        "when":  "2026-10-21T18:24:50",
+        "data":  {
+                     "name":  "ProactiveScan",
+                     "path":  "\\Microsoft\\Windows\\Chkdsk\\"
+                 }
+    },
+    {
+        "kind":  "task",
+        "key":  "\\Microsoft\\Windows\\CloudRestore\\Backup",
+        "when":  "2026-10-21T18:24:51",
+        "data":  {
+                     "name":  "Backup",
+                     "path":  "\\Microsoft\\Windows\\CloudRestore\\"
+                 }
+    },
+    {
+        "kind":  "task",
+        "key":  "\\Microsoft\\Windows\\CloudRestore\\Restore",
+        "when":  "2026-10-21T18:24:52",
+        "data":  {
+                     "name":  "Restore",
+                     "path":  "\\Microsoft\\Windows\\CloudRestore\\"
+                 }
+    },
+    {
+        "kind":  "task",
+        "key":  "\\Microsoft\\Windows\\ConsentUX\\UnifiedConsent\\UnifiedConsentSyncTask",
+        "when":  "2026-10-21T18:24:53",
+        "data":  {
+                     "name":  "UnifiedConsentSyncTask",
+                     "path":  "\\Microsoft\\Windows\\ConsentUX\\UnifiedConsent\\"
+                 }
+    },
+    {
+        "kind":  "task",
+        "key":  "\\Microsoft\\Windows\\Customer Experience Improvement Program\\Consolidator",
+        "when":  "2026-10-21T18:24:54",
+        "data":  {
+                     "name":  "Consolidator",
+                     "path":  "\\Microsoft\\Windows\\Customer Experience Improvement Program\\"
+                 }
+    },
+    {
+        "kind":  "task",
+        "key":  "\\Microsoft\\Windows\\Customer Experience Improvement Program\\UsbCeip",
+        "when":  "2026-10-21T18:24:54",
+        "data":  {
+                     "name":  "UsbCeip",
+                     "path":  "\\Microsoft\\Windows\\Customer Experience Improvement Program\\"
+                 }
+    },
+    {
+        "kind":  "task",
+        "key":  "\\Microsoft\\Windows\\Data Integrity Scan\\Data Integrity Check And Scan",
+        "when":  "2026-10-21T18:24:55",
+        "data":  {
+                     "name":  "Data Integrity Check And Scan",
+                     "path":  "\\Microsoft\\Windows\\Data Integrity Scan\\"
+                 }
+    },
+    {
+        "kind":  "task",
+        "key":  "\\Microsoft\\Windows\\Data Integrity Scan\\Data Integrity Scan",
+        "when":  "2026-10-21T18:24:56",
+        "data":  {
+                     "name":  "Data Integrity Scan",
+                     "path":  "\\Microsoft\\Windows\\Data Integrity Scan\\"
+                 }
+    },
+    {
+        "kind":  "task",
+        "key":  "\\Microsoft\\Windows\\Data Integrity Scan\\Data Integrity Scan for Crash Recovery",
+        "when":  "2026-10-21T18:24:57",
+        "data":  {
+                     "name":  "Data Integrity Scan for Crash Recovery",
+                     "path":  "\\Microsoft\\Windows\\Data Integrity Scan\\"
+                 }
+    },
+    {
+        "kind":  "task",
+        "key":  "\\Microsoft\\Windows\\Defrag\\ScheduledDefrag",
+        "when":  "2026-10-21T18:24:57",
+        "data":  {
+                     "name":  "ScheduledDefrag",
+                     "path":  "\\Microsoft\\Windows\\Defrag\\"
+                 }
+    },
+    {
+        "kind":  "task",
+        "key":  "\\Microsoft\\Windows\\Device Information\\Device",
+        "when":  "2026-10-21T18:24:58",
+        "data":  {
+                     "name":  "Device",
+                     "path":  "\\Microsoft\\Windows\\Device Information\\"
+                 }
+    },
+    {
+        "kind":  "task",
+        "key":  "\\Microsoft\\Windows\\Device Information\\Device User",
+        "when":  "2026-10-21T18:24:59",
+        "data":  {
+                     "name":  "Device User",
+                     "path":  "\\Microsoft\\Windows\\Device Information\\"
+                 }
+    },
+    {
+        "kind":  "task",
+        "key":  "\\Microsoft\\Windows\\Diagnosis\\RecommendedTroubleshootingScanner",
+        "when":  "2026-10-21T18:25:00",
+        "data":  {
+                     "name":  "RecommendedTroubleshootingScanner",
+                     "path":  "\\Microsoft\\Windows\\Diagnosis\\"
+                 }
+    },
+    {
+        "kind":  "task",
+        "key":  "\\Microsoft\\Windows\\Diagnosis\\Scheduled",
+        "when":  "2026-10-21T18:25:01",
+        "data":  {
+                     "name":  "Scheduled",
+                     "path":  "\\Microsoft\\Windows\\Diagnosis\\"
+                 }
+    },
+    {
+        "kind":  "task",
+        "key":  "\\Microsoft\\Windows\\Diagnosis\\UnexpectedCodepath",
+        "when":  "2026-10-21T18:25:01",
+        "data":  {
+                     "name":  "UnexpectedCodepath",
+                     "path":  "\\Microsoft\\Windows\\Diagnosis\\"
+                 }
+    },
+    {
+        "kind":  "task",
+        "key":  "\\Microsoft\\Windows\\DiskCleanup\\SilentCleanup",
+        "when":  "2026-10-21T18:25:02",
+        "data":  {
+                     "name":  "SilentCleanup",
+                     "path":  "\\Microsoft\\Windows\\DiskCleanup\\"
+                 }
+    },
+    {
+        "kind":  "task",
+        "key":  "\\Microsoft\\Windows\\DiskFootprint\\Diagnostics",
+        "when":  "2026-10-21T18:25:03",
+        "data":  {
+                     "name":  "Diagnostics",
+                     "path":  "\\Microsoft\\Windows\\DiskFootprint\\"
+                 }
+    },
+    {
+        "kind":  "task",
+        "key":  "\\Microsoft\\Windows\\DiskFootprint\\StorageSense",
+        "when":  "2026-10-21T18:25:04",
+        "data":  {
+                     "name":  "StorageSense",
+                     "path":  "\\Microsoft\\Windows\\DiskFootprint\\"
+                 }
+    },
+    {
+        "kind":  "task",
+        "key":  "\\Microsoft\\Windows\\DUSM\\dusmtask",
+        "when":  "2026-10-21T18:25:04",
+        "data":  {
+                     "name":  "dusmtask",
+                     "path":  "\\Microsoft\\Windows\\DUSM\\"
+                 }
+    },
+    {
+        "kind":  "task",
+        "key":  "\\Microsoft\\Windows\\EDP\\EDP App Launch Task",
+        "when":  "2026-10-21T18:25:05",
+        "data":  {
+                     "name":  "EDP App Launch Task",
+                     "path":  "\\Microsoft\\Windows\\EDP\\"
+                 }
+    },
+    {
+        "kind":  "task",
+        "key":  "\\Microsoft\\Windows\\EDP\\EDP Auth Task",
+        "when":  "2026-10-21T18:25:06",
+        "data":  {
+                     "name":  "EDP Auth Task",
+                     "path":  "\\Microsoft\\Windows\\EDP\\"
+                 }
+    },
+    {
+        "kind":  "task",
+        "key":  "\\Microsoft\\Windows\\EDP\\EDP Inaccessible Credentials Task",
+        "when":  "2026-10-21T18:25:07",
+        "data":  {
+                     "name":  "EDP Inaccessible Credentials Task",
+                     "path":  "\\Microsoft\\Windows\\EDP\\"
+                 }
+    },
+    {
+        "kind":  "task",
+        "key":  "\\Microsoft\\Windows\\EDP\\StorageCardEncryption Task",
+        "when":  "2026-10-21T18:25:08",
+        "data":  {
+                     "name":  "StorageCardEncryption Task",
+                     "path":  "\\Microsoft\\Windows\\EDP\\"
+                 }
+    },
+    {
+        "kind":  "task",
+        "key":  "\\Microsoft\\Windows\\ExploitGuard\\ExploitGuard MDM policy Refresh",
+        "when":  "2026-10-21T18:25:08",
+        "data":  {
+                     "name":  "ExploitGuard MDM policy Refresh",
+                     "path":  "\\Microsoft\\Windows\\ExploitGuard\\"
+                 }
+    },
+    {
+        "kind":  "task",
+        "key":  "\\Microsoft\\Windows\\Feedback\\Siuf\\DmClient",
+        "when":  "2026-10-21T18:25:09",
+        "data":  {
+                     "name":  "DmClient",
+                     "path":  "\\Microsoft\\Windows\\Feedback\\Siuf\\"
+                 }
+    },
+    {
+        "kind":  "task",
+        "key":  "\\Microsoft\\Windows\\Feedback\\Siuf\\DmClientOnScenarioDownload",
+        "when":  "2026-10-21T18:25:10",
+        "data":  {
+                     "name":  "DmClientOnScenarioDownload",
+                     "path":  "\\Microsoft\\Windows\\Feedback\\Siuf\\"
+                 }
+    },
+    {
+        "kind":  "task",
+        "key":  "\\Microsoft\\Windows\\FileHistory\\File History (maintenance mode)",
+        "when":  "2026-10-21T18:25:11",
+        "data":  {
+                     "name":  "File History (maintenance mode)",
+                     "path":  "\\Microsoft\\Windows\\FileHistory\\"
+                 }
+    },
+    {
+        "kind":  "task",
+        "key":  "\\Microsoft\\Windows\\Flighting\\FeatureConfig\\GovernedFeatureUsageProcessing",
+        "when":  "2026-10-21T18:25:11",
+        "data":  {
+                     "name":  "GovernedFeatureUsageProcessing",
+                     "path":  "\\Microsoft\\Windows\\Flighting\\FeatureConfig\\"
+                 }
+    },
+    {
+        "kind":  "task",
+        "key":  "\\Microsoft\\Windows\\Flighting\\FeatureConfig\\ReconcileConfigs",
+        "when":  "2026-10-21T18:25:12",
+        "data":  {
+                     "name":  "ReconcileConfigs",
+                     "path":  "\\Microsoft\\Windows\\Flighting\\FeatureConfig\\"
+                 }
+    },
+    {
+        "kind":  "task",
+        "key":  "\\Microsoft\\Windows\\Flighting\\FeatureConfig\\ReconcileFeatures",
+        "when":  "2026-10-21T18:25:13",
+        "data":  {
+                     "name":  "ReconcileFeatures",
+                     "path":  "\\Microsoft\\Windows\\Flighting\\FeatureConfig\\"
+                 }
+    },
+    {
+        "kind":  "task",
+        "key":  "\\Microsoft\\Windows\\Flighting\\FeatureConfig\\SafeguardsReconciliation",
+        "when":  "2026-10-21T18:25:15",
+        "data":  {
+                     "name":  "SafeguardsReconciliation",
+                     "path":  "\\Microsoft\\Windows\\Flighting\\FeatureConfig\\"
+                 }
+    },
+    {
+        "kind":  "task",
+        "key":  "\\Microsoft\\Windows\\Flighting\\FeatureConfig\\UsageDataFlushing",
+        "when":  "2026-10-21T18:25:16",
+        "data":  {
+                     "name":  "UsageDataFlushing",
+                     "path":  "\\Microsoft\\Windows\\Flighting\\FeatureConfig\\"
+                 }
+    },
+    {
+        "kind":  "task",
+        "key":  "\\Microsoft\\Windows\\Flighting\\FeatureConfig\\UsageDataReceiver",
+        "when":  "2026-10-21T18:25:16",
+        "data":  {
+                     "name":  "UsageDataReceiver",
+                     "path":  "\\Microsoft\\Windows\\Flighting\\FeatureConfig\\"
+                 }
+    },
+    {
+        "kind":  "task",
+        "key":  "\\Microsoft\\Windows\\Flighting\\FeatureConfig\\UsageDataReporting",
+        "when":  "2026-10-21T18:25:17",
+        "data":  {
+                     "name":  "UsageDataReporting",
+                     "path":  "\\Microsoft\\Windows\\Flighting\\FeatureConfig\\"
+                 }
+    },
+    {
+        "kind":  "task",
+        "key":  "\\Microsoft\\Windows\\Flighting\\OneSettings\\RefreshCache",
+        "when":  "2026-10-21T18:25:18",
+        "data":  {
+                     "name":  "RefreshCache",
+                     "path":  "\\Microsoft\\Windows\\Flighting\\OneSettings\\"
+                 }
+    },
+    {
+        "kind":  "task",
+        "key":  "\\Microsoft\\Windows\\Hotpatch\\Monitoring",
+        "when":  "2026-10-21T18:25:19",
+        "data":  {
+                     "name":  "Monitoring",
+                     "path":  "\\Microsoft\\Windows\\Hotpatch\\"
+                 }
+    },
+    {
+        "kind":  "task",
+        "key":  "\\Microsoft\\Windows\\input\\InputSettingsRestoreDataAvailable",
+        "when":  "2026-10-21T18:25:19",
+        "data":  {
+                     "name":  "InputSettingsRestoreDataAvailable",
+                     "path":  "\\Microsoft\\Windows\\input\\"
+                 }
+    },
+    {
+        "kind":  "task",
+        "key":  "\\Microsoft\\Windows\\input\\LocalUserSyncDataAvailable",
+        "when":  "2026-10-21T18:25:20",
+        "data":  {
+                     "name":  "LocalUserSyncDataAvailable",
+                     "path":  "\\Microsoft\\Windows\\input\\"
+                 }
+    },
+    {
+        "kind":  "task",
+        "key":  "\\Microsoft\\Windows\\input\\MouseSyncDataAvailable",
+        "when":  "2026-10-21T18:25:21",
+        "data":  {
+                     "name":  "MouseSyncDataAvailable",
+                     "path":  "\\Microsoft\\Windows\\input\\"
+                 }
+    },
+    {
+        "kind":  "task",
+        "key":  "\\Microsoft\\Windows\\input\\PenSyncDataAvailable",
+        "when":  "2026-10-21T18:25:22",
+        "data":  {
+                     "name":  "PenSyncDataAvailable",
+                     "path":  "\\Microsoft\\Windows\\input\\"
+                 }
+    },
+    {
+        "kind":  "task",
+        "key":  "\\Microsoft\\Windows\\input\\RemoteMouseSyncDataAvailable",
+        "when":  "2026-10-21T18:25:23",
+        "data":  {
+                     "name":  "RemoteMouseSyncDataAvailable",
+                     "path":  "\\Microsoft\\Windows\\input\\"
+                 }
+    },
+    {
+        "kind":  "task",
+        "key":  "\\Microsoft\\Windows\\input\\RemotePenSyncDataAvailable",
+        "when":  "2026-10-21T18:25:23",
+        "data":  {
+                     "name":  "RemotePenSyncDataAvailable",
+                     "path":  "\\Microsoft\\Windows\\input\\"
+                 }
+    },
+    {
+        "kind":  "task",
+        "key":  "\\Microsoft\\Windows\\input\\RemoteTouchpadSyncDataAvailable",
+        "when":  "2026-10-21T18:25:24",
+        "data":  {
+                     "name":  "RemoteTouchpadSyncDataAvailable",
+                     "path":  "\\Microsoft\\Windows\\input\\"
+                 }
+    },
+    {
+        "kind":  "task",
+        "key":  "\\Microsoft\\Windows\\input\\syncpensettings",
+        "when":  "2026-10-21T18:25:25",
+        "data":  {
+                     "name":  "syncpensettings",
+                     "path":  "\\Microsoft\\Windows\\input\\"
+                 }
+    },
+    {
+        "kind":  "task",
+        "key":  "\\Microsoft\\Windows\\input\\TouchpadSyncDataAvailable",
+        "when":  "2026-10-21T18:25:26",
+        "data":  {
+                     "name":  "TouchpadSyncDataAvailable",
+                     "path":  "\\Microsoft\\Windows\\input\\"
+                 }
+    },
+    {
+        "kind":  "task",
+        "key":  "\\Microsoft\\Windows\\InstallService\\RestoreDevice",
+        "when":  "2026-10-21T18:25:26",
+        "data":  {
+                     "name":  "RestoreDevice",
+                     "path":  "\\Microsoft\\Windows\\InstallService\\"
+                 }
+    },
+    {
+        "kind":  "task",
+        "key":  "\\Microsoft\\Windows\\InstallService\\ScanForUpdates",
+        "when":  "2026-10-21T18:25:27",
+        "data":  {
+                     "name":  "ScanForUpdates",
+                     "path":  "\\Microsoft\\Windows\\InstallService\\"
+                 }
+    },
+    {
+        "kind":  "task",
+        "key":  "\\Microsoft\\Windows\\InstallService\\ScanForUpdatesAsUser",
+        "when":  "2026-10-21T18:25:28",
+        "data":  {
+                     "name":  "ScanForUpdatesAsUser",
+                     "path":  "\\Microsoft\\Windows\\InstallService\\"
+                 }
+    },
+    {
+        "kind":  "task",
+        "key":  "\\Microsoft\\Windows\\InstallService\\SmartRetry",
+        "when":  "2026-10-21T18:25:29",
+        "data":  {
+                     "name":  "SmartRetry",
+                     "path":  "\\Microsoft\\Windows\\InstallService\\"
+                 }
+    },
+    {
+        "kind":  "task",
+        "key":  "\\Microsoft\\Windows\\International\\Synchronize Language Settings",
+        "when":  "2026-10-21T18:25:29",
+        "data":  {
+                     "name":  "Synchronize Language Settings",
+                     "path":  "\\Microsoft\\Windows\\International\\"
+                 }
+    },
+    {
+        "kind":  "task",
+        "key":  "\\Microsoft\\Windows\\LanguageComponentsInstaller\\Installation",
+        "when":  "2026-10-21T18:25:30",
+        "data":  {
+                     "name":  "Installation",
+                     "path":  "\\Microsoft\\Windows\\LanguageComponentsInstaller\\"
+                 }
+    },
+    {
+        "kind":  "task",
+        "key":  "\\Microsoft\\Windows\\LanguageComponentsInstaller\\ReconcileLanguageResources",
+        "when":  "2026-10-21T18:25:31",
+        "data":  {
+                     "name":  "ReconcileLanguageResources",
+                     "path":  "\\Microsoft\\Windows\\LanguageComponentsInstaller\\"
+                 }
+    },
+    {
+        "kind":  "task",
+        "key":  "\\Microsoft\\Windows\\Location\\WindowsActionDialog",
+        "when":  "2026-10-21T18:25:32",
+        "data":  {
+                     "name":  "WindowsActionDialog",
+                     "path":  "\\Microsoft\\Windows\\Location\\"
+                 }
+    },
+    {
+        "kind":  "task",
+        "key":  "\\Microsoft\\Windows\\Maintenance\\WinSAT",
+        "when":  "2026-10-21T18:25:32",
+        "data":  {
+                     "name":  "WinSAT",
+                     "path":  "\\Microsoft\\Windows\\Maintenance\\"
+                 }
+    },
+    {
+        "kind":  "task",
+        "key":  "\\Microsoft\\Windows\\Management\\Provisioning\\Cellular",
+        "when":  "2026-10-21T18:25:33",
+        "data":  {
+                     "name":  "Cellular",
+                     "path":  "\\Microsoft\\Windows\\Management\\Provisioning\\"
+                 }
+    },
+    {
+        "kind":  "task",
+        "key":  "\\Microsoft\\Windows\\Management\\Provisioning\\Logon",
+        "when":  "2026-10-21T18:25:34",
+        "data":  {
+                     "name":  "Logon",
+                     "path":  "\\Microsoft\\Windows\\Management\\Provisioning\\"
+                 }
+    },
+    {
+        "kind":  "task",
+        "key":  "\\Microsoft\\Windows\\Maps\\MapsToastTask",
+        "when":  "2026-10-21T18:25:35",
+        "data":  {
+                     "name":  "MapsToastTask",
+                     "path":  "\\Microsoft\\Windows\\Maps\\"
+                 }
+    },
+    {
+        "kind":  "task",
+        "key":  "\\Microsoft\\Windows\\Maps\\MapsUpdateTask",
+        "when":  "2026-10-21T18:25:36",
+        "data":  {
+                     "name":  "MapsUpdateTask",
+                     "path":  "\\Microsoft\\Windows\\Maps\\"
+                 }
+    },
+    {
+        "kind":  "task",
+        "key":  "\\Microsoft\\Windows\\MemoryDiagnostic\\AutomaticOfflineMemoryDiagnostic",
+        "when":  "2026-10-21T18:25:36",
+        "data":  {
+                     "name":  "AutomaticOfflineMemoryDiagnostic",
+                     "path":  "\\Microsoft\\Windows\\MemoryDiagnostic\\"
+                 }
+    },
+    {
+        "kind":  "task",
+        "key":  "\\Microsoft\\Windows\\MemoryDiagnostic\\ProcessMemoryDiagnosticEvents",
+        "when":  "2026-10-21T18:25:37",
+        "data":  {
+                     "name":  "ProcessMemoryDiagnosticEvents",
+                     "path":  "\\Microsoft\\Windows\\MemoryDiagnostic\\"
+                 }
+    },
+    {
+        "kind":  "task",
+        "key":  "\\Microsoft\\Windows\\NlaSvc\\WiFiTask",
+        "when":  "2026-10-21T18:25:38",
+        "data":  {
+                     "name":  "WiFiTask",
+                     "path":  "\\Microsoft\\Windows\\NlaSvc\\"
+                 }
+    },
+    {
+        "kind":  "task",
+        "key":  "\\Microsoft\\Windows\\PerformanceTrace\\ShowFeedbackToast",
+        "when":  "2026-10-21T18:25:39",
+        "data":  {
+                     "name":  "ShowFeedbackToast",
+                     "path":  "\\Microsoft\\Windows\\PerformanceTrace\\"
+                 }
+    },
+    {
+        "kind":  "task",
+        "key":  "\\Microsoft\\Windows\\PerformanceTrace\\WhesvcToast",
+        "when":  "2026-10-21T18:25:39",
+        "data":  {
+                     "name":  "WhesvcToast",
+                     "path":  "\\Microsoft\\Windows\\PerformanceTrace\\"
+                 }
+    },
+    {
+        "kind":  "task",
+        "key":  "\\Microsoft\\Windows\\Power Efficiency Diagnostics\\AnalyzeSystem",
+        "when":  "2026-10-21T18:25:40",
+        "data":  {
+                     "name":  "AnalyzeSystem",
+                     "path":  "\\Microsoft\\Windows\\Power Efficiency Diagnostics\\"
+                 }
+    },
+    {
+        "kind":  "task",
+        "key":  "\\Microsoft\\Windows\\Printing\\EduPrintProv",
+        "when":  "2026-10-21T18:25:41",
+        "data":  {
+                     "name":  "EduPrintProv",
+                     "path":  "\\Microsoft\\Windows\\Printing\\"
+                 }
+    },
+    {
+        "kind":  "task",
+        "key":  "\\Microsoft\\Windows\\Printing\\PrinterCleanupTask",
+        "when":  "2026-10-21T18:25:42",
+        "data":  {
+                     "name":  "PrinterCleanupTask",
+                     "path":  "\\Microsoft\\Windows\\Printing\\"
+                 }
+    },
+    {
+        "kind":  "task",
+        "key":  "\\Microsoft\\Windows\\Registry\\RegIdleBackup",
+        "when":  "2026-10-21T18:25:43",
+        "data":  {
+                     "name":  "RegIdleBackup",
+                     "path":  "\\Microsoft\\Windows\\Registry\\"
+                 }
+    },
+    {
+        "kind":  "task",
+        "key":  "\\Microsoft\\Windows\\Servicing\\StartComponentCleanup",
+        "when":  "2026-10-21T18:25:43",
+        "data":  {
+                     "name":  "StartComponentCleanup",
+                     "path":  "\\Microsoft\\Windows\\Servicing\\"
+                 }
+    },
+    {
+        "kind":  "task",
+        "key":  "\\Microsoft\\Windows\\Shell\\FamilySafetyMonitor",
+        "when":  "2026-10-21T18:25:45",
+        "data":  {
+                     "name":  "FamilySafetyMonitor",
+                     "path":  "\\Microsoft\\Windows\\Shell\\"
+                 }
+    },
+    {
+        "kind":  "task",
+        "key":  "\\Microsoft\\Windows\\Shell\\FamilySafetyRefreshTask",
+        "when":  "2026-10-21T18:25:46",
+        "data":  {
+                     "name":  "FamilySafetyRefreshTask",
+                     "path":  "\\Microsoft\\Windows\\Shell\\"
+                 }
+    },
+    {
+        "kind":  "task",
+        "key":  "\\Microsoft\\Windows\\Shell\\IndexerAutomaticMaintenance",
+        "when":  "2026-10-21T18:25:47",
+        "data":  {
+                     "name":  "IndexerAutomaticMaintenance",
+                     "path":  "\\Microsoft\\Windows\\Shell\\"
+                 }
+    },
+    {
+        "kind":  "task",
+        "key":  "\\Microsoft\\Windows\\Shell\\ThemesSyncedImageDownload",
+        "when":  "2026-10-21T18:25:47",
+        "data":  {
+                     "name":  "ThemesSyncedImageDownload",
+                     "path":  "\\Microsoft\\Windows\\Shell\\"
+                 }
+    },
+    {
+        "kind":  "task",
+        "key":  "\\Microsoft\\Windows\\Shell\\UpdateUserPictureTask",
+        "when":  "2026-10-21T18:25:48",
+        "data":  {
+                     "name":  "UpdateUserPictureTask",
+                     "path":  "\\Microsoft\\Windows\\Shell\\"
+                 }
+    },
+    {
+        "kind":  "task",
+        "key":  "\\Microsoft\\Windows\\Shell\\UpdateUserPictureTaskContained",
+        "when":  "2026-10-21T18:25:49",
+        "data":  {
+                     "name":  "UpdateUserPictureTaskContained",
+                     "path":  "\\Microsoft\\Windows\\Shell\\"
+                 }
+    },
+    {
+        "kind":  "task",
+        "key":  "\\Microsoft\\Windows\\SpacePort\\SpaceAgentTask",
+        "when":  "2026-10-21T18:25:50",
+        "data":  {
+                     "name":  "SpaceAgentTask",
+                     "path":  "\\Microsoft\\Windows\\SpacePort\\"
+                 }
+    },
+    {
+        "kind":  "task",
+        "key":  "\\Microsoft\\Windows\\SpacePort\\SpaceManagerTask",
+        "when":  "2026-10-21T18:25:51",
+        "data":  {
+                     "name":  "SpaceManagerTask",
+                     "path":  "\\Microsoft\\Windows\\SpacePort\\"
+                 }
+    },
+    {
+        "kind":  "task",
+        "key":  "\\Microsoft\\Windows\\Subscription\\EnableLicenseAcquisition",
+        "when":  "2026-10-21T18:25:51",
+        "data":  {
+                     "name":  "EnableLicenseAcquisition",
+                     "path":  "\\Microsoft\\Windows\\Subscription\\"
+                 }
+    },
+    {
+        "kind":  "task",
+        "key":  "\\Microsoft\\Windows\\Sustainability\\PowerGridForecastTask",
+        "when":  "2026-10-21T18:25:52",
+        "data":  {
+                     "name":  "PowerGridForecastTask",
+                     "path":  "\\Microsoft\\Windows\\Sustainability\\"
+                 }
+    },
+    {
+        "kind":  "task",
+        "key":  "\\Microsoft\\Windows\\Sustainability\\SustainabilityTelemetry",
+        "when":  "2026-10-21T18:25:53",
+        "data":  {
+                     "name":  "SustainabilityTelemetry",
+                     "path":  "\\Microsoft\\Windows\\Sustainability\\"
+                 }
+    },
+    {
+        "kind":  "task",
+        "key":  "\\Microsoft\\Windows\\Sysmain\\ResPriStaticDbSync",
+        "when":  "2026-10-21T18:25:54",
+        "data":  {
+                     "name":  "ResPriStaticDbSync",
+                     "path":  "\\Microsoft\\Windows\\Sysmain\\"
+                 }
+    },
+    {
+        "kind":  "task",
+        "key":  "\\Microsoft\\Windows\\Sysmain\\WsSwapAssessmentTask",
+        "when":  "2026-10-21T18:25:55",
+        "data":  {
+                     "name":  "WsSwapAssessmentTask",
+                     "path":  "\\Microsoft\\Windows\\Sysmain\\"
+                 }
+    },
+    {
+        "kind":  "task",
+        "key":  "\\Microsoft\\Windows\\SystemRestore\\SR",
+        "when":  "2026-10-21T18:25:55",
+        "data":  {
+                     "name":  "SR",
+                     "path":  "\\Microsoft\\Windows\\SystemRestore\\"
+                 }
+    },
+    {
+        "kind":  "task",
+        "key":  "\\Microsoft\\Windows\\Time Synchronization\\ForceSynchronizeTime",
+        "when":  "2026-10-21T18:25:56",
+        "data":  {
+                     "name":  "ForceSynchronizeTime",
+                     "path":  "\\Microsoft\\Windows\\Time Synchronization\\"
+                 }
+    },
+    {
+        "kind":  "task",
+        "key":  "\\Microsoft\\Windows\\Time Synchronization\\SynchronizeTime",
+        "when":  "2026-10-21T18:25:57",
+        "data":  {
+                     "name":  "SynchronizeTime",
+                     "path":  "\\Microsoft\\Windows\\Time Synchronization\\"
+                 }
+    },
+    {
+        "kind":  "task",
+        "key":  "\\Microsoft\\Windows\\Time Zone\\SynchronizeTimeZone",
+        "when":  "2026-10-21T18:25:58",
+        "data":  {
+                     "name":  "SynchronizeTimeZone",
+                     "path":  "\\Microsoft\\Windows\\Time Zone\\"
+                 }
+    },
+    {
+        "kind":  "task",
+        "key":  "\\Microsoft\\Windows\\UPnP\\UPnPHostConfig",
+        "when":  "2026-10-21T18:25:59",
+        "data":  {
+                     "name":  "UPnPHostConfig",
+                     "path":  "\\Microsoft\\Windows\\UPnP\\"
+                 }
+    },
+    {
+        "kind":  "task",
+        "key":  "\\Microsoft\\Windows\\WCM\\WiFiTask",
+        "when":  "2026-10-21T18:25:59",
+        "data":  {
+                     "name":  "WiFiTask",
+                     "path":  "\\Microsoft\\Windows\\WCM\\"
+                 }
+    },
+    {
+        "kind":  "task",
+        "key":  "\\Microsoft\\Windows\\WDI\\ResolutionHost",
+        "when":  "2026-10-21T18:26:00",
+        "data":  {
+                     "name":  "ResolutionHost",
+                     "path":  "\\Microsoft\\Windows\\WDI\\"
+                 }
+    },
+    {
+        "kind":  "task",
+        "key":  "\\Microsoft\\Windows\\Windows Defender\\Windows Defender Cache Maintenance",
+        "when":  "2026-10-21T18:26:01",
+        "data":  {
+                     "name":  "Windows Defender Cache Maintenance",
+                     "path":  "\\Microsoft\\Windows\\Windows Defender\\"
+                 }
+    },
+    {
+        "kind":  "task",
+        "key":  "\\Microsoft\\Windows\\Windows Defender\\Windows Defender Cleanup",
+        "when":  "2026-10-21T18:26:02",
+        "data":  {
+                     "name":  "Windows Defender Cleanup",
+                     "path":  "\\Microsoft\\Windows\\Windows Defender\\"
+                 }
+    },
+    {
+        "kind":  "task",
+        "key":  "\\Microsoft\\Windows\\Windows Defender\\Windows Defender Scheduled Scan",
+        "when":  "2026-10-21T18:26:02",
+        "data":  {
+                     "name":  "Windows Defender Scheduled Scan",
+                     "path":  "\\Microsoft\\Windows\\Windows Defender\\"
+                 }
+    },
+    {
+        "kind":  "task",
+        "key":  "\\Microsoft\\Windows\\Windows Defender\\Windows Defender Verification",
+        "when":  "2026-10-21T18:26:03",
+        "data":  {
+                     "name":  "Windows Defender Verification",
+                     "path":  "\\Microsoft\\Windows\\Windows Defender\\"
+                 }
+    },
+    {
+        "kind":  "task",
+        "key":  "\\Microsoft\\Windows\\Windows Error Reporting\\QueueReporting",
+        "when":  "2026-10-21T18:26:04",
+        "data":  {
+                     "name":  "QueueReporting",
+                     "path":  "\\Microsoft\\Windows\\Windows Error Reporting\\"
+                 }
+    },
+    {
+        "kind":  "task",
+        "key":  "\\Microsoft\\Windows\\Windows Media Sharing\\UpdateLibrary",
+        "when":  "2026-10-21T18:26:05",
+        "data":  {
+                     "name":  "UpdateLibrary",
+                     "path":  "\\Microsoft\\Windows\\Windows Media Sharing\\"
+                 }
+    },
+    {
+        "kind":  "task",
+        "key":  "\\Microsoft\\Windows\\WindowsUpdate\\Refresh Group Policy Cache",
+        "when":  "2026-10-21T18:26:06",
+        "data":  {
+                     "name":  "Refresh Group Policy Cache",
+                     "path":  "\\Microsoft\\Windows\\WindowsUpdate\\"
+                 }
+    },
+    {
+        "kind":  "task",
+        "key":  "\\Microsoft\\Windows\\WindowsUpdate\\Scheduled Start",
+        "when":  "2026-10-21T18:26:06",
+        "data":  {
+                     "name":  "Scheduled Start",
+                     "path":  "\\Microsoft\\Windows\\WindowsUpdate\\"
+                 }
+    },
+    {
+        "kind":  "task",
+        "key":  "\\Microsoft\\Windows\\WlanSvc\\CDSSync",
+        "when":  "2026-10-21T18:26:07",
+        "data":  {
+                     "name":  "CDSSync",
+                     "path":  "\\Microsoft\\Windows\\WlanSvc\\"
+                 }
+    },
+    {
+        "kind":  "task",
+        "key":  "\\Microsoft\\Windows\\WlanSvc\\MoProfileManagement",
+        "when":  "2026-10-21T18:26:08",
+        "data":  {
+                     "name":  "MoProfileManagement",
+                     "path":  "\\Microsoft\\Windows\\WlanSvc\\"
+                 }
+    },
+    {
+        "kind":  "task",
+        "key":  "\\Microsoft\\Windows\\Work Folders\\Work Folders Logon Synchronization",
+        "when":  "2026-10-21T18:26:09",
+        "data":  {
+                     "name":  "Work Folders Logon Synchronization",
+                     "path":  "\\Microsoft\\Windows\\Work Folders\\"
+                 }
+    },
+    {
+        "kind":  "task",
+        "key":  "\\Microsoft\\Windows\\Work Folders\\Work Folders Maintenance Work",
+        "when":  "2026-10-21T18:26:10",
+        "data":  {
+                     "name":  "Work Folders Maintenance Work",
+                     "path":  "\\Microsoft\\Windows\\Work Folders\\"
+                 }
+    },
+    {
+        "kind":  "task",
+        "key":  "\\Microsoft\\Windows\\WwanSvc\\NotificationTask",
+        "when":  "2026-10-21T18:26:10",
+        "data":  {
+                     "name":  "NotificationTask",
+                     "path":  "\\Microsoft\\Windows\\WwanSvc\\"
+                 }
+    },
+    {
+        "kind":  "task",
+        "key":  "\\Microsoft\\Windows\\WwanSvc\\OobeDiscovery",
+        "when":  "2026-10-21T18:26:11",
+        "data":  {
+                     "name":  "OobeDiscovery",
+                     "path":  "\\Microsoft\\Windows\\WwanSvc\\"
+                 }
+    },
+    {
+        "kind":  "task",
+        "key":  "\\Mozilla\\Firefox Background Update S-1-5-21-546694188-126083826-4013810330-1001 308046B0AF4A39CB",
+        "when":  "2026-10-21T18:26:12",
+        "data":  {
+                     "name":  "Firefox Background Update S-1-5-21-546694188-126083826-4013810330-1001 308046B0AF4A39CB",
+                     "path":  "\\Mozilla\\"
+                 }
+    },
+    {
+        "kind":  "task",
+        "key":  "\\Mozilla\\Firefox Background Update S-1-5-21-546694188-126083826-4013810330-1001 BFCFDCF42A915CC6",
+        "when":  "2026-10-21T18:26:13",
+        "data":  {
+                     "name":  "Firefox Background Update S-1-5-21-546694188-126083826-4013810330-1001 BFCFDCF42A915CC6",
+                     "path":  "\\Mozilla\\"
+                 }
+    },
+    {
+        "kind":  "task",
+        "key":  "\\Mozilla\\Firefox Default Browser Agent 308046B0AF4A39CB",
+        "when":  "2026-10-21T18:26:13",
+        "data":  {
+                     "name":  "Firefox Default Browser Agent 308046B0AF4A39CB",
+                     "path":  "\\Mozilla\\"
+                 }
+    },
+    {
+        "kind":  "task",
+        "key":  "\\Mozilla\\Firefox Default Browser Agent BFCFDCF42A915CC6",
+        "when":  "2026-10-21T18:26:15",
+        "data":  {
+                     "name":  "Firefox Default Browser Agent BFCFDCF42A915CC6",
+                     "path":  "\\Mozilla\\"
+                 }
+    },
+    {
+        "kind":  "task",
+        "key":  "\\SoftLanding\\S-1-5-21-546694188-126083826-4013810330-1002\\SoftLandingCreativeManagementTask",
+        "when":  "2026-10-21T18:26:16",
+        "data":  {
+                     "name":  "SoftLandingCreativeManagementTask",
+                     "path":  "\\SoftLanding\\S-1-5-21-546694188-126083826-4013810330-1002\\"
+                 }
+    },
+    {
+        "kind":  "startup",
+        "key":  "HKCU:\\Software\\Microsoft\\Windows\\CurrentVersion\\Explorer\\StartupApproved\\Run|LenovoVantageToolbar",
+        "when":  "2026-10-21T18:26:17",
+        "data":  {
+                     "appr":  "HKCU:\\Software\\Microsoft\\Windows\\CurrentVersion\\Explorer\\StartupApproved\\Run",
+                     "had":  true,
+                     "name":  "LenovoVantageToolbar",
+                     "bytes":  [
+                                   2,
+                                   0,
+                                   0,
+                                   0,
+                                   0,
+                                   0,
+                                   0,
+                                   0,
+                                   0,
+                                   0,
+                                   0,
+                                   0
+                               ]
+                 }
+    },
+    {
+        "kind":  "startup",
+        "key":  "HKCU:\\Software\\Microsoft\\Windows\\CurrentVersion\\Explorer\\StartupApproved\\Run|Universal Control",
+        "when":  "2026-10-21T18:26:17",
+        "data":  {
+                     "appr":  "HKCU:\\Software\\Microsoft\\Windows\\CurrentVersion\\Explorer\\StartupApproved\\Run",
+                     "had":  true,
+                     "name":  "Universal Control",
+                     "bytes":  [
+                                   2,
+                                   0,
+                                   0,
+                                   0,
+                                   0,
+                                   0,
+                                   0,
+                                   0,
+                                   0,
+                                   0,
+                                   0,
+                                   0
+                               ]
+                 }
+    },
+    {
+        "kind":  "startup",
+        "key":  "HKCU:\\Software\\Microsoft\\Windows\\CurrentVersion\\Explorer\\StartupApproved\\Run|Proton VPN",
+        "when":  "2026-10-21T18:26:17",
+        "data":  {
+                     "appr":  "HKCU:\\Software\\Microsoft\\Windows\\CurrentVersion\\Explorer\\StartupApproved\\Run",
+                     "had":  false,
+                     "name":  "Proton VPN",
+                     "bytes":  {
+
+                               }
+                 }
+    },
+    {
+        "kind":  "startup",
+        "key":  "HKCU:\\Software\\Microsoft\\Windows\\CurrentVersion\\Explorer\\StartupApproved\\Run|Proton Drive",
+        "when":  "2026-10-21T18:26:17",
+        "data":  {
+                     "appr":  "HKCU:\\Software\\Microsoft\\Windows\\CurrentVersion\\Explorer\\StartupApproved\\Run",
+                     "had":  false,
+                     "name":  "Proton Drive",
+                     "bytes":  {
+
+                               }
+                 }
+    },
+    {
+        "kind":  "startup",
+        "key":  "HKLM:\\SOFTWARE\\Microsoft\\Windows\\CurrentVersion\\Explorer\\StartupApproved\\Run32|SunJavaUpdateSched",
+        "when":  "2026-10-21T18:26:17",
+        "data":  {
+                     "appr":  "HKLM:\\SOFTWARE\\Microsoft\\Windows\\CurrentVersion\\Explorer\\StartupApproved\\Run32",
+                     "had":  false,
+                     "name":  "SunJavaUpdateSched",
+                     "bytes":  {
+
+                               }
+                 }
+    },
+    {
+        "kind":  "startup",
+        "key":  "HKLM:\\SOFTWARE\\Microsoft\\Windows\\CurrentVersion\\Explorer\\StartupApproved\\Run32|Dropbox",
+        "when":  "2026-10-21T18:26:17",
+        "data":  {
+                     "appr":  "HKLM:\\SOFTWARE\\Microsoft\\Windows\\CurrentVersion\\Explorer\\StartupApproved\\Run32",
+                     "had":  true,
+                     "name":  "Dropbox",
+                     "bytes":  [
+                                   2,
+                                   0,
+                                   0,
+                                   0,
+                                   0,
+                                   0,
+                                   0,
+                                   0,
+                                   0,
+                                   0,
+                                   0,
+                                   0
+                               ]
+                 }
+    },
+    {
+        "kind":  "startup",
+        "key":  "HKLM:\\SOFTWARE\\Microsoft\\Windows\\CurrentVersion\\Explorer\\StartupApproved\\StartupFolder|Update UWP App.lnk",
+        "when":  "2026-10-21T18:26:17",
+        "data":  {
+                     "appr":  "HKLM:\\SOFTWARE\\Microsoft\\Windows\\CurrentVersion\\Explorer\\StartupApproved\\StartupFolder",
+                     "had":  true,
+                     "name":  "Update UWP App.lnk",
+                     "bytes":  [
+                                   2,
+                                   0,
+                                   0,
+                                   0,
+                                   0,
+                                   0,
+                                   0,
+                                   0,
+                                   0,
+                                   0,
+                                   0,
+                                   0
+                               ]
+                 }
+    },
+    {
+        "kind":  "tune",
+        "key":  "Bidule",
+        "when":  "2026-10-21T18:27:31",
+        "data":  {
+                     "prio":  "Normal",
+                     "mask":  4095
+                 }
+    },
+    {
+        "kind":  "power",
+        "key":  "proaudio",
+        "when":  "2026-10-22T09:59:53",
+        "data":  {
+                     "prev":  "0637fa82-e2e1-4cb6-8e1f-5774bca33b1c",
+                     "new":  "635d8c3f-0a4d-4a47-9776-722eb5c794c7"
+                 }
+    }
+]

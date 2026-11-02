@@ -1,0 +1,1943 @@
+11:28:18  admin: False   cores: 12   hybrid: True   fast mask: 15   slow mask: 4080
+11:28:18  services listed: 39   present here: 39
+11:28:20  tasks in 'Pause': 114
+11:28:20  tasks in 'Your call': 9
+11:28:20  tasks in 'Leave alone': 39
+11:28:20  startup items: 14
+11:28:20  radios: Bluetooth=On  WiFi=On
+11:28:20  journal entries: 0
+11:28:51  cores: 12  hybrid chip: True
+11:28:53  ready. Nothing has been changed yet.
+11:40:18  cores: 12  hybrid chip: True
+11:40:20  ready. Nothing has been changed yet.
+11:43:43  cores: 12  hybrid chip: True
+11:43:46  ready. Nothing has been changed yet.
+11:44:07  cores: 12  hybrid chip: True
+11:44:10  ready. Nothing has been changed yet.
+11:44:18  Bluetooth turned Off
+11:44:18  Bluetooth turned On
+11:44:18  Bluetooth turned Off
+11:44:18    could not stop bthserv: Service 'Bluetooth Support Service (bthserv)' cannot be stopped due to the following error: Cannot open bthserv service on computer '.'.
+11:44:18    could not stop BTAGService: Service 'Bluetooth Audio Gateway Service (BTAGService)' cannot be stopped due to the following error: Cannot open BTAGService service on computer '.'.
+11:44:18    could not stop BthAvctpSvc: Service 'AVCTP service (BthAvctpSvc)' cannot be stopped due to the following error: Cannot open BthAvctpSvc service on computer '.'.
+11:44:18    could not stop BluetoothUserService_a6329: Service 'BluetoothUserService_a6329 (BluetoothUserService_a6329)' cannot be stopped due to the following error: Cannot open BluetoothUserService_a6329 service on computer '.'.
+11:44:18    could not stop bthserv: Service 'Bluetooth Support Service (bthserv)' cannot be stopped due to the following error: Cannot open bthserv service on computer '.'.
+11:44:19    could not stop BTAGService: Service 'Bluetooth Audio Gateway Service (BTAGService)' cannot be stopped due to the following error: Cannot open BTAGService service on computer '.'.
+11:44:19    could not stop BthAvctpSvc: Service 'AVCTP service (BthAvctpSvc)' cannot be stopped due to the following error: Cannot open BthAvctpSvc service on computer '.'.
+11:44:19    could not stop BluetoothUserService_a6329: Service 'BluetoothUserService_a6329 (BluetoothUserService_a6329)' cannot be stopped due to the following error: Cannot open BluetoothUserService_a6329 service on computer '.'.
+11:45:17  cores: 12  hybrid chip: True
+11:45:22  ready. Nothing has been changed yet.
+11:49:35  cores: 12  hybrid chip: True
+11:49:38  ready. Nothing has been changed yet.
+11:49:49  layout loaded: zz-test
+11:58:31  cores: 12  hybrid chip: True
+11:58:35  ready. Nothing has been changed yet.
+11:58:46  layout loaded: zz-test
+12:01:24  Bidule not found. Fix the path in bidoptimize11.settings.psd1
+12:03:12  Bluetooth turned On
+12:03:23  Bluetooth turned Off
+12:03:24  stopped service: Bluetooth Support Service
+12:03:24  stopped service: Bluetooth Audio Gateway Service
+12:03:25  stopped service: AVCTP service
+12:05:52  cores: 12  hybrid chip: True
+12:05:56  ready. Nothing has been changed yet.
+12:08:12  layout folder: C:\Users\rich\Dropbox\audio\bidoptimize\11
+12:08:29  Bluetooth turned Off
+12:12:18  cores: 12  hybrid chip: True
+12:12:23  ready. Nothing has been changed yet.
+12:12:34  tuned b11victim (pid 3912): priority BelowNormal, cores 4-5
+12:12:34  undone: priority and cores of b11victim
+12:12:34  layout loaded: zz-test
+12:18:43  cores: 12  hybrid chip: True
+12:18:48  ready. Nothing has been changed yet.
+12:18:53  Bluetooth turned Off
+12:18:53  stopped service: Bluetooth Audio Gateway Service
+12:18:53  stopped service: AVCTP service
+12:24:27  no app chosen. Tick an app on the App + helpers tab
+12:27:41  cores: 12  hybrid chip: True
+12:27:45  ready. Nothing has been changed yet.
+12:28:03  started Ableton Live 12 Suite.exe  priority High  cores All
+12:29:25  status refreshed
+12:34:16  status refreshed
+12:34:35  started Ableton Live 12 Suite.exe  priority High  cores All
+12:34:38  started Ableton Live 12 Suite.exe  priority High  cores All
+12:40:18  status refreshed
+12:40:26  started Ableton Live 12 Suite.exe  priority High  cores All
+12:41:11  started Bidule.exe  priority Normal  cores All
+12:41:25  added to Apps: Bidule
+12:42:19  started Ableton Live 12 Suite.exe  priority High  cores All
+12:42:19  started Ableton Live 12 Suite.exe  priority High  cores All
+12:42:33  started Bidule.exe  priority Normal  cores All
+13:09:40  layout saved: default
+18:16:38  cores: 12  hybrid chip: True
+18:16:43  layout loaded: default
+18:16:43  ready. Nothing has been changed yet.
+18:18:51  started Ableton Live 12 Suite.exe  priority High  cores All
+18:19:51  select one or more apps first
+18:19:57  select one or more apps first
+18:20:10  started Ableton Live 12 Suite.exe  priority High  cores All
+18:20:30  started Bidule.exe  priority Normal  cores All
+18:23:33  closed program: Dropbox
+18:23:51  --- optimizing ---
+18:23:51  power plan: switched to a high-performance copy
+18:23:51  setting changed: UAC quiet: administrators are never asked for permission (UAC stays on; no restart needed)
+18:23:51  setting changed: Game Mode off
+18:23:51  setting changed: Game recording off
+18:23:53  closed program: ProtonDrive
+18:23:54  closed program: Gajim
+18:23:56  closed program: SDXHelper
+18:23:56  stopped service: Connected User Experiences and Telemetry
+18:23:56  stopped service: Data Usage
+18:23:56  stopped service: Update Orchestrator Service
+18:23:56  stopped service: Background Intelligent Transfer Service
+18:23:58  stopped service: Delivery Optimization
+18:23:58  stopped service: Windows Search
+18:23:58  stopped service: SysMain
+18:23:58  stopped service: Print Spooler
+18:23:59  stopped service: Diagnostic Policy Service
+18:23:59  stopped service: Program Compatibility Assistant Service
+18:24:00  stopped service: Geolocation Service
+18:24:00  stopped service: Phone Service
+18:24:00  stopped service: Windows Image Acquisition (WIA)
+18:24:00  stopped service: Microsoft Office Click-to-Run Service
+18:24:00  stopped service: Bonjour Service
+18:24:01  stopped service: Critical Service for Lenovo Vantage
+18:24:02  paused task: \BraveSoftwareUpdateTaskMachineCore{137CAE5D-42A2-4C8E-BFCE-DF0B392A5526}
+18:24:03  paused task: \BraveSoftwareUpdateTaskMachineUA{061867A0-FDB0-4961-8907-5DA2FB3C66BC}
+18:24:03  paused task: \LastPassUpdater
+18:24:04  paused task: \MicrosoftEdgeUpdateTaskMachineCore{D2799CF4-E121-4922-8B77-AD0646920725}
+18:24:05  paused task: \MicrosoftEdgeUpdateTaskMachineUA{883A5E2A-0595-480E-A4EC-536F847650F5}
+18:24:06  paused task: \Proton VPN NRPT watchdog
+18:24:07  paused task: \ZoomUpdateTaskUser-S-1-5-21-546694188-126083826-4013810330-1001
+18:24:07  paused task: \DropboxSystem\DropboxUpdater\DropboxUpdaterTaskSystem123.0.6299.152{857AC886-0701-4EE0-A53F-DFBBEC026671}
+18:24:08  paused task: \GoogleSystem\GoogleUpdater\GoogleUpdaterTaskSystem152.0.7933.0{94F9AC43-B1EA-45F7-AA84-098CCE5B7CFB}
+18:24:09  paused task: \GoogleSystem\GoogleUpdater\GoogleUpdaterTaskSystem157.0.8089.0{5678B8B9-7C76-41CB-B179-6DC74F67A85F}
+18:24:10  paused task: \Lenovo\LenovoMachineFixUser_OOBE_AUTO_Notification
+18:24:11  paused task: \Lenovo\ImController\Lenovo iM Controller Monitor
+18:24:11  paused task: \Lenovo\ImController\Lenovo iM Controller Scheduled Maintenance
+18:24:12  paused task: \Lenovo\ImController\TimeBasedEvents\231a179f-2b74-40d1-8dff-caa05d507608
+18:24:13  paused task: \Lenovo\UDC\Lenovo UDC Lazy Deployment
+18:24:15  paused task: \Lenovo\UDC\Lenovo UDC Maintainance Task
+18:24:16  paused task: \Lenovo\UDC\Lenovo UDC Monitor
+18:24:16  paused task: \Lenovo\Vantage\Lenovo.Vantage.ServiceMaintainance
+18:24:17  paused task: \Lenovo\Vantage\Schedule\BatteryGaugeAddinDailyScheduleTask
+18:24:18  paused task: \Lenovo\Vantage\Schedule\ConsumerAddinDailyScheduleTask
+18:24:19  paused task: \Lenovo\Vantage\Schedule\DailyTelemetryTransmission
+18:24:19  paused task: \Lenovo\Vantage\Schedule\GenericMessagingAddin
+18:24:20  paused task: \Lenovo\Vantage\Schedule\GenericMessagingAddin_Pulsation
+18:24:21  paused task: \Lenovo\Vantage\Schedule\HeartbeatAddinDailyScheduleTask
+18:24:22  paused task: \Lenovo\Vantage\Schedule\IdeaNotebookAddinDailyEvent
+18:24:22  paused task: \Lenovo\Vantage\Schedule\Lenovo.Vantage.SmartPerformance.MonthlyReport
+18:24:23  paused task: \Lenovo\Vantage\Schedule\Lenovo.Vantage.SmartPerformance.SScan
+18:24:24  paused task: \Lenovo\Vantage\Schedule\LenovoCompanionAppAddinDailyScheduleTask
+18:24:25  paused task: \Lenovo\Vantage\Schedule\LenovoSupportContextEngineDaily
+18:24:26  paused task: \Lenovo\Vantage\Schedule\LenovoSupportHealthReportSchedule
+18:24:26  paused task: \Lenovo\Vantage\Schedule\LenovoSystemUpdateAddin_WeeklyTask
+18:24:27  paused task: \Lenovo\Vantage\Schedule\LiveWallpaperDailyScheduleTask
+18:24:28  paused task: \Lenovo\Vantage\Schedule\LiveWallpaperScheduleTask
+18:24:29  paused task: \Lenovo\Vantage\Schedule\SettingsWidgetAddinDailyScheduleTask
+18:24:29  paused task: \Lenovo\Vantage\Schedule\SmartLock.ExpireReminder
+18:24:30  paused task: \Lenovo\Vantage\Schedule\SmartPerformance.ExpireReminder
+18:24:31  paused task: \Lenovo\Vantage\Schedule\VantageCoreAddinDailyScheduleTask
+18:24:32  paused task: \Lenovo\Vantage\Schedule\VantageCoreAddinIdleScheduleTask
+18:24:32  paused task: \Lenovo\Vantage\Schedule\VantageCoreAddinWeekScheduleTask
+18:24:33  paused task: \McAfee\wps\McAfee Sync Agent Pilot
+18:24:34  paused task: \Microsoft\Office\Office Actions Server
+18:24:35  paused task: \Microsoft\Office\Office Automatic Updates 2.0
+18:24:35  paused task: \Microsoft\Office\Office Background Push Maintenance
+18:24:36  paused task: \Microsoft\Office\Office ClickToRun Service Monitor
+18:24:37  paused task: \Microsoft\Office\Office Feature Updates
+18:24:38  paused task: \Microsoft\Office\Office Feature Updates Logon
+18:24:38  paused task: \Microsoft\Office\Office Performance Monitor
+18:24:39  paused task: \Microsoft\Office\Office Startup Maintenance
+18:24:40  paused task: \Microsoft\VisualStudio\Updates\BackgroundDownload
+18:24:41  paused task: \Microsoft\Windows\.NET Framework\.NET Framework NGEN v4.0.30319
+18:24:42  paused task: \Microsoft\Windows\.NET Framework\.NET Framework NGEN v4.0.30319 64
+18:24:42  paused task: \Microsoft\Windows\Application Experience\MareBackup
+18:24:43  paused task: \Microsoft\Windows\Application Experience\Microsoft Compatibility Appraiser Exp
+18:24:45  paused task: \Microsoft\Windows\Application Experience\PcaPatchDbTask
+18:24:46    could not pause \Microsoft\Windows\Application Experience\SdbinstMergeDbTask : Access is denied.
+
+18:24:46  paused task: \Microsoft\Windows\Application Experience\StartupAppTask
+18:24:47  paused task: \Microsoft\Windows\AppListBackup\Backup
+18:24:48  paused task: \Microsoft\Windows\AppListBackup\BackupNonMaintenance
+18:24:49    could not pause \Microsoft\Windows\BitLocker\BitLocker Encrypt All Drives : Access is denied.
+
+18:24:50    could not pause \Microsoft\Windows\BitLocker\BitLocker MDM policy Refresh : Access is denied.
+
+18:24:50  paused task: \Microsoft\Windows\Chkdsk\ProactiveScan
+18:24:51  paused task: \Microsoft\Windows\CloudRestore\Backup
+18:24:52  paused task: \Microsoft\Windows\CloudRestore\Restore
+18:24:53  paused task: \Microsoft\Windows\ConsentUX\UnifiedConsent\UnifiedConsentSyncTask
+18:24:54  paused task: \Microsoft\Windows\Customer Experience Improvement Program\Consolidator
+18:24:54  paused task: \Microsoft\Windows\Customer Experience Improvement Program\UsbCeip
+18:24:55  paused task: \Microsoft\Windows\Data Integrity Scan\Data Integrity Check And Scan
+18:24:56  paused task: \Microsoft\Windows\Data Integrity Scan\Data Integrity Scan
+18:24:57  paused task: \Microsoft\Windows\Data Integrity Scan\Data Integrity Scan for Crash Recovery
+18:24:58  paused task: \Microsoft\Windows\Defrag\ScheduledDefrag
+18:24:58  paused task: \Microsoft\Windows\Device Information\Device
+18:24:59  paused task: \Microsoft\Windows\Device Information\Device User
+18:25:00  paused task: \Microsoft\Windows\Diagnosis\RecommendedTroubleshootingScanner
+18:25:01  paused task: \Microsoft\Windows\Diagnosis\Scheduled
+18:25:01  paused task: \Microsoft\Windows\Diagnosis\UnexpectedCodepath
+18:25:02  paused task: \Microsoft\Windows\DiskCleanup\SilentCleanup
+18:25:03  paused task: \Microsoft\Windows\DiskFootprint\Diagnostics
+18:25:04  paused task: \Microsoft\Windows\DiskFootprint\StorageSense
+18:25:04  paused task: \Microsoft\Windows\DUSM\dusmtask
+18:25:05    could not pause \Microsoft\Windows\EDP\EDP App Launch Task : Access is denied.
+
+18:25:06    could not pause \Microsoft\Windows\EDP\EDP Auth Task : Access is denied.
+
+18:25:07    could not pause \Microsoft\Windows\EDP\EDP Inaccessible Credentials Task : Access is denied.
+
+18:25:08    could not pause \Microsoft\Windows\EDP\StorageCardEncryption Task : Access is denied.
+
+18:25:08  paused task: \Microsoft\Windows\ExploitGuard\ExploitGuard MDM policy Refresh
+18:25:09  paused task: \Microsoft\Windows\Feedback\Siuf\DmClient
+18:25:10  paused task: \Microsoft\Windows\Feedback\Siuf\DmClientOnScenarioDownload
+18:25:11  paused task: \Microsoft\Windows\FileHistory\File History (maintenance mode)
+18:25:11  paused task: \Microsoft\Windows\Flighting\FeatureConfig\GovernedFeatureUsageProcessing
+18:25:12  paused task: \Microsoft\Windows\Flighting\FeatureConfig\ReconcileConfigs
+18:25:13  paused task: \Microsoft\Windows\Flighting\FeatureConfig\ReconcileFeatures
+18:25:15  paused task: \Microsoft\Windows\Flighting\FeatureConfig\SafeguardsReconciliation
+18:25:16  paused task: \Microsoft\Windows\Flighting\FeatureConfig\UsageDataFlushing
+18:25:16  paused task: \Microsoft\Windows\Flighting\FeatureConfig\UsageDataReceiver
+18:25:17  paused task: \Microsoft\Windows\Flighting\FeatureConfig\UsageDataReporting
+18:25:18  paused task: \Microsoft\Windows\Flighting\OneSettings\RefreshCache
+18:25:19  paused task: \Microsoft\Windows\Hotpatch\Monitoring
+18:25:19  paused task: \Microsoft\Windows\input\InputSettingsRestoreDataAvailable
+18:25:20  paused task: \Microsoft\Windows\input\LocalUserSyncDataAvailable
+18:25:21  paused task: \Microsoft\Windows\input\MouseSyncDataAvailable
+18:25:22  paused task: \Microsoft\Windows\input\PenSyncDataAvailable
+18:25:23  paused task: \Microsoft\Windows\input\RemoteMouseSyncDataAvailable
+18:25:23  paused task: \Microsoft\Windows\input\RemotePenSyncDataAvailable
+18:25:24  paused task: \Microsoft\Windows\input\RemoteTouchpadSyncDataAvailable
+18:25:25  paused task: \Microsoft\Windows\input\syncpensettings
+18:25:26  paused task: \Microsoft\Windows\input\TouchpadSyncDataAvailable
+18:25:26  paused task: \Microsoft\Windows\InstallService\RestoreDevice
+18:25:27  paused task: \Microsoft\Windows\InstallService\ScanForUpdates
+18:25:28  paused task: \Microsoft\Windows\InstallService\ScanForUpdatesAsUser
+18:25:29  paused task: \Microsoft\Windows\InstallService\SmartRetry
+18:25:30  paused task: \Microsoft\Windows\International\Synchronize Language Settings
+18:25:30  paused task: \Microsoft\Windows\LanguageComponentsInstaller\Installation
+18:25:31  paused task: \Microsoft\Windows\LanguageComponentsInstaller\ReconcileLanguageResources
+18:25:32  paused task: \Microsoft\Windows\Location\WindowsActionDialog
+18:25:33  paused task: \Microsoft\Windows\Maintenance\WinSAT
+18:25:33  paused task: \Microsoft\Windows\Management\Provisioning\Cellular
+18:25:34  paused task: \Microsoft\Windows\Management\Provisioning\Logon
+18:25:35  paused task: \Microsoft\Windows\Maps\MapsToastTask
+18:25:36  paused task: \Microsoft\Windows\Maps\MapsUpdateTask
+18:25:36  paused task: \Microsoft\Windows\MemoryDiagnostic\AutomaticOfflineMemoryDiagnostic
+18:25:37  paused task: \Microsoft\Windows\MemoryDiagnostic\ProcessMemoryDiagnosticEvents
+18:25:38  paused task: \Microsoft\Windows\NlaSvc\WiFiTask
+18:25:39  paused task: \Microsoft\Windows\PerformanceTrace\ShowFeedbackToast
+18:25:40  paused task: \Microsoft\Windows\PerformanceTrace\WhesvcToast
+18:25:40  paused task: \Microsoft\Windows\Power Efficiency Diagnostics\AnalyzeSystem
+18:25:41  paused task: \Microsoft\Windows\Printing\EduPrintProv
+18:25:42  paused task: \Microsoft\Windows\Printing\PrinterCleanupTask
+18:25:43  paused task: \Microsoft\Windows\Registry\RegIdleBackup
+18:25:43  paused task: \Microsoft\Windows\Servicing\StartComponentCleanup
+18:25:45  paused task: \Microsoft\Windows\Shell\FamilySafetyMonitor
+18:25:46  paused task: \Microsoft\Windows\Shell\FamilySafetyRefreshTask
+18:25:47  paused task: \Microsoft\Windows\Shell\IndexerAutomaticMaintenance
+18:25:48  paused task: \Microsoft\Windows\Shell\ThemesSyncedImageDownload
+18:25:48    could not pause \Microsoft\Windows\Shell\UpdateUserPictureTask : Access is denied.
+
+18:25:49    could not pause \Microsoft\Windows\Shell\UpdateUserPictureTaskContained : Access is denied.
+
+18:25:50  paused task: \Microsoft\Windows\SpacePort\SpaceAgentTask
+18:25:51  paused task: \Microsoft\Windows\SpacePort\SpaceManagerTask
+18:25:51  paused task: \Microsoft\Windows\Subscription\EnableLicenseAcquisition
+18:25:52  paused task: \Microsoft\Windows\Sustainability\PowerGridForecastTask
+18:25:53  paused task: \Microsoft\Windows\Sustainability\SustainabilityTelemetry
+18:25:54  paused task: \Microsoft\Windows\Sysmain\ResPriStaticDbSync
+18:25:55  paused task: \Microsoft\Windows\Sysmain\WsSwapAssessmentTask
+18:25:55  paused task: \Microsoft\Windows\SystemRestore\SR
+18:25:56  paused task: \Microsoft\Windows\Time Synchronization\ForceSynchronizeTime
+18:25:57  paused task: \Microsoft\Windows\Time Synchronization\SynchronizeTime
+18:25:58  paused task: \Microsoft\Windows\Time Zone\SynchronizeTimeZone
+18:25:59  paused task: \Microsoft\Windows\UPnP\UPnPHostConfig
+18:25:59  paused task: \Microsoft\Windows\WCM\WiFiTask
+18:26:00  paused task: \Microsoft\Windows\WDI\ResolutionHost
+18:26:01  paused task: \Microsoft\Windows\Windows Defender\Windows Defender Cache Maintenance
+18:26:02  paused task: \Microsoft\Windows\Windows Defender\Windows Defender Cleanup
+18:26:02  paused task: \Microsoft\Windows\Windows Defender\Windows Defender Scheduled Scan
+18:26:03  paused task: \Microsoft\Windows\Windows Defender\Windows Defender Verification
+18:26:04  paused task: \Microsoft\Windows\Windows Error Reporting\QueueReporting
+18:26:05  paused task: \Microsoft\Windows\Windows Media Sharing\UpdateLibrary
+18:26:06    could not pause \Microsoft\Windows\WindowsUpdate\Refresh Group Policy Cache : Access is denied.
+
+18:26:06  paused task: \Microsoft\Windows\WindowsUpdate\Scheduled Start
+18:26:07  paused task: \Microsoft\Windows\WlanSvc\CDSSync
+18:26:08  paused task: \Microsoft\Windows\WlanSvc\MoProfileManagement
+18:26:09  paused task: \Microsoft\Windows\Work Folders\Work Folders Logon Synchronization
+18:26:10  paused task: \Microsoft\Windows\Work Folders\Work Folders Maintenance Work
+18:26:10  paused task: \Microsoft\Windows\WwanSvc\NotificationTask
+18:26:11  paused task: \Microsoft\Windows\WwanSvc\OobeDiscovery
+18:26:12  paused task: \Mozilla\Firefox Background Update S-1-5-21-546694188-126083826-4013810330-1001 308046B0AF4A39CB
+18:26:13  paused task: \Mozilla\Firefox Background Update S-1-5-21-546694188-126083826-4013810330-1001 BFCFDCF42A915CC6
+18:26:13  paused task: \Mozilla\Firefox Default Browser Agent 308046B0AF4A39CB
+18:26:15  paused task: \Mozilla\Firefox Default Browser Agent BFCFDCF42A915CC6
+18:26:16  paused task: \SoftLanding\S-1-5-21-546694188-126083826-4013810330-1002\SoftLandingCreativeManagementTask
+18:26:17  held back at next sign-in: LenovoVantageToolbar
+18:26:17  held back at next sign-in: Universal Control
+18:26:17  held back at next sign-in: Proton VPN
+18:26:17  held back at next sign-in: Proton Drive
+18:26:17  held back at next sign-in: SunJavaUpdateSched
+18:26:17  held back at next sign-in: Dropbox
+18:26:17  held back at next sign-in: Update UWP App.lnk
+18:26:17  --- done ---
+18:27:31  tuned Bidule (pid 6460): priority RealTime, cores all 12
+18:28:01  started Bidule.exe  priority RealTime  cores All
+18:30:29  layout saved: default
+08:20:49  cores: 12  hybrid chip: True
+08:20:56  layout loaded: default
+08:20:56  ready. Nothing has been changed yet.
+08:21:00  opened Dropbox
+09:57:36  cores: 12  hybrid chip: True
+09:57:42  layout loaded: default
+09:57:42  ready. Nothing has been changed yet.
+09:59:53  power plan: switched to ProAudio
+10:03:00  status refreshed
+10:22:37  cores: 12  hybrid chip: True
+10:22:41  layout loaded: default
+10:22:41  ready. Nothing has been changed yet.
+10:24:23  power plan: switched to ProAudio
+10:24:57  --- optimizing ---
+10:24:57  setting changed: UAC quiet: administrators are never asked for permission (UAC stays on; no restart needed)
+10:24:57  setting changed: Game Mode off
+10:24:57  setting changed: Game recording off
+10:24:59  closed program: Gajim
+10:24:59  stopped service: Data Usage
+10:24:59  stopped service: Print Spooler
+10:24:59  stopped service: Diagnostic Policy Service
+10:24:59  stopped service: Program Compatibility Assistant Service
+10:24:59  stopped service: Geolocation Service
+10:25:00  stopped service: Phone Service
+10:25:00  stopped service: Windows Biometric Service
+10:25:01  stopped service: Windows Image Acquisition (WIA)
+10:25:01  stopped service: Microsoft Office Click-to-Run Service
+10:25:01  stopped service: Bonjour Service
+10:25:04  stopped service: Critical Service for Lenovo Vantage
+10:25:05  stopped service: NTKDaemonService
+10:25:05  stopped service: PreSonus Hardware Access Service
+10:25:06  paused task: \Lenovo\ImController\TimeBasedEvents\5c3027d9-74c3-406c-bb42-637dcf927336
+10:25:07  paused task: \Microsoft\Windows\Application Experience\PcaPatchDbTask
+10:25:08    could not pause \Microsoft\Windows\Application Experience\SdbinstMergeDbTask : Access is denied.
+
+10:25:08    could not pause \Microsoft\Windows\BitLocker\BitLocker Encrypt All Drives : Access is denied.
+
+10:25:09    could not pause \Microsoft\Windows\BitLocker\BitLocker MDM policy Refresh : Access is denied.
+
+10:25:10    could not pause \Microsoft\Windows\EDP\EDP App Launch Task : Access is denied.
+
+10:25:10    could not pause \Microsoft\Windows\EDP\EDP Auth Task : Access is denied.
+
+10:25:11    could not pause \Microsoft\Windows\EDP\EDP Inaccessible Credentials Task : Access is denied.
+
+10:25:13    could not pause \Microsoft\Windows\EDP\StorageCardEncryption Task : Access is denied.
+
+10:25:13    could not pause \Microsoft\Windows\Shell\UpdateUserPictureTask : Access is denied.
+
+10:25:14    could not pause \Microsoft\Windows\Shell\UpdateUserPictureTaskContained : Access is denied.
+
+10:25:15    could not pause \Microsoft\Windows\WindowsUpdate\Refresh Group Policy Cache : Access is denied.
+
+10:25:15  paused task: \SoftLanding\S-1-5-21-546694188-126083826-4013810330-1002\SoftLandingRefreshForExpirationTask-{48c09c01-2739-4875-a8a4-92630c6b63ce}
+10:25:16  held back at next sign-in: LenovoVantageToolbar
+10:25:16  held back at next sign-in: Universal Control
+10:25:16  held back at next sign-in: Proton VPN
+10:25:16  held back at next sign-in: Proton Drive
+10:25:16  held back at next sign-in: SunJavaUpdateSched
+10:25:16  held back at next sign-in: Update UWP App.lnk
+10:25:16  --- done ---
+10:25:34  started Bidule.exe  priority RealTime  cores All
+12:36:08  layout saved: default
+12:44:10  cores: 12  hybrid chip: True
+12:44:16  layout loaded: default
+12:44:16  ready. Nothing has been changed yet.
+12:47:04  remembered for 1 row(s). It is used when they start, and on Optimize.
+12:47:17  --- optimizing ---
+12:47:17  setting changed: UAC quiet: administrators are never asked for permission (UAC stays on; no restart needed)
+12:47:17  setting changed: Game Mode off
+12:47:18  setting changed: Game recording off
+12:47:19  closed program: Gajim
+12:47:19  stopped service: Data Usage
+12:47:20  stopped service: Windows Update
+12:47:20  stopped service: Background Intelligent Transfer Service
+12:47:20  stopped service: Print Spooler
+12:47:21  stopped service: Diagnostic Policy Service
+12:47:21  stopped service: Program Compatibility Assistant Service
+12:47:21  stopped service: Geolocation Service
+12:47:22  stopped service: Phone Service
+12:47:22  stopped service: Windows Image Acquisition (WIA)
+12:47:22  stopped service: Microsoft Office Click-to-Run Service
+12:47:22  stopped service: Bonjour Service
+12:47:22  stopped service: Critical Service for Lenovo Vantage
+12:47:24  stopped service: NTKDaemonService
+12:47:24  stopped service: PreSonus Hardware Access Service
+12:47:24  paused task: \Microsoft\Windows\Application Experience\PcaPatchDbTask
+12:47:25    could not pause \Microsoft\Windows\Application Experience\SdbinstMergeDbTask : Access is denied.
+
+12:47:26    could not pause \Microsoft\Windows\BitLocker\BitLocker Encrypt All Drives : Access is denied.
+
+12:47:27    could not pause \Microsoft\Windows\BitLocker\BitLocker MDM policy Refresh : Access is denied.
+
+12:47:27    could not pause \Microsoft\Windows\EDP\EDP App Launch Task : Access is denied.
+
+12:47:28    could not pause \Microsoft\Windows\EDP\EDP Auth Task : Access is denied.
+
+12:47:29    could not pause \Microsoft\Windows\EDP\EDP Inaccessible Credentials Task : Access is denied.
+
+12:47:29    could not pause \Microsoft\Windows\EDP\StorageCardEncryption Task : Access is denied.
+
+12:47:30    could not pause \Microsoft\Windows\Shell\UpdateUserPictureTask : Access is denied.
+
+12:47:31    could not pause \Microsoft\Windows\Shell\UpdateUserPictureTaskContained : Access is denied.
+
+12:47:32  paused task: \Microsoft\Windows\Windows Defender\Windows Defender Cache Maintenance
+12:47:32  paused task: \Microsoft\Windows\Windows Defender\Windows Defender Cleanup
+12:47:33  paused task: \Microsoft\Windows\Windows Defender\Windows Defender Scheduled Scan
+12:47:34  paused task: \Microsoft\Windows\Windows Defender\Windows Defender Verification
+12:47:34    could not pause \Microsoft\Windows\WindowsUpdate\Refresh Group Policy Cache : Access is denied.
+
+12:47:34  held back at next sign-in: LenovoVantageToolbar
+12:47:34  held back at next sign-in: Universal Control
+12:47:34  held back at next sign-in: Proton VPN
+12:47:34  held back at next sign-in: Proton Drive
+12:47:35  held back at next sign-in: Adobe Acrobat Synchronizer
+12:47:35  held back at next sign-in: MicrosoftEdgeAutoLaunch_33E3459BBA1179D5A7EDFB28FA9E3CE4
+12:47:35  held back at next sign-in: SunJavaUpdateSched
+12:47:35  held back at next sign-in: Update UWP App.lnk
+12:47:35  not running: Bidule
+12:47:35  not running: Bidule
+12:47:35  --- done ---
+12:47:49  started Bidule.exe  priority RealTime  cores your pick
+14:02:29  opened Dropbox
+15:14:46  --- optimizing ---
+15:14:46  setting changed: UAC quiet: administrators are never asked for permission (UAC stays on; no restart needed)
+15:14:46  setting changed: Game Mode off
+15:14:46  setting changed: Game recording off
+15:14:48  closed program: Dropbox
+15:14:50  stopped service: Diagnostic Policy Service
+15:14:51  stopped service: Program Compatibility Assistant Service
+15:14:51  stopped service: Geolocation Service
+15:14:52  paused task: \Microsoft\Windows\Application Experience\PcaPatchDbTask
+15:14:53    could not pause \Microsoft\Windows\Application Experience\SdbinstMergeDbTask : Access is denied.
+
+15:14:53    could not pause \Microsoft\Windows\BitLocker\BitLocker Encrypt All Drives : Access is denied.
+
+15:14:54    could not pause \Microsoft\Windows\BitLocker\BitLocker MDM policy Refresh : Access is denied.
+
+15:14:55    could not pause \Microsoft\Windows\EDP\EDP App Launch Task : Access is denied.
+
+15:14:55    could not pause \Microsoft\Windows\EDP\EDP Auth Task : Access is denied.
+
+15:14:56    could not pause \Microsoft\Windows\EDP\EDP Inaccessible Credentials Task : Access is denied.
+
+15:14:57    could not pause \Microsoft\Windows\EDP\StorageCardEncryption Task : Access is denied.
+
+15:14:58    could not pause \Microsoft\Windows\Shell\UpdateUserPictureTask : Access is denied.
+
+15:14:58    could not pause \Microsoft\Windows\Shell\UpdateUserPictureTaskContained : Access is denied.
+
+15:14:59  paused task: \Microsoft\Windows\Windows Defender\Windows Defender Cache Maintenance
+15:15:00  paused task: \Microsoft\Windows\Windows Defender\Windows Defender Cleanup
+15:15:01  paused task: \Microsoft\Windows\Windows Defender\Windows Defender Scheduled Scan
+15:15:01  paused task: \Microsoft\Windows\Windows Defender\Windows Defender Verification
+15:15:02    could not pause \Microsoft\Windows\WindowsUpdate\Refresh Group Policy Cache : Access is denied.
+
+15:15:02  held back at next sign-in: LenovoVantageToolbar
+15:15:02  held back at next sign-in: Universal Control
+15:15:02  held back at next sign-in: Proton VPN
+15:15:02  held back at next sign-in: Proton Drive
+15:15:02  held back at next sign-in: Adobe Acrobat Synchronizer
+15:15:02  held back at next sign-in: MicrosoftEdgeAutoLaunch_33E3459BBA1179D5A7EDFB28FA9E3CE4
+15:15:02  held back at next sign-in: SunJavaUpdateSched
+15:15:02  held back at next sign-in: Update UWP App.lnk
+15:15:02  not running: Bidule
+15:15:02  not running: Bidule
+15:15:02  --- done ---
+15:15:09  layout saved: default
+06:28:27  cores: 12  hybrid chip: True
+06:28:30  layout loaded: default
+06:28:31  ready. Nothing has been changed yet.
+06:31:10  not running: Bidule
+06:31:15  --- optimizing ---
+06:31:15  setting changed: UAC quiet: administrators are never asked for permission (UAC stays on; no restart needed)
+06:31:15  setting changed: Game Mode off
+06:31:15  setting changed: Game recording off
+06:31:16  stopped service: Diagnostic Policy Service
+06:31:16  stopped service: Program Compatibility Assistant Service
+06:31:16  stopped service: Geolocation Service
+06:31:36    could not stop stisvc: stisvc did not stop within 20 seconds
+06:31:38  stopped service: Critical Service for Lenovo Vantage
+06:31:39  paused task: \Lenovo\LenovoMachineFixUser_OOBE_AUTO_Notification
+06:31:40  paused task: \Lenovo\Vantage\Schedule\LenovoSystemUpdateAddin_WeeklyTask
+06:31:41  paused task: \Microsoft\Windows\Application Experience\PcaPatchDbTask
+06:31:41    could not pause \Microsoft\Windows\Application Experience\SdbinstMergeDbTask : Access is denied.
+
+06:31:42    could not pause \Microsoft\Windows\BitLocker\BitLocker Encrypt All Drives : Access is denied.
+
+06:31:43    could not pause \Microsoft\Windows\BitLocker\BitLocker MDM policy Refresh : Access is denied.
+
+06:31:44    could not pause \Microsoft\Windows\EDP\EDP App Launch Task : Access is denied.
+
+06:31:44    could not pause \Microsoft\Windows\EDP\EDP Auth Task : Access is denied.
+
+06:31:45    could not pause \Microsoft\Windows\EDP\EDP Inaccessible Credentials Task : Access is denied.
+
+06:31:46    could not pause \Microsoft\Windows\EDP\StorageCardEncryption Task : Access is denied.
+
+06:31:47    could not pause \Microsoft\Windows\Shell\UpdateUserPictureTask : Access is denied.
+
+06:31:47    could not pause \Microsoft\Windows\Shell\UpdateUserPictureTaskContained : Access is denied.
+
+06:31:48    could not pause \Microsoft\Windows\WindowsUpdate\Refresh Group Policy Cache : Access is denied.
+
+06:31:48  held back at next sign-in: Universal Control
+06:31:48  held back at next sign-in: Proton VPN
+06:31:48  held back at next sign-in: Proton Drive
+06:31:48  held back at next sign-in: Adobe Acrobat Synchronizer
+06:31:48  held back at next sign-in: MicrosoftEdgeAutoLaunch_33E3459BBA1179D5A7EDFB28FA9E3CE4
+06:31:48  held back at next sign-in: SunJavaUpdateSched
+06:31:48  held back at next sign-in: Update UWP App.lnk
+06:31:48  not running: Bidule
+06:31:48  not running: Bidule
+06:31:48  --- done ---
+06:32:34  started Bidule.exe  priority RealTime  cores your pick
+06:40:55  opened Dropbox
+11:52:33  --- undoing everything ---
+11:52:33  undone: startup item MicrosoftEdgeAutoLaunch_33E3459BBA1179D5A7EDFB28FA9E3CE4
+11:52:33  undone: startup item Adobe Acrobat Synchronizer
+11:52:33  undone: scheduled task \SoftLanding\S-1-5-21-546694188-126083826-4013810330-1002\SoftLandingRefreshForExpirationTask-{48c09c01-2739-4875-a8a4-92630c6b63ce}
+11:52:34  undone: scheduled task \Lenovo\ImController\TimeBasedEvents\5c3027d9-74c3-406c-bb42-637dcf927336
+11:52:34  undone: service PreSonus Hardware Access Service
+11:52:34  undone: service NTKDaemonService
+11:52:34  undone: service WbioSrvc
+11:52:35  undone: power plan
+11:52:35  undone: priority and cores of Bidule
+11:52:35  undone: startup item Update UWP App.lnk
+11:52:35  undone: startup item Dropbox
+11:52:35  undone: startup item SunJavaUpdateSched
+11:52:35  undone: startup item Proton Drive
+11:52:35  undone: startup item Proton VPN
+11:52:35  undone: startup item Universal Control
+11:52:35  undone: startup item LenovoVantageToolbar
+11:52:35  undone: scheduled task \SoftLanding\S-1-5-21-546694188-126083826-4013810330-1002\SoftLandingCreativeManagementTask
+11:52:35  undone: scheduled task \Mozilla\Firefox Default Browser Agent BFCFDCF42A915CC6
+11:52:35  undone: scheduled task \Mozilla\Firefox Default Browser Agent 308046B0AF4A39CB
+11:52:35  undone: scheduled task \Mozilla\Firefox Background Update S-1-5-21-546694188-126083826-4013810330-1001 BFCFDCF42A915CC6
+11:52:35  undone: scheduled task \Mozilla\Firefox Background Update S-1-5-21-546694188-126083826-4013810330-1001 308046B0AF4A39CB
+11:52:35  undone: scheduled task \Microsoft\Windows\WwanSvc\OobeDiscovery
+11:52:35  undone: scheduled task \Microsoft\Windows\WwanSvc\NotificationTask
+11:52:35  undone: scheduled task \Microsoft\Windows\Work Folders\Work Folders Maintenance Work
+11:52:35  undone: scheduled task \Microsoft\Windows\Work Folders\Work Folders Logon Synchronization
+11:52:35  undone: scheduled task \Microsoft\Windows\WlanSvc\MoProfileManagement
+11:52:35  undone: scheduled task \Microsoft\Windows\WlanSvc\CDSSync
+11:52:35  undone: scheduled task \Microsoft\Windows\WindowsUpdate\Scheduled Start
+11:52:35  undone: scheduled task \Microsoft\Windows\WindowsUpdate\Refresh Group Policy Cache
+11:52:35  undone: scheduled task \Microsoft\Windows\Windows Media Sharing\UpdateLibrary
+11:52:35  undone: scheduled task \Microsoft\Windows\Windows Error Reporting\QueueReporting
+11:52:35  undone: scheduled task \Microsoft\Windows\Windows Defender\Windows Defender Verification
+11:52:35  undone: scheduled task \Microsoft\Windows\Windows Defender\Windows Defender Scheduled Scan
+11:52:35  undone: scheduled task \Microsoft\Windows\Windows Defender\Windows Defender Cleanup
+11:52:35  undone: scheduled task \Microsoft\Windows\Windows Defender\Windows Defender Cache Maintenance
+11:52:35  undone: scheduled task \Microsoft\Windows\WDI\ResolutionHost
+11:52:35  undone: scheduled task \Microsoft\Windows\WCM\WiFiTask
+11:52:35  undone: scheduled task \Microsoft\Windows\UPnP\UPnPHostConfig
+11:52:35  undone: scheduled task \Microsoft\Windows\Time Zone\SynchronizeTimeZone
+11:52:35  undone: scheduled task \Microsoft\Windows\Time Synchronization\SynchronizeTime
+11:52:35  undone: scheduled task \Microsoft\Windows\Time Synchronization\ForceSynchronizeTime
+11:52:35  undone: scheduled task \Microsoft\Windows\SystemRestore\SR
+11:52:35  undone: scheduled task \Microsoft\Windows\Sysmain\WsSwapAssessmentTask
+11:52:35  undone: scheduled task \Microsoft\Windows\Sysmain\ResPriStaticDbSync
+11:52:35  undone: scheduled task \Microsoft\Windows\Sustainability\SustainabilityTelemetry
+11:52:35  undone: scheduled task \Microsoft\Windows\Sustainability\PowerGridForecastTask
+11:52:35  undone: scheduled task \Microsoft\Windows\Subscription\EnableLicenseAcquisition
+11:52:35  undone: scheduled task \Microsoft\Windows\SpacePort\SpaceManagerTask
+11:52:35  undone: scheduled task \Microsoft\Windows\SpacePort\SpaceAgentTask
+11:52:36  undone: scheduled task \Microsoft\Windows\Shell\UpdateUserPictureTaskContained
+11:52:36  undone: scheduled task \Microsoft\Windows\Shell\UpdateUserPictureTask
+11:52:36  undone: scheduled task \Microsoft\Windows\Shell\ThemesSyncedImageDownload
+11:52:36  undone: scheduled task \Microsoft\Windows\Shell\IndexerAutomaticMaintenance
+11:52:36  undone: scheduled task \Microsoft\Windows\Shell\FamilySafetyRefreshTask
+11:52:36  undone: scheduled task \Microsoft\Windows\Shell\FamilySafetyMonitor
+11:52:36  undone: scheduled task \Microsoft\Windows\Servicing\StartComponentCleanup
+11:52:36  undone: scheduled task \Microsoft\Windows\Registry\RegIdleBackup
+11:52:36  undone: scheduled task \Microsoft\Windows\Printing\PrinterCleanupTask
+11:52:36  undone: scheduled task \Microsoft\Windows\Printing\EduPrintProv
+11:52:36  undone: scheduled task \Microsoft\Windows\Power Efficiency Diagnostics\AnalyzeSystem
+11:52:36  undone: scheduled task \Microsoft\Windows\PerformanceTrace\WhesvcToast
+11:52:36  undone: scheduled task \Microsoft\Windows\PerformanceTrace\ShowFeedbackToast
+11:52:36  undone: scheduled task \Microsoft\Windows\NlaSvc\WiFiTask
+11:52:36  undone: scheduled task \Microsoft\Windows\MemoryDiagnostic\ProcessMemoryDiagnosticEvents
+11:52:36  undone: scheduled task \Microsoft\Windows\MemoryDiagnostic\AutomaticOfflineMemoryDiagnostic
+11:52:36  undone: scheduled task \Microsoft\Windows\Maps\MapsUpdateTask
+11:52:36  undone: scheduled task \Microsoft\Windows\Maps\MapsToastTask
+11:52:36  undone: scheduled task \Microsoft\Windows\Management\Provisioning\Logon
+11:52:36  undone: scheduled task \Microsoft\Windows\Management\Provisioning\Cellular
+11:52:36  undone: scheduled task \Microsoft\Windows\Maintenance\WinSAT
+11:52:36  undone: scheduled task \Microsoft\Windows\Location\WindowsActionDialog
+11:52:36  undone: scheduled task \Microsoft\Windows\LanguageComponentsInstaller\ReconcileLanguageResources
+11:52:36  undone: scheduled task \Microsoft\Windows\LanguageComponentsInstaller\Installation
+11:52:36  undone: scheduled task \Microsoft\Windows\International\Synchronize Language Settings
+11:52:36  undone: scheduled task \Microsoft\Windows\InstallService\SmartRetry
+11:52:36  undone: scheduled task \Microsoft\Windows\InstallService\ScanForUpdatesAsUser
+11:52:36  undone: scheduled task \Microsoft\Windows\InstallService\ScanForUpdates
+11:52:36  undone: scheduled task \Microsoft\Windows\InstallService\RestoreDevice
+11:52:36  undone: scheduled task \Microsoft\Windows\input\TouchpadSyncDataAvailable
+11:52:36  undone: scheduled task \Microsoft\Windows\input\syncpensettings
+11:52:36  undone: scheduled task \Microsoft\Windows\input\RemoteTouchpadSyncDataAvailable
+11:52:36  undone: scheduled task \Microsoft\Windows\input\RemotePenSyncDataAvailable
+11:52:36  undone: scheduled task \Microsoft\Windows\input\RemoteMouseSyncDataAvailable
+11:52:36  undone: scheduled task \Microsoft\Windows\input\PenSyncDataAvailable
+11:52:36  undone: scheduled task \Microsoft\Windows\input\MouseSyncDataAvailable
+11:52:36  undone: scheduled task \Microsoft\Windows\input\LocalUserSyncDataAvailable
+11:52:36  undone: scheduled task \Microsoft\Windows\input\InputSettingsRestoreDataAvailable
+11:52:36  undone: scheduled task \Microsoft\Windows\Hotpatch\Monitoring
+11:52:36  undone: scheduled task \Microsoft\Windows\Flighting\OneSettings\RefreshCache
+11:52:36  undone: scheduled task \Microsoft\Windows\Flighting\FeatureConfig\UsageDataReporting
+11:52:37  undone: scheduled task \Microsoft\Windows\Flighting\FeatureConfig\UsageDataReceiver
+11:52:37  undone: scheduled task \Microsoft\Windows\Flighting\FeatureConfig\UsageDataFlushing
+11:52:37  undone: scheduled task \Microsoft\Windows\Flighting\FeatureConfig\SafeguardsReconciliation
+11:52:37  undone: scheduled task \Microsoft\Windows\Flighting\FeatureConfig\ReconcileFeatures
+11:52:37  undone: scheduled task \Microsoft\Windows\Flighting\FeatureConfig\ReconcileConfigs
+11:52:37  undone: scheduled task \Microsoft\Windows\Flighting\FeatureConfig\GovernedFeatureUsageProcessing
+11:52:37  undone: scheduled task \Microsoft\Windows\FileHistory\File History (maintenance mode)
+11:52:37  undone: scheduled task \Microsoft\Windows\Feedback\Siuf\DmClientOnScenarioDownload
+11:52:37  undone: scheduled task \Microsoft\Windows\Feedback\Siuf\DmClient
+11:52:37  undone: scheduled task \Microsoft\Windows\ExploitGuard\ExploitGuard MDM policy Refresh
+11:52:37  undone: scheduled task \Microsoft\Windows\EDP\StorageCardEncryption Task
+11:52:37  undone: scheduled task \Microsoft\Windows\EDP\EDP Inaccessible Credentials Task
+11:52:37  undone: scheduled task \Microsoft\Windows\EDP\EDP Auth Task
+11:52:37  undone: scheduled task \Microsoft\Windows\EDP\EDP App Launch Task
+11:52:37  undone: scheduled task \Microsoft\Windows\DUSM\dusmtask
+11:52:37  undone: scheduled task \Microsoft\Windows\DiskFootprint\StorageSense
+11:52:37  undone: scheduled task \Microsoft\Windows\DiskFootprint\Diagnostics
+11:52:37  undone: scheduled task \Microsoft\Windows\DiskCleanup\SilentCleanup
+11:52:37  undone: scheduled task \Microsoft\Windows\Diagnosis\UnexpectedCodepath
+11:52:37  undone: scheduled task \Microsoft\Windows\Diagnosis\Scheduled
+11:52:37  undone: scheduled task \Microsoft\Windows\Diagnosis\RecommendedTroubleshootingScanner
+11:52:37  undone: scheduled task \Microsoft\Windows\Device Information\Device User
+11:52:37  undone: scheduled task \Microsoft\Windows\Device Information\Device
+11:52:37  undone: scheduled task \Microsoft\Windows\Defrag\ScheduledDefrag
+11:52:37  undone: scheduled task \Microsoft\Windows\Data Integrity Scan\Data Integrity Scan for Crash Recovery
+11:52:37  undone: scheduled task \Microsoft\Windows\Data Integrity Scan\Data Integrity Scan
+11:52:37  undone: scheduled task \Microsoft\Windows\Data Integrity Scan\Data Integrity Check And Scan
+11:52:37  undone: scheduled task \Microsoft\Windows\Customer Experience Improvement Program\UsbCeip
+11:52:37  undone: scheduled task \Microsoft\Windows\Customer Experience Improvement Program\Consolidator
+11:52:37  undone: scheduled task \Microsoft\Windows\ConsentUX\UnifiedConsent\UnifiedConsentSyncTask
+11:52:37  undone: scheduled task \Microsoft\Windows\CloudRestore\Restore
+11:52:37  undone: scheduled task \Microsoft\Windows\CloudRestore\Backup
+11:52:37  undone: scheduled task \Microsoft\Windows\Chkdsk\ProactiveScan
+11:52:37  undone: scheduled task \Microsoft\Windows\BitLocker\BitLocker MDM policy Refresh
+11:52:37  undone: scheduled task \Microsoft\Windows\BitLocker\BitLocker Encrypt All Drives
+11:52:37  undone: scheduled task \Microsoft\Windows\AppListBackup\BackupNonMaintenance
+11:52:37  undone: scheduled task \Microsoft\Windows\AppListBackup\Backup
+11:52:37  undone: scheduled task \Microsoft\Windows\Application Experience\StartupAppTask
+11:52:37  undone: scheduled task \Microsoft\Windows\Application Experience\SdbinstMergeDbTask
+11:52:37  undone: scheduled task \Microsoft\Windows\Application Experience\PcaPatchDbTask
+11:52:37  undone: scheduled task \Microsoft\Windows\Application Experience\Microsoft Compatibility Appraiser Exp
+11:52:37  undone: scheduled task \Microsoft\Windows\Application Experience\MareBackup
+11:52:37  undone: scheduled task \Microsoft\Windows\.NET Framework\.NET Framework NGEN v4.0.30319 64
+11:52:38  undone: scheduled task \Microsoft\Windows\.NET Framework\.NET Framework NGEN v4.0.30319
+11:52:38  undone: scheduled task \Microsoft\VisualStudio\Updates\BackgroundDownload
+11:52:38  undone: scheduled task \Microsoft\Office\Office Startup Maintenance
+11:52:38  undone: scheduled task \Microsoft\Office\Office Performance Monitor
+11:52:38  undone: scheduled task \Microsoft\Office\Office Feature Updates Logon
+11:52:38  undone: scheduled task \Microsoft\Office\Office Feature Updates
+11:52:38  undone: scheduled task \Microsoft\Office\Office ClickToRun Service Monitor
+11:52:38  undone: scheduled task \Microsoft\Office\Office Background Push Maintenance
+11:52:38  undone: scheduled task \Microsoft\Office\Office Automatic Updates 2.0
+11:52:38  undone: scheduled task \Microsoft\Office\Office Actions Server
+11:52:38  undone: scheduled task \McAfee\wps\McAfee Sync Agent Pilot
+11:52:38  undone: scheduled task \Lenovo\Vantage\Schedule\VantageCoreAddinWeekScheduleTask
+11:52:38  undone: scheduled task \Lenovo\Vantage\Schedule\VantageCoreAddinIdleScheduleTask
+11:52:38  undone: scheduled task \Lenovo\Vantage\Schedule\VantageCoreAddinDailyScheduleTask
+11:52:38  undone: scheduled task \Lenovo\Vantage\Schedule\SmartPerformance.ExpireReminder
+11:52:38  undone: scheduled task \Lenovo\Vantage\Schedule\SmartLock.ExpireReminder
+11:52:38  undone: scheduled task \Lenovo\Vantage\Schedule\SettingsWidgetAddinDailyScheduleTask
+11:52:38  undone: scheduled task \Lenovo\Vantage\Schedule\LiveWallpaperScheduleTask
+11:52:38  undone: scheduled task \Lenovo\Vantage\Schedule\LiveWallpaperDailyScheduleTask
+11:52:38  undone: scheduled task \Lenovo\Vantage\Schedule\LenovoSystemUpdateAddin_WeeklyTask
+11:52:38  undone: scheduled task \Lenovo\Vantage\Schedule\LenovoSupportHealthReportSchedule
+11:52:38  undone: scheduled task \Lenovo\Vantage\Schedule\LenovoSupportContextEngineDaily
+11:52:38  undone: scheduled task \Lenovo\Vantage\Schedule\LenovoCompanionAppAddinDailyScheduleTask
+11:52:38  undone: scheduled task \Lenovo\Vantage\Schedule\Lenovo.Vantage.SmartPerformance.SScan
+11:52:38  undone: scheduled task \Lenovo\Vantage\Schedule\Lenovo.Vantage.SmartPerformance.MonthlyReport
+11:52:38  undone: scheduled task \Lenovo\Vantage\Schedule\IdeaNotebookAddinDailyEvent
+11:52:38  undone: scheduled task \Lenovo\Vantage\Schedule\HeartbeatAddinDailyScheduleTask
+11:52:38  undone: scheduled task \Lenovo\Vantage\Schedule\GenericMessagingAddin_Pulsation
+11:52:38  undone: scheduled task \Lenovo\Vantage\Schedule\GenericMessagingAddin
+11:52:38  undone: scheduled task \Lenovo\Vantage\Schedule\DailyTelemetryTransmission
+11:52:38  undone: scheduled task \Lenovo\Vantage\Schedule\ConsumerAddinDailyScheduleTask
+11:52:38  undone: scheduled task \Lenovo\Vantage\Schedule\BatteryGaugeAddinDailyScheduleTask
+11:52:38  undone: scheduled task \Lenovo\Vantage\Lenovo.Vantage.ServiceMaintainance
+11:52:38  undone: scheduled task \Lenovo\UDC\Lenovo UDC Monitor
+11:52:38  undone: scheduled task \Lenovo\UDC\Lenovo UDC Maintainance Task
+11:52:38  undone: scheduled task \Lenovo\UDC\Lenovo UDC Lazy Deployment
+11:52:38    could not undo scheduled task \Lenovo\ImController\TimeBasedEvents\231a179f-2b74-40d1-8dff-caa05d507608 : The system cannot find the file specified.
+
+11:52:38  undone: scheduled task \Lenovo\ImController\Lenovo iM Controller Scheduled Maintenance
+11:52:38  undone: scheduled task \Lenovo\ImController\Lenovo iM Controller Monitor
+11:52:38  undone: scheduled task \Lenovo\LenovoMachineFixUser_OOBE_AUTO_Notification
+11:52:38  undone: scheduled task \GoogleSystem\GoogleUpdater\GoogleUpdaterTaskSystem157.0.8089.0{5678B8B9-7C76-41CB-B179-6DC74F67A85F}
+11:52:38  undone: scheduled task \GoogleSystem\GoogleUpdater\GoogleUpdaterTaskSystem152.0.7933.0{94F9AC43-B1EA-45F7-AA84-098CCE5B7CFB}
+11:52:38  undone: scheduled task \DropboxSystem\DropboxUpdater\DropboxUpdaterTaskSystem123.0.6299.152{857AC886-0701-4EE0-A53F-DFBBEC026671}
+11:52:38  undone: scheduled task \ZoomUpdateTaskUser-S-1-5-21-546694188-126083826-4013810330-1001
+11:52:39  undone: scheduled task \Proton VPN NRPT watchdog
+11:52:39  undone: scheduled task \MicrosoftEdgeUpdateTaskMachineUA{883A5E2A-0595-480E-A4EC-536F847650F5}
+11:52:39  undone: scheduled task \MicrosoftEdgeUpdateTaskMachineCore{D2799CF4-E121-4922-8B77-AD0646920725}
+11:52:39  undone: scheduled task \LastPassUpdater
+11:52:39  undone: scheduled task \BraveSoftwareUpdateTaskMachineUA{061867A0-FDB0-4961-8907-5DA2FB3C66BC}
+11:52:39  undone: scheduled task \BraveSoftwareUpdateTaskMachineCore{137CAE5D-42A2-4C8E-BFCE-DF0B392A5526}
+11:52:39  undone: service LenovoVantageService
+11:52:39  undone: service Bonjour Service
+11:52:39  undone: service ClickToRunSvc
+11:52:39  undone: service edgeupdatem
+11:52:39  undone: service edgeupdate
+11:52:39  undone: service stisvc
+11:52:40  undone: service PhoneSvc
+11:52:40  undone: service MapsBroker
+11:52:40  undone: service lfsvc
+11:52:40  undone: service PcaSvc
+11:52:40  undone: service DPS
+11:52:40  undone: service Spooler
+11:52:40    could not undo service SysMain : Exception calling "Start" with "0" argument(s): "Cannot start service SysMain on computer '.'."
+11:52:40    could not undo service WSearch : Exception calling "Start" with "0" argument(s): "Cannot start service WSearch on computer '.'."
+11:52:40  undone: service InstallService
+11:52:40    could not undo service DoSvc : Exception calling "Start" with "0" argument(s): "Cannot start service DoSvc on computer '.'."
+11:52:40    could not undo service BITS : Exception calling "Start" with "0" argument(s): "Cannot start service BITS on computer '.'."
+11:52:40  undone: service wuauserv
+11:52:40    could not undo service UsoSvc : Exception calling "Start" with "0" argument(s): "Cannot start service UsoSvc on computer '.'."
+11:52:45  undone: service DusmSvc
+11:52:45    could not undo service DiagTrack : Exception calling "Start" with "0" argument(s): "Cannot start service DiagTrack on computer '.'."
+11:52:45  undone: program SDXHelper
+11:52:45  undone: program Gajim
+11:52:45  undone: program ProtonDrive
+11:52:45  undone: setting GameDVR_Enabled
+11:52:45  undone: setting AutoGameModeEnabled
+11:52:45  undone: setting ConsentPromptBehaviorAdmin
+11:52:45  undone: program Dropbox
+11:52:45  undone: service BTAGService
+11:52:45  undone: service bthserv
+11:52:45    could not undo service BluetoothUserService_a6329 : Cannot find any service with service name 'BluetoothUserService_a6329'.
+11:52:46  undone: Bluetooth radio
+11:52:46  undone: service BthAvctpSvc
+11:52:46  undone:  
+11:52:47  --- done ---
+06:58:28  layout saved: default
+06:58:37  layout saved: default
+08:06:08  cores: 12  hybrid chip: True
+08:06:12  layout loaded: default
+08:06:13  ready. Nothing has been changed yet.
+08:08:41  closed program: Dropbox
+08:10:48  --- optimizing ---
+08:10:48  setting changed: UAC quiet: administrators are never asked for permission (UAC stays on; no restart needed)
+08:10:48  setting changed: Game Mode off
+08:10:48  setting changed: Game recording off
+08:10:48  setting changed: Fast Startup off (full shutdown; takes effect at next shutdown)
+08:10:49  closed program: ProtonDrive
+08:10:51  closed program: Gajim
+08:10:52  closed program: Universal Control
+08:10:52  stopped service: Data Usage
+08:10:53  stopped service: Windows Update
+08:10:54  stopped service: Microsoft Store Install Service
+08:10:54  stopped service: Print Spooler
+08:10:55  stopped service: Diagnostic Policy Service
+08:10:55  stopped service: Program Compatibility Assistant Service
+08:10:55  stopped service: Geolocation Service
+08:11:15    could not stop PhoneSvc: PhoneSvc did not stop within 20 seconds
+08:11:16  stopped service: Windows Image Acquisition (WIA)
+08:11:16  stopped service: Microsoft Office Click-to-Run Service
+08:11:16  stopped service: Bonjour Service
+08:11:19  stopped service: Critical Service for Lenovo Vantage
+08:11:20  stopped service: NTKDaemonService
+08:11:20  stopped service: PreSonus Hardware Access Service
+08:11:21  paused task: \BraveSoftwareUpdateTaskMachineCore{137CAE5D-42A2-4C8E-BFCE-DF0B392A5526}
+08:11:22  paused task: \BraveSoftwareUpdateTaskMachineUA{061867A0-FDB0-4961-8907-5DA2FB3C66BC}
+08:11:23  paused task: \LastPassUpdater
+08:11:23  paused task: \MicrosoftEdgeUpdateTaskMachineCore{D2799CF4-E121-4922-8B77-AD0646920725}
+08:11:24  paused task: \MicrosoftEdgeUpdateTaskMachineUA{883A5E2A-0595-480E-A4EC-536F847650F5}
+08:11:25  paused task: \Proton VPN NRPT watchdog
+08:11:26  paused task: \ZoomUpdateTaskUser-S-1-5-21-546694188-126083826-4013810330-1001
+08:11:26  paused task: \DropboxSystem\DropboxUpdater\DropboxUpdaterTaskSystem123.0.6299.152{857AC886-0701-4EE0-A53F-DFBBEC026671}
+08:11:27  paused task: \GoogleSystem\GoogleUpdater\GoogleUpdaterTaskSystem152.0.7933.0{94F9AC43-B1EA-45F7-AA84-098CCE5B7CFB}
+08:11:28  paused task: \GoogleSystem\GoogleUpdater\GoogleUpdaterTaskSystem157.0.8089.0{5678B8B9-7C76-41CB-B179-6DC74F67A85F}
+08:11:29  paused task: \Lenovo\LenovoMachineFixUser_OOBE_AUTO_Notification
+08:11:29  paused task: \Lenovo\ImController\Lenovo iM Controller Monitor
+08:11:30  paused task: \Lenovo\ImController\Lenovo iM Controller Scheduled Maintenance
+08:11:31  paused task: \Lenovo\ImController\TimeBasedEvents\5c3027d9-74c3-406c-bb42-637dcf927336
+08:11:32  paused task: \Lenovo\UDC\Lenovo UDC Lazy Deployment
+08:11:32  paused task: \Lenovo\UDC\Lenovo UDC Maintainance Task
+08:11:33  paused task: \Lenovo\UDC\Lenovo UDC Monitor
+08:11:34  paused task: \Lenovo\Vantage\Lenovo.Vantage.ServiceMaintainance
+08:11:34  paused task: \Lenovo\Vantage\Schedule\BatteryGaugeAddinDailyScheduleTask
+08:11:35  paused task: \Lenovo\Vantage\Schedule\ConsumerAddinDailyScheduleTask
+08:11:36  paused task: \Lenovo\Vantage\Schedule\DailyTelemetryTransmission
+08:11:37  paused task: \Lenovo\Vantage\Schedule\GenericMessagingAddin
+08:11:37  paused task: \Lenovo\Vantage\Schedule\GenericMessagingAddin_Pulsation
+08:11:38  paused task: \Lenovo\Vantage\Schedule\HeartbeatAddinDailyScheduleTask
+08:11:39  paused task: \Lenovo\Vantage\Schedule\IdeaNotebookAddinDailyEvent
+08:11:40  paused task: \Lenovo\Vantage\Schedule\Lenovo.Vantage.SmartPerformance.MonthlyReport
+08:11:40  paused task: \Lenovo\Vantage\Schedule\LenovoCompanionAppAddinDailyScheduleTask
+08:11:41  paused task: \Lenovo\Vantage\Schedule\LenovoSupportContextEngineDaily
+08:11:42  paused task: \Lenovo\Vantage\Schedule\LenovoSupportHealthReportSchedule
+08:11:43  paused task: \Lenovo\Vantage\Schedule\LenovoSystemUpdateAddin_WeeklyTask
+08:11:44  paused task: \Lenovo\Vantage\Schedule\LiveWallpaperDailyScheduleTask
+08:11:45  paused task: \Lenovo\Vantage\Schedule\LiveWallpaperScheduleTask
+08:11:46  paused task: \Lenovo\Vantage\Schedule\SettingsWidgetAddinDailyScheduleTask
+08:11:47  paused task: \Lenovo\Vantage\Schedule\SmartLock.ExpireReminder
+08:11:47  paused task: \Lenovo\Vantage\Schedule\SmartPerformance.ExpireReminder
+08:11:48  paused task: \Lenovo\Vantage\Schedule\VantageCoreAddinDailyScheduleTask
+08:11:49  paused task: \Lenovo\Vantage\Schedule\VantageCoreAddinIdleScheduleTask
+08:11:50  paused task: \Lenovo\Vantage\Schedule\VantageCoreAddinWeekScheduleTask
+08:11:50  paused task: \McAfee\wps\McAfee Sync Agent Pilot
+08:11:51  paused task: \Microsoft\Office\Office Actions Server
+08:11:52  paused task: \Microsoft\Office\Office Automatic Updates 2.0
+08:11:53  paused task: \Microsoft\Office\Office Background Push Maintenance
+08:11:53  paused task: \Microsoft\Office\Office ClickToRun Service Monitor
+08:11:54  paused task: \Microsoft\Office\Office Feature Updates
+08:11:55  paused task: \Microsoft\Office\Office Feature Updates Logon
+08:11:56  paused task: \Microsoft\Office\Office Performance Monitor
+08:11:56  paused task: \Microsoft\Office\Office Startup Maintenance
+08:11:57  paused task: \Microsoft\VisualStudio\Updates\BackgroundDownload
+08:11:58  paused task: \Microsoft\Windows\Application Experience\MareBackup
+08:11:58  paused task: \Microsoft\Windows\Application Experience\Microsoft Compatibility Appraiser Exp
+08:11:59  paused task: \Microsoft\Windows\Application Experience\PcaPatchDbTask
+08:12:00    could not pause \Microsoft\Windows\Application Experience\SdbinstMergeDbTask : Access is denied.
+
+08:12:01  paused task: \Microsoft\Windows\Application Experience\StartupAppTask
+08:12:01  paused task: \Microsoft\Windows\AppListBackup\Backup
+08:12:02  paused task: \Microsoft\Windows\AppListBackup\BackupNonMaintenance
+08:12:03    could not pause \Microsoft\Windows\BitLocker\BitLocker Encrypt All Drives : Access is denied.
+
+08:12:04    could not pause \Microsoft\Windows\BitLocker\BitLocker MDM policy Refresh : Access is denied.
+
+08:12:04  paused task: \Microsoft\Windows\Chkdsk\ProactiveScan
+08:12:05  paused task: \Microsoft\Windows\CloudRestore\Backup
+08:12:06  paused task: \Microsoft\Windows\CloudRestore\Restore
+08:12:06  paused task: \Microsoft\Windows\ConsentUX\UnifiedConsent\UnifiedConsentSyncTask
+08:12:07  paused task: \Microsoft\Windows\Customer Experience Improvement Program\Consolidator
+08:12:08  paused task: \Microsoft\Windows\Customer Experience Improvement Program\UsbCeip
+08:12:09  paused task: \Microsoft\Windows\Data Integrity Scan\Data Integrity Check And Scan
+08:12:09  paused task: \Microsoft\Windows\Data Integrity Scan\Data Integrity Scan
+08:12:10  paused task: \Microsoft\Windows\Data Integrity Scan\Data Integrity Scan for Crash Recovery
+08:12:11  paused task: \Microsoft\Windows\Defrag\ScheduledDefrag
+08:12:12  paused task: \Microsoft\Windows\Device Information\Device
+08:12:12  paused task: \Microsoft\Windows\Device Information\Device User
+08:12:13  paused task: \Microsoft\Windows\Diagnosis\RecommendedTroubleshootingScanner
+08:12:15  paused task: \Microsoft\Windows\Diagnosis\Scheduled
+08:12:16  paused task: \Microsoft\Windows\Diagnosis\UnexpectedCodepath
+08:12:16  paused task: \Microsoft\Windows\DiskCleanup\SilentCleanup
+08:12:17  paused task: \Microsoft\Windows\DiskFootprint\Diagnostics
+08:12:18  paused task: \Microsoft\Windows\DiskFootprint\StorageSense
+08:12:18  paused task: \Microsoft\Windows\DUSM\dusmtask
+08:12:19    could not pause \Microsoft\Windows\EDP\EDP App Launch Task : Access is denied.
+
+08:12:20    could not pause \Microsoft\Windows\EDP\EDP Auth Task : Access is denied.
+
+08:12:21    could not pause \Microsoft\Windows\EDP\EDP Inaccessible Credentials Task : Access is denied.
+
+08:12:21    could not pause \Microsoft\Windows\EDP\StorageCardEncryption Task : Access is denied.
+
+08:12:22  paused task: \Microsoft\Windows\ExploitGuard\ExploitGuard MDM policy Refresh
+08:12:23  paused task: \Microsoft\Windows\Feedback\Siuf\DmClient
+08:12:24  paused task: \Microsoft\Windows\Feedback\Siuf\DmClientOnScenarioDownload
+08:12:24  paused task: \Microsoft\Windows\FileHistory\File History (maintenance mode)
+08:12:25  paused task: \Microsoft\Windows\Flighting\FeatureConfig\GovernedFeatureUsageProcessing
+08:12:26  paused task: \Microsoft\Windows\Flighting\FeatureConfig\ReconcileConfigs
+08:12:27  paused task: \Microsoft\Windows\Flighting\FeatureConfig\ReconcileFeatures
+08:12:27  paused task: \Microsoft\Windows\Flighting\FeatureConfig\SafeguardsReconciliation
+08:12:28  paused task: \Microsoft\Windows\Flighting\FeatureConfig\UsageDataFlushing
+08:12:29  paused task: \Microsoft\Windows\Flighting\FeatureConfig\UsageDataReceiver
+08:12:30  paused task: \Microsoft\Windows\Flighting\FeatureConfig\UsageDataReporting
+08:12:30  paused task: \Microsoft\Windows\Flighting\OneSettings\RefreshCache
+08:12:31  paused task: \Microsoft\Windows\Hotpatch\Monitoring
+08:12:32  paused task: \Microsoft\Windows\input\InputSettingsRestoreDataAvailable
+08:12:32  paused task: \Microsoft\Windows\input\LocalUserSyncDataAvailable
+08:12:33  paused task: \Microsoft\Windows\input\MouseSyncDataAvailable
+08:12:34  paused task: \Microsoft\Windows\input\PenSyncDataAvailable
+08:12:35  paused task: \Microsoft\Windows\input\RemoteMouseSyncDataAvailable
+08:12:35  paused task: \Microsoft\Windows\input\RemotePenSyncDataAvailable
+08:12:36  paused task: \Microsoft\Windows\input\RemoteTouchpadSyncDataAvailable
+08:12:37  paused task: \Microsoft\Windows\input\syncpensettings
+08:12:38  paused task: \Microsoft\Windows\input\TouchpadSyncDataAvailable
+08:12:38  paused task: \Microsoft\Windows\InstallService\RestoreDevice
+08:12:39  paused task: \Microsoft\Windows\InstallService\ScanForUpdates
+08:12:40  paused task: \Microsoft\Windows\InstallService\ScanForUpdatesAsUser
+08:12:41  paused task: \Microsoft\Windows\InstallService\SmartRetry
+08:12:41  paused task: \Microsoft\Windows\International\Synchronize Language Settings
+08:12:42  paused task: \Microsoft\Windows\LanguageComponentsInstaller\Installation
+08:12:43  paused task: \Microsoft\Windows\LanguageComponentsInstaller\ReconcileLanguageResources
+08:12:45  paused task: \Microsoft\Windows\Location\WindowsActionDialog
+08:12:45  paused task: \Microsoft\Windows\Maintenance\WinSAT
+08:12:46  paused task: \Microsoft\Windows\Management\Provisioning\Cellular
+08:12:47  paused task: \Microsoft\Windows\Management\Provisioning\Logon
+08:12:48  paused task: \Microsoft\Windows\Maps\MapsToastTask
+08:12:48  paused task: \Microsoft\Windows\Maps\MapsUpdateTask
+08:12:49  paused task: \Microsoft\Windows\MemoryDiagnostic\AutomaticOfflineMemoryDiagnostic
+08:12:50  paused task: \Microsoft\Windows\MemoryDiagnostic\ProcessMemoryDiagnosticEvents
+08:12:51  paused task: \Microsoft\Windows\NlaSvc\WiFiTask
+08:12:51  paused task: \Microsoft\Windows\PerformanceTrace\ShowFeedbackToast
+08:12:52  paused task: \Microsoft\Windows\PerformanceTrace\WhesvcToast
+08:12:53  paused task: \Microsoft\Windows\Power Efficiency Diagnostics\AnalyzeSystem
+08:12:54  paused task: \Microsoft\Windows\Printing\EduPrintProv
+08:12:54  paused task: \Microsoft\Windows\Printing\PrinterCleanupTask
+08:12:55  paused task: \Microsoft\Windows\Registry\RegIdleBackup
+08:12:56  paused task: \Microsoft\Windows\Servicing\StartComponentCleanup
+08:12:57  paused task: \Microsoft\Windows\Shell\FamilySafetyMonitor
+08:12:57  paused task: \Microsoft\Windows\Shell\FamilySafetyRefreshTask
+08:12:58  paused task: \Microsoft\Windows\Shell\IndexerAutomaticMaintenance
+08:12:59  paused task: \Microsoft\Windows\Shell\ThemesSyncedImageDownload
+08:12:59    could not pause \Microsoft\Windows\Shell\UpdateUserPictureTask : Access is denied.
+
+08:13:00    could not pause \Microsoft\Windows\Shell\UpdateUserPictureTaskContained : Access is denied.
+
+08:13:01  paused task: \Microsoft\Windows\SpacePort\SpaceAgentTask
+08:13:02  paused task: \Microsoft\Windows\SpacePort\SpaceManagerTask
+08:13:02  paused task: \Microsoft\Windows\Subscription\EnableLicenseAcquisition
+08:13:03  paused task: \Microsoft\Windows\Sustainability\PowerGridForecastTask
+08:13:04  paused task: \Microsoft\Windows\Sustainability\SustainabilityTelemetry
+08:13:05  paused task: \Microsoft\Windows\Sysmain\ResPriStaticDbSync
+08:13:05  paused task: \Microsoft\Windows\Sysmain\WsSwapAssessmentTask
+08:13:06  paused task: \Microsoft\Windows\SystemRestore\SR
+08:13:07  paused task: \Microsoft\Windows\UPnP\UPnPHostConfig
+08:13:08  paused task: \Microsoft\Windows\WCM\WiFiTask
+08:13:08  paused task: \Microsoft\Windows\WDI\ResolutionHost
+08:13:09  paused task: \Microsoft\Windows\Windows Error Reporting\QueueReporting
+08:13:10  paused task: \Microsoft\Windows\Windows Media Sharing\UpdateLibrary
+08:13:11    could not pause \Microsoft\Windows\WindowsUpdate\Refresh Group Policy Cache : Access is denied.
+
+08:13:11  paused task: \Microsoft\Windows\WindowsUpdate\Scheduled Start
+08:13:12  paused task: \Microsoft\Windows\WlanSvc\CDSSync
+08:13:13  paused task: \Microsoft\Windows\WlanSvc\MoProfileManagement
+08:13:15  paused task: \Microsoft\Windows\Work Folders\Work Folders Logon Synchronization
+08:13:15  paused task: \Microsoft\Windows\Work Folders\Work Folders Maintenance Work
+08:13:16  paused task: \Microsoft\Windows\WwanSvc\NotificationTask
+08:13:17  paused task: \Microsoft\Windows\WwanSvc\OobeDiscovery
+08:13:18  paused task: \Mozilla\Firefox Background Update S-1-5-21-546694188-126083826-4013810330-1001 308046B0AF4A39CB
+08:13:18  paused task: \Mozilla\Firefox Background Update S-1-5-21-546694188-126083826-4013810330-1001 BFCFDCF42A915CC6
+08:13:19  paused task: \Mozilla\Firefox Default Browser Agent 308046B0AF4A39CB
+08:13:20  paused task: \Mozilla\Firefox Default Browser Agent BFCFDCF42A915CC6
+08:13:21  paused task: \SoftLanding\S-1-5-21-546694188-126083826-4013810330-1002\SoftLandingCreativeManagementTask
+08:13:21  paused task: \SoftLanding\S-1-5-21-546694188-126083826-4013810330-1002\SoftLandingRefreshForExpirationTask-{f3c13b7b-1f42-4ed7-ba1f-4b34d5ebd5fd}
+08:13:21  held back at next sign-in: Universal Control
+08:13:21  held back at next sign-in: Proton VPN
+08:13:21  held back at next sign-in: Proton Drive
+08:13:21  held back at next sign-in: Adobe Acrobat Synchronizer
+08:13:21  held back at next sign-in: MicrosoftEdgeAutoLaunch_33E3459BBA1179D5A7EDFB28FA9E3CE4
+08:13:21  held back at next sign-in: SunJavaUpdateSched
+08:13:21  held back at next sign-in: Update UWP App.lnk
+08:13:21  not running: Bidule
+08:13:21  not running: Bidule
+08:13:21  --- done ---
+08:35:30  started Bidule.exe  priority RealTime  cores your pick
+09:04:35  opened Dropbox
+14:20:06  --- undoing everything ---
+14:20:06  undone: startup item Update UWP App.lnk
+14:20:06  undone: startup item SunJavaUpdateSched
+14:20:06  undone: startup item MicrosoftEdgeAutoLaunch_33E3459BBA1179D5A7EDFB28FA9E3CE4
+14:20:06  undone: startup item Adobe Acrobat Synchronizer
+14:20:06  undone: startup item Proton Drive
+14:20:06  undone: startup item Proton VPN
+14:20:06  undone: startup item Universal Control
+14:20:06  undone: scheduled task \SoftLanding\S-1-5-21-546694188-126083826-4013810330-1002\SoftLandingRefreshForExpirationTask-{f3c13b7b-1f42-4ed7-ba1f-4b34d5ebd5fd}
+14:20:06  undone: scheduled task \SoftLanding\S-1-5-21-546694188-126083826-4013810330-1002\SoftLandingCreativeManagementTask
+14:20:06  undone: scheduled task \Mozilla\Firefox Default Browser Agent BFCFDCF42A915CC6
+14:20:06  undone: scheduled task \Mozilla\Firefox Default Browser Agent 308046B0AF4A39CB
+14:20:06  undone: scheduled task \Mozilla\Firefox Background Update S-1-5-21-546694188-126083826-4013810330-1001 BFCFDCF42A915CC6
+14:20:06  undone: scheduled task \Mozilla\Firefox Background Update S-1-5-21-546694188-126083826-4013810330-1001 308046B0AF4A39CB
+14:20:07  undone: scheduled task \Microsoft\Windows\WwanSvc\OobeDiscovery
+14:20:07  undone: scheduled task \Microsoft\Windows\WwanSvc\NotificationTask
+14:20:07  undone: scheduled task \Microsoft\Windows\Work Folders\Work Folders Maintenance Work
+14:20:07  undone: scheduled task \Microsoft\Windows\Work Folders\Work Folders Logon Synchronization
+14:20:07  undone: scheduled task \Microsoft\Windows\WlanSvc\MoProfileManagement
+14:20:07  undone: scheduled task \Microsoft\Windows\WlanSvc\CDSSync
+14:20:07  undone: scheduled task \Microsoft\Windows\WindowsUpdate\Scheduled Start
+14:20:07  undone: scheduled task \Microsoft\Windows\WindowsUpdate\Refresh Group Policy Cache
+14:20:07  undone: scheduled task \Microsoft\Windows\Windows Media Sharing\UpdateLibrary
+14:20:07  undone: scheduled task \Microsoft\Windows\Windows Error Reporting\QueueReporting
+14:20:07  undone: scheduled task \Microsoft\Windows\WDI\ResolutionHost
+14:20:07  undone: scheduled task \Microsoft\Windows\WCM\WiFiTask
+14:20:07  undone: scheduled task \Microsoft\Windows\UPnP\UPnPHostConfig
+14:20:07  undone: scheduled task \Microsoft\Windows\SystemRestore\SR
+14:20:07  undone: scheduled task \Microsoft\Windows\Sysmain\WsSwapAssessmentTask
+14:20:07  undone: scheduled task \Microsoft\Windows\Sysmain\ResPriStaticDbSync
+14:20:07  undone: scheduled task \Microsoft\Windows\Sustainability\SustainabilityTelemetry
+14:20:07  undone: scheduled task \Microsoft\Windows\Sustainability\PowerGridForecastTask
+14:20:07  undone: scheduled task \Microsoft\Windows\Subscription\EnableLicenseAcquisition
+14:20:07  undone: scheduled task \Microsoft\Windows\SpacePort\SpaceManagerTask
+14:20:07  undone: scheduled task \Microsoft\Windows\SpacePort\SpaceAgentTask
+14:20:07  undone: scheduled task \Microsoft\Windows\Shell\UpdateUserPictureTaskContained
+14:20:07  undone: scheduled task \Microsoft\Windows\Shell\UpdateUserPictureTask
+14:20:07  undone: scheduled task \Microsoft\Windows\Shell\ThemesSyncedImageDownload
+14:20:07  undone: scheduled task \Microsoft\Windows\Shell\IndexerAutomaticMaintenance
+14:20:07  undone: scheduled task \Microsoft\Windows\Shell\FamilySafetyRefreshTask
+14:20:07  undone: scheduled task \Microsoft\Windows\Shell\FamilySafetyMonitor
+14:20:07  undone: scheduled task \Microsoft\Windows\Servicing\StartComponentCleanup
+14:20:07  undone: scheduled task \Microsoft\Windows\Registry\RegIdleBackup
+14:20:07  undone: scheduled task \Microsoft\Windows\Printing\PrinterCleanupTask
+14:20:07  undone: scheduled task \Microsoft\Windows\Printing\EduPrintProv
+14:20:07  undone: scheduled task \Microsoft\Windows\Power Efficiency Diagnostics\AnalyzeSystem
+14:20:07  undone: scheduled task \Microsoft\Windows\PerformanceTrace\WhesvcToast
+14:20:07  undone: scheduled task \Microsoft\Windows\PerformanceTrace\ShowFeedbackToast
+14:20:07  undone: scheduled task \Microsoft\Windows\NlaSvc\WiFiTask
+14:20:07  undone: scheduled task \Microsoft\Windows\MemoryDiagnostic\ProcessMemoryDiagnosticEvents
+14:20:07  undone: scheduled task \Microsoft\Windows\MemoryDiagnostic\AutomaticOfflineMemoryDiagnostic
+14:20:07  undone: scheduled task \Microsoft\Windows\Maps\MapsUpdateTask
+14:20:07  undone: scheduled task \Microsoft\Windows\Maps\MapsToastTask
+14:20:08  undone: scheduled task \Microsoft\Windows\Management\Provisioning\Logon
+14:20:08  undone: scheduled task \Microsoft\Windows\Management\Provisioning\Cellular
+14:20:08  undone: scheduled task \Microsoft\Windows\Maintenance\WinSAT
+14:20:08  undone: scheduled task \Microsoft\Windows\Location\WindowsActionDialog
+14:20:08  undone: scheduled task \Microsoft\Windows\LanguageComponentsInstaller\ReconcileLanguageResources
+14:20:08  undone: scheduled task \Microsoft\Windows\LanguageComponentsInstaller\Installation
+14:20:08  undone: scheduled task \Microsoft\Windows\International\Synchronize Language Settings
+14:20:08  undone: scheduled task \Microsoft\Windows\InstallService\SmartRetry
+14:20:08  undone: scheduled task \Microsoft\Windows\InstallService\ScanForUpdatesAsUser
+14:20:08  undone: scheduled task \Microsoft\Windows\InstallService\ScanForUpdates
+14:20:08  undone: scheduled task \Microsoft\Windows\InstallService\RestoreDevice
+14:20:08  undone: scheduled task \Microsoft\Windows\input\TouchpadSyncDataAvailable
+14:20:08  undone: scheduled task \Microsoft\Windows\input\syncpensettings
+14:20:08  undone: scheduled task \Microsoft\Windows\input\RemoteTouchpadSyncDataAvailable
+14:20:08  undone: scheduled task \Microsoft\Windows\input\RemotePenSyncDataAvailable
+14:20:08  undone: scheduled task \Microsoft\Windows\input\RemoteMouseSyncDataAvailable
+14:20:08  undone: scheduled task \Microsoft\Windows\input\PenSyncDataAvailable
+14:20:08  undone: scheduled task \Microsoft\Windows\input\MouseSyncDataAvailable
+14:20:08  undone: scheduled task \Microsoft\Windows\input\LocalUserSyncDataAvailable
+14:20:08  undone: scheduled task \Microsoft\Windows\input\InputSettingsRestoreDataAvailable
+14:20:08  undone: scheduled task \Microsoft\Windows\Hotpatch\Monitoring
+14:20:08  undone: scheduled task \Microsoft\Windows\Flighting\OneSettings\RefreshCache
+14:20:08  undone: scheduled task \Microsoft\Windows\Flighting\FeatureConfig\UsageDataReporting
+14:20:08  undone: scheduled task \Microsoft\Windows\Flighting\FeatureConfig\UsageDataReceiver
+14:20:08  undone: scheduled task \Microsoft\Windows\Flighting\FeatureConfig\UsageDataFlushing
+14:20:08  undone: scheduled task \Microsoft\Windows\Flighting\FeatureConfig\SafeguardsReconciliation
+14:20:08  undone: scheduled task \Microsoft\Windows\Flighting\FeatureConfig\ReconcileFeatures
+14:20:08  undone: scheduled task \Microsoft\Windows\Flighting\FeatureConfig\ReconcileConfigs
+14:20:08  undone: scheduled task \Microsoft\Windows\Flighting\FeatureConfig\GovernedFeatureUsageProcessing
+14:20:08  undone: scheduled task \Microsoft\Windows\FileHistory\File History (maintenance mode)
+14:20:08  undone: scheduled task \Microsoft\Windows\Feedback\Siuf\DmClientOnScenarioDownload
+14:20:08  undone: scheduled task \Microsoft\Windows\Feedback\Siuf\DmClient
+14:20:08  undone: scheduled task \Microsoft\Windows\ExploitGuard\ExploitGuard MDM policy Refresh
+14:20:08  undone: scheduled task \Microsoft\Windows\EDP\StorageCardEncryption Task
+14:20:08  undone: scheduled task \Microsoft\Windows\EDP\EDP Inaccessible Credentials Task
+14:20:08  undone: scheduled task \Microsoft\Windows\EDP\EDP Auth Task
+14:20:08  undone: scheduled task \Microsoft\Windows\EDP\EDP App Launch Task
+14:20:08  undone: scheduled task \Microsoft\Windows\DUSM\dusmtask
+14:20:08  undone: scheduled task \Microsoft\Windows\DiskFootprint\StorageSense
+14:20:08  undone: scheduled task \Microsoft\Windows\DiskFootprint\Diagnostics
+14:20:08  undone: scheduled task \Microsoft\Windows\DiskCleanup\SilentCleanup
+14:20:08  undone: scheduled task \Microsoft\Windows\Diagnosis\UnexpectedCodepath
+14:20:09  undone: scheduled task \Microsoft\Windows\Diagnosis\Scheduled
+14:20:09  undone: scheduled task \Microsoft\Windows\Diagnosis\RecommendedTroubleshootingScanner
+14:20:09  undone: scheduled task \Microsoft\Windows\Device Information\Device User
+14:20:09  undone: scheduled task \Microsoft\Windows\Device Information\Device
+14:20:09  undone: scheduled task \Microsoft\Windows\Defrag\ScheduledDefrag
+14:20:09  undone: scheduled task \Microsoft\Windows\Data Integrity Scan\Data Integrity Scan for Crash Recovery
+14:20:09  undone: scheduled task \Microsoft\Windows\Data Integrity Scan\Data Integrity Scan
+14:20:09  undone: scheduled task \Microsoft\Windows\Data Integrity Scan\Data Integrity Check And Scan
+14:20:09  undone: scheduled task \Microsoft\Windows\Customer Experience Improvement Program\UsbCeip
+14:20:09  undone: scheduled task \Microsoft\Windows\Customer Experience Improvement Program\Consolidator
+14:20:09  undone: scheduled task \Microsoft\Windows\ConsentUX\UnifiedConsent\UnifiedConsentSyncTask
+14:20:09  undone: scheduled task \Microsoft\Windows\CloudRestore\Restore
+14:20:09  undone: scheduled task \Microsoft\Windows\CloudRestore\Backup
+14:20:09  undone: scheduled task \Microsoft\Windows\Chkdsk\ProactiveScan
+14:20:09  undone: scheduled task \Microsoft\Windows\BitLocker\BitLocker MDM policy Refresh
+14:20:09  undone: scheduled task \Microsoft\Windows\BitLocker\BitLocker Encrypt All Drives
+14:20:09  undone: scheduled task \Microsoft\Windows\AppListBackup\BackupNonMaintenance
+14:20:09  undone: scheduled task \Microsoft\Windows\AppListBackup\Backup
+14:20:09  undone: scheduled task \Microsoft\Windows\Application Experience\StartupAppTask
+14:20:09  undone: scheduled task \Microsoft\Windows\Application Experience\SdbinstMergeDbTask
+14:20:09  undone: scheduled task \Microsoft\Windows\Application Experience\PcaPatchDbTask
+14:20:09  undone: scheduled task \Microsoft\Windows\Application Experience\Microsoft Compatibility Appraiser Exp
+14:20:09  undone: scheduled task \Microsoft\Windows\Application Experience\MareBackup
+14:20:09  undone: scheduled task \Microsoft\VisualStudio\Updates\BackgroundDownload
+14:20:09  undone: scheduled task \Microsoft\Office\Office Startup Maintenance
+14:20:09  undone: scheduled task \Microsoft\Office\Office Performance Monitor
+14:20:09  undone: scheduled task \Microsoft\Office\Office Feature Updates Logon
+14:20:09  undone: scheduled task \Microsoft\Office\Office Feature Updates
+14:20:09  undone: scheduled task \Microsoft\Office\Office ClickToRun Service Monitor
+14:20:09  undone: scheduled task \Microsoft\Office\Office Background Push Maintenance
+14:20:09  undone: scheduled task \Microsoft\Office\Office Automatic Updates 2.0
+14:20:09  undone: scheduled task \Microsoft\Office\Office Actions Server
+14:20:09  undone: scheduled task \McAfee\wps\McAfee Sync Agent Pilot
+14:20:09  undone: scheduled task \Lenovo\Vantage\Schedule\VantageCoreAddinWeekScheduleTask
+14:20:09  undone: scheduled task \Lenovo\Vantage\Schedule\VantageCoreAddinIdleScheduleTask
+14:20:09  undone: scheduled task \Lenovo\Vantage\Schedule\VantageCoreAddinDailyScheduleTask
+14:20:09  undone: scheduled task \Lenovo\Vantage\Schedule\SmartPerformance.ExpireReminder
+14:20:09  undone: scheduled task \Lenovo\Vantage\Schedule\SmartLock.ExpireReminder
+14:20:09  undone: scheduled task \Lenovo\Vantage\Schedule\SettingsWidgetAddinDailyScheduleTask
+14:20:09  undone: scheduled task \Lenovo\Vantage\Schedule\LiveWallpaperScheduleTask
+14:20:09  undone: scheduled task \Lenovo\Vantage\Schedule\LiveWallpaperDailyScheduleTask
+14:20:09  undone: scheduled task \Lenovo\Vantage\Schedule\LenovoSystemUpdateAddin_WeeklyTask
+14:20:10  undone: scheduled task \Lenovo\Vantage\Schedule\LenovoSupportHealthReportSchedule
+14:20:10  undone: scheduled task \Lenovo\Vantage\Schedule\LenovoSupportContextEngineDaily
+14:20:10  undone: scheduled task \Lenovo\Vantage\Schedule\LenovoCompanionAppAddinDailyScheduleTask
+14:20:10  undone: scheduled task \Lenovo\Vantage\Schedule\Lenovo.Vantage.SmartPerformance.MonthlyReport
+14:20:10  undone: scheduled task \Lenovo\Vantage\Schedule\IdeaNotebookAddinDailyEvent
+14:20:10  undone: scheduled task \Lenovo\Vantage\Schedule\HeartbeatAddinDailyScheduleTask
+14:20:10  undone: scheduled task \Lenovo\Vantage\Schedule\GenericMessagingAddin_Pulsation
+14:20:10  undone: scheduled task \Lenovo\Vantage\Schedule\GenericMessagingAddin
+14:20:10  undone: scheduled task \Lenovo\Vantage\Schedule\DailyTelemetryTransmission
+14:20:10  undone: scheduled task \Lenovo\Vantage\Schedule\ConsumerAddinDailyScheduleTask
+14:20:10  undone: scheduled task \Lenovo\Vantage\Schedule\BatteryGaugeAddinDailyScheduleTask
+14:20:10  undone: scheduled task \Lenovo\Vantage\Lenovo.Vantage.ServiceMaintainance
+14:20:10  undone: scheduled task \Lenovo\UDC\Lenovo UDC Monitor
+14:20:10  undone: scheduled task \Lenovo\UDC\Lenovo UDC Maintainance Task
+14:20:10  undone: scheduled task \Lenovo\UDC\Lenovo UDC Lazy Deployment
+14:20:10  undone: scheduled task \Lenovo\ImController\TimeBasedEvents\5c3027d9-74c3-406c-bb42-637dcf927336
+14:20:10  undone: scheduled task \Lenovo\ImController\Lenovo iM Controller Scheduled Maintenance
+14:20:10  undone: scheduled task \Lenovo\ImController\Lenovo iM Controller Monitor
+14:20:10  undone: scheduled task \Lenovo\LenovoMachineFixUser_OOBE_AUTO_Notification
+14:20:10  undone: scheduled task \GoogleSystem\GoogleUpdater\GoogleUpdaterTaskSystem157.0.8089.0{5678B8B9-7C76-41CB-B179-6DC74F67A85F}
+14:20:10  undone: scheduled task \GoogleSystem\GoogleUpdater\GoogleUpdaterTaskSystem152.0.7933.0{94F9AC43-B1EA-45F7-AA84-098CCE5B7CFB}
+14:20:10  undone: scheduled task \DropboxSystem\DropboxUpdater\DropboxUpdaterTaskSystem123.0.6299.152{857AC886-0701-4EE0-A53F-DFBBEC026671}
+14:20:10  undone: scheduled task \ZoomUpdateTaskUser-S-1-5-21-546694188-126083826-4013810330-1001
+14:20:10  undone: scheduled task \Proton VPN NRPT watchdog
+14:20:10  undone: scheduled task \MicrosoftEdgeUpdateTaskMachineUA{883A5E2A-0595-480E-A4EC-536F847650F5}
+14:20:10  undone: scheduled task \MicrosoftEdgeUpdateTaskMachineCore{D2799CF4-E121-4922-8B77-AD0646920725}
+14:20:10  undone: scheduled task \LastPassUpdater
+14:20:10  undone: scheduled task \BraveSoftwareUpdateTaskMachineUA{061867A0-FDB0-4961-8907-5DA2FB3C66BC}
+14:20:10  undone: scheduled task \BraveSoftwareUpdateTaskMachineCore{137CAE5D-42A2-4C8E-BFCE-DF0B392A5526}
+14:20:11  undone: service PreSonus Hardware Access Service
+14:20:11  undone: service NTKDaemonService
+14:20:11  undone: service LenovoVantageService
+14:20:11  undone: service Bonjour Service
+14:20:11  undone: service ClickToRunSvc
+14:20:11  undone: service edgeupdatem
+14:20:11  undone: service edgeupdate
+14:20:12  undone: service stisvc
+14:20:12  undone: service PhoneSvc
+14:20:12  undone: service MapsBroker
+14:20:12  undone: service lfsvc
+14:20:12  undone: service PcaSvc
+14:20:12  undone: service DPS
+14:20:12  undone: service Spooler
+14:20:12  undone: service InstallService
+14:20:13  undone: service wuauserv
+14:20:18  undone: service DusmSvc
+14:20:18  undone: program Universal Control
+14:20:18  undone: program Gajim
+14:20:18  undone: program ProtonDrive
+14:20:18  undone: setting HiberbootEnabled
+14:20:18  undone: setting GameDVR_Enabled
+14:20:18  undone: setting AutoGameModeEnabled
+14:20:18  undone: setting ConsentPromptBehaviorAdmin
+14:20:18  undone: program Dropbox
+14:20:18    could not undo scheduled task \Lenovo\ImController\TimeBasedEvents\231a179f-2b74-40d1-8dff-caa05d507608 : The system cannot find the file specified.
+
+14:20:18    could not undo service SysMain : Exception calling "Start" with "0" argument(s): "Cannot start service SysMain on computer '.'."
+14:20:18    could not undo service WSearch : Exception calling "Start" with "0" argument(s): "Cannot start service WSearch on computer '.'."
+14:20:18    could not undo service DoSvc : Exception calling "Start" with "0" argument(s): "Cannot start service DoSvc on computer '.'."
+14:20:18    could not undo service BITS : Exception calling "Start" with "0" argument(s): "Cannot start service BITS on computer '.'."
+14:20:18    could not undo service UsoSvc : Exception calling "Start" with "0" argument(s): "Cannot start service UsoSvc on computer '.'."
+14:20:18    could not undo service DiagTrack : Exception calling "Start" with "0" argument(s): "Cannot start service DiagTrack on computer '.'."
+14:20:18    could not undo service BluetoothUserService_a6329 : Cannot find any service with service name 'BluetoothUserService_a6329'.
+14:20:19  --- done ---
+14:20:32  layout saved: default
+12:42:52  cores: 12  hybrid chip: True
+12:42:57  layout loaded: default
+12:42:57  ready. Nothing has been changed yet.
+12:46:37  --- optimizing ---
+12:46:37  setting changed: UAC quiet: administrators are never asked for permission (UAC stays on; no restart needed)
+12:46:37  setting changed: Game Mode off
+12:46:37  setting changed: Game recording off
+12:46:37  setting changed: Fast Startup off (full shutdown; takes effect at next shutdown)
+12:46:38  closed program: Dropbox
+12:46:40  closed program: ProtonDrive
+12:46:42  closed program: Gajim
+12:46:43  closed program: Universal Control
+12:46:43  stopped service: Connected User Experiences and Telemetry
+12:46:43  stopped service: Data Usage
+12:46:44  stopped service: Update Orchestrator Service
+12:46:45  stopped service: Windows Update
+12:46:45  stopped service: Background Intelligent Transfer Service
+12:46:45  stopped service: Delivery Optimization
+12:46:46  stopped service: Windows Search
+12:46:46  stopped service: SysMain
+12:46:46  stopped service: Print Spooler
+12:46:46  stopped service: Diagnostic Policy Service
+12:46:46  stopped service: Program Compatibility Assistant Service
+12:46:46  stopped service: Geolocation Service
+12:46:47  stopped service: Phone Service
+12:46:47  stopped service: Windows Image Acquisition (WIA)
+12:46:47  stopped service: Microsoft Office Click-to-Run Service
+12:46:47  stopped service: Bonjour Service
+12:46:51  stopped service: Critical Service for Lenovo Vantage
+12:46:51  stopped service: TightVNC Server
+12:46:53  stopped service: NTKDaemonService
+12:46:53  stopped service: PreSonus Hardware Access Service
+12:46:54  paused task: \BraveSoftwareUpdateTaskMachineCore{137CAE5D-42A2-4C8E-BFCE-DF0B392A5526}
+12:46:55  paused task: \BraveSoftwareUpdateTaskMachineUA{061867A0-FDB0-4961-8907-5DA2FB3C66BC}
+12:46:55  paused task: \LastPassUpdater
+12:46:56  paused task: \MicrosoftEdgeUpdateTaskMachineCore{D2799CF4-E121-4922-8B77-AD0646920725}
+12:46:57  paused task: \MicrosoftEdgeUpdateTaskMachineUA{883A5E2A-0595-480E-A4EC-536F847650F5}
+12:46:58  paused task: \Proton VPN NRPT watchdog
+12:46:59  paused task: \ZoomUpdateTaskUser-S-1-5-21-546694188-126083826-4013810330-1001
+12:47:00  paused task: \DropboxSystem\DropboxUpdater\DropboxUpdaterTaskSystem123.0.6299.152{857AC886-0701-4EE0-A53F-DFBBEC026671}
+12:47:01  paused task: \GoogleSystem\GoogleUpdater\GoogleUpdaterTaskSystem152.0.7933.0{94F9AC43-B1EA-45F7-AA84-098CCE5B7CFB}
+12:47:02  paused task: \GoogleSystem\GoogleUpdater\GoogleUpdaterTaskSystem157.0.8089.0{5678B8B9-7C76-41CB-B179-6DC74F67A85F}
+12:47:02  paused task: \Lenovo\LenovoMachineFixUser_OOBE_AUTO_Notification
+12:47:03  paused task: \Lenovo\ImController\Lenovo iM Controller Monitor
+12:47:04  paused task: \Lenovo\ImController\Lenovo iM Controller Scheduled Maintenance
+12:47:05  paused task: \Lenovo\ImController\TimeBasedEvents\97e81714-4255-4a60-a91f-2965941d3a3e
+12:47:05  paused task: \Lenovo\UDC\Lenovo UDC Lazy Deployment
+12:47:06  paused task: \Lenovo\UDC\Lenovo UDC Maintainance Task
+12:47:07  paused task: \Lenovo\UDC\Lenovo UDC Monitor
+12:47:08  paused task: \Lenovo\Vantage\Lenovo.Vantage.ServiceMaintainance
+12:47:08  paused task: \Lenovo\Vantage\Schedule\BatteryGaugeAddinDailyScheduleTask
+12:47:09  paused task: \Lenovo\Vantage\Schedule\ConsumerAddinDailyScheduleTask
+12:47:10  paused task: \Lenovo\Vantage\Schedule\DailyTelemetryTransmission
+12:47:10  paused task: \Lenovo\Vantage\Schedule\GenericMessagingAddin
+12:47:11  paused task: \Lenovo\Vantage\Schedule\GenericMessagingAddin_Pulsation
+12:47:12  paused task: \Lenovo\Vantage\Schedule\HeartbeatAddinDailyScheduleTask
+12:47:13  paused task: \Lenovo\Vantage\Schedule\IdeaNotebookAddinDailyEvent
+12:47:13  paused task: \Lenovo\Vantage\Schedule\Lenovo.Vantage.SmartPerformance.MonthlyReport
+12:47:14  paused task: \Lenovo\Vantage\Schedule\LenovoCompanionAppAddinDailyScheduleTask
+12:47:15  paused task: \Lenovo\Vantage\Schedule\LenovoSupportContextEngineDaily
+12:47:15  paused task: \Lenovo\Vantage\Schedule\LenovoSupportHealthReportSchedule
+12:47:16  paused task: \Lenovo\Vantage\Schedule\LenovoSystemUpdateAddin_WeeklyTask
+12:47:17  paused task: \Lenovo\Vantage\Schedule\LiveWallpaperDailyScheduleTask
+12:47:18  paused task: \Lenovo\Vantage\Schedule\LiveWallpaperScheduleTask
+12:47:18  paused task: \Lenovo\Vantage\Schedule\SettingsWidgetAddinDailyScheduleTask
+12:47:19  paused task: \Lenovo\Vantage\Schedule\SmartLock.ExpireReminder
+12:47:20  paused task: \Lenovo\Vantage\Schedule\SmartPerformance.ExpireReminder
+12:47:20  paused task: \Lenovo\Vantage\Schedule\VantageCoreAddinDailyScheduleTask
+12:47:21  paused task: \Lenovo\Vantage\Schedule\VantageCoreAddinIdleScheduleTask
+12:47:22  paused task: \Lenovo\Vantage\Schedule\VantageCoreAddinWeekScheduleTask
+12:47:22  paused task: \McAfee\wps\McAfee Sync Agent Pilot
+12:47:23  paused task: \Microsoft\Office\Office Actions Server
+12:47:24  paused task: \Microsoft\Office\Office Automatic Updates 2.0
+12:47:24  paused task: \Microsoft\Office\Office Background Push Maintenance
+12:47:25  paused task: \Microsoft\Office\Office ClickToRun Service Monitor
+12:47:26  paused task: \Microsoft\Office\Office Feature Updates
+12:47:26  paused task: \Microsoft\Office\Office Feature Updates C2R Client
+12:47:27  paused task: \Microsoft\Office\Office Feature Updates C2R Client Logon
+12:47:29  paused task: \Microsoft\Office\Office Feature Updates Logon
+12:47:29  paused task: \Microsoft\Office\Office Performance Monitor
+12:47:30  paused task: \Microsoft\Office\Office Startup Maintenance
+12:47:31  paused task: \Microsoft\VisualStudio\Updates\BackgroundDownload
+12:47:31  paused task: \Microsoft\Windows\Application Experience\MareBackup
+12:47:32  paused task: \Microsoft\Windows\Application Experience\Microsoft Compatibility Appraiser Exp
+12:47:33  paused task: \Microsoft\Windows\Application Experience\PcaPatchDbTask
+12:47:34    could not pause \Microsoft\Windows\Application Experience\SdbinstMergeDbTask : Access is denied.
+
+12:47:34  paused task: \Microsoft\Windows\Application Experience\StartupAppTask
+12:47:35  paused task: \Microsoft\Windows\AppListBackup\Backup
+12:47:36  paused task: \Microsoft\Windows\AppListBackup\BackupNonMaintenance
+12:47:36    could not pause \Microsoft\Windows\BitLocker\BitLocker Encrypt All Drives : Access is denied.
+
+12:47:37    could not pause \Microsoft\Windows\BitLocker\BitLocker MDM policy Refresh : Access is denied.
+
+12:47:38  paused task: \Microsoft\Windows\Chkdsk\ProactiveScan
+12:47:38  paused task: \Microsoft\Windows\CloudRestore\Backup
+12:47:39  paused task: \Microsoft\Windows\CloudRestore\Restore
+12:47:40  paused task: \Microsoft\Windows\ConsentUX\UnifiedConsent\UnifiedConsentSyncTask
+12:47:40  paused task: \Microsoft\Windows\Customer Experience Improvement Program\Consolidator
+12:47:41  paused task: \Microsoft\Windows\Customer Experience Improvement Program\UsbCeip
+12:47:42  paused task: \Microsoft\Windows\Data Integrity Scan\Data Integrity Check And Scan
+12:47:42  paused task: \Microsoft\Windows\Data Integrity Scan\Data Integrity Scan
+12:47:43  paused task: \Microsoft\Windows\Data Integrity Scan\Data Integrity Scan for Crash Recovery
+12:47:44  paused task: \Microsoft\Windows\Defrag\ScheduledDefrag
+12:47:45  paused task: \Microsoft\Windows\Device Information\Device
+12:47:45  paused task: \Microsoft\Windows\Device Information\Device User
+12:47:46  paused task: \Microsoft\Windows\Diagnosis\RecommendedTroubleshootingScanner
+12:47:47  paused task: \Microsoft\Windows\Diagnosis\Scheduled
+12:47:47  paused task: \Microsoft\Windows\Diagnosis\UnexpectedCodepath
+12:47:48  paused task: \Microsoft\Windows\DiskCleanup\SilentCleanup
+12:47:49  paused task: \Microsoft\Windows\DiskFootprint\Diagnostics
+12:47:49  paused task: \Microsoft\Windows\DiskFootprint\StorageSense
+12:47:50  paused task: \Microsoft\Windows\DUSM\dusmtask
+12:47:51    could not pause \Microsoft\Windows\EDP\EDP App Launch Task : Access is denied.
+
+12:47:51    could not pause \Microsoft\Windows\EDP\EDP Auth Task : Access is denied.
+
+12:47:52    could not pause \Microsoft\Windows\EDP\EDP Inaccessible Credentials Task : Access is denied.
+
+12:47:53    could not pause \Microsoft\Windows\EDP\StorageCardEncryption Task : Access is denied.
+
+12:47:53  paused task: \Microsoft\Windows\ExploitGuard\ExploitGuard MDM policy Refresh
+12:47:54  paused task: \Microsoft\Windows\Feedback\Siuf\DmClient
+12:47:55  paused task: \Microsoft\Windows\Feedback\Siuf\DmClientOnScenarioDownload
+12:47:55  paused task: \Microsoft\Windows\FileHistory\File History (maintenance mode)
+12:47:56  paused task: \Microsoft\Windows\Flighting\FeatureConfig\GovernedFeatureUsageProcessing
+12:47:57  paused task: \Microsoft\Windows\Flighting\FeatureConfig\ReconcileConfigs
+12:47:58  paused task: \Microsoft\Windows\Flighting\FeatureConfig\ReconcileFeatures
+12:47:59  paused task: \Microsoft\Windows\Flighting\FeatureConfig\SafeguardsReconciliation
+12:48:00  paused task: \Microsoft\Windows\Flighting\FeatureConfig\UsageDataFlushing
+12:48:01  paused task: \Microsoft\Windows\Flighting\FeatureConfig\UsageDataReceiver
+12:48:01  paused task: \Microsoft\Windows\Flighting\FeatureConfig\UsageDataReporting
+12:48:02  paused task: \Microsoft\Windows\Flighting\OneSettings\RefreshCache
+12:48:03  paused task: \Microsoft\Windows\Hotpatch\Monitoring
+12:48:04  paused task: \Microsoft\Windows\input\InputSettingsRestoreDataAvailable
+12:48:04  paused task: \Microsoft\Windows\input\LocalUserSyncDataAvailable
+12:48:05  paused task: \Microsoft\Windows\input\MouseSyncDataAvailable
+12:48:06  paused task: \Microsoft\Windows\input\PenSyncDataAvailable
+12:48:06  paused task: \Microsoft\Windows\input\RemoteMouseSyncDataAvailable
+12:48:07  paused task: \Microsoft\Windows\input\RemotePenSyncDataAvailable
+12:48:08  paused task: \Microsoft\Windows\input\RemoteTouchpadSyncDataAvailable
+12:48:08  paused task: \Microsoft\Windows\input\syncpensettings
+12:48:09  paused task: \Microsoft\Windows\input\TouchpadSyncDataAvailable
+12:48:10  paused task: \Microsoft\Windows\InstallService\RestoreDevice
+12:48:10  paused task: \Microsoft\Windows\InstallService\ScanForUpdates
+12:48:11  paused task: \Microsoft\Windows\InstallService\ScanForUpdatesAsUser
+12:48:12  paused task: \Microsoft\Windows\InstallService\SmartRetry
+12:48:12  paused task: \Microsoft\Windows\International\Synchronize Language Settings
+12:48:13  paused task: \Microsoft\Windows\LanguageComponentsInstaller\Installation
+12:48:14  paused task: \Microsoft\Windows\LanguageComponentsInstaller\ReconcileLanguageResources
+12:48:15  paused task: \Microsoft\Windows\Location\WindowsActionDialog
+12:48:15  paused task: \Microsoft\Windows\Maintenance\WinSAT
+12:48:16  paused task: \Microsoft\Windows\Management\Provisioning\Cellular
+12:48:17  paused task: \Microsoft\Windows\Management\Provisioning\Logon
+12:48:17  paused task: \Microsoft\Windows\Maps\MapsToastTask
+12:48:18  paused task: \Microsoft\Windows\Maps\MapsUpdateTask
+12:48:19  paused task: \Microsoft\Windows\MemoryDiagnostic\AutomaticOfflineMemoryDiagnostic
+12:48:19  paused task: \Microsoft\Windows\MemoryDiagnostic\ProcessMemoryDiagnosticEvents
+12:48:20  paused task: \Microsoft\Windows\Multimedia\SystemSoundsService
+12:48:21  paused task: \Microsoft\Windows\NlaSvc\WiFiTask
+12:48:22  paused task: \Microsoft\Windows\PerformanceTrace\ShowFeedbackToast
+12:48:22  paused task: \Microsoft\Windows\PerformanceTrace\WhesvcToast
+12:48:23  paused task: \Microsoft\Windows\Power Efficiency Diagnostics\AnalyzeSystem
+12:48:24  paused task: \Microsoft\Windows\Printing\EduPrintProv
+12:48:24  paused task: \Microsoft\Windows\Printing\PrinterCleanupTask
+12:48:25  paused task: \Microsoft\Windows\Registry\RegIdleBackup
+12:48:26  paused task: \Microsoft\Windows\Servicing\StartComponentCleanup
+12:48:26  paused task: \Microsoft\Windows\Shell\FamilySafetyMonitor
+12:48:27  paused task: \Microsoft\Windows\Shell\FamilySafetyRefreshTask
+12:48:29  paused task: \Microsoft\Windows\Shell\IndexerAutomaticMaintenance
+12:48:29  paused task: \Microsoft\Windows\Shell\ThemesSyncedImageDownload
+12:48:30    could not pause \Microsoft\Windows\Shell\UpdateUserPictureTask : Access is denied.
+
+12:48:31    could not pause \Microsoft\Windows\Shell\UpdateUserPictureTaskContained : Access is denied.
+
+12:48:31  paused task: \Microsoft\Windows\SpacePort\SpaceAgentTask
+12:48:32  paused task: \Microsoft\Windows\SpacePort\SpaceManagerTask
+12:48:33  paused task: \Microsoft\Windows\Subscription\EnableLicenseAcquisition
+12:48:34  paused task: \Microsoft\Windows\Sustainability\PowerGridForecastTask
+12:48:34  paused task: \Microsoft\Windows\Sustainability\SustainabilityTelemetry
+12:48:35  paused task: \Microsoft\Windows\Sysmain\ResPriStaticDbSync
+12:48:36  paused task: \Microsoft\Windows\Sysmain\WsSwapAssessmentTask
+12:48:36  paused task: \Microsoft\Windows\SystemRestore\SR
+12:48:37  paused task: \Microsoft\Windows\UPnP\UPnPHostConfig
+12:48:38  paused task: \Microsoft\Windows\WCM\WiFiTask
+12:48:38  paused task: \Microsoft\Windows\WDI\ResolutionHost
+12:48:39  paused task: \Microsoft\Windows\Windows Error Reporting\QueueReporting
+12:48:40  paused task: \Microsoft\Windows\Windows Media Sharing\UpdateLibrary
+12:48:41    could not pause \Microsoft\Windows\WindowsUpdate\Refresh Group Policy Cache : Access is denied.
+
+12:48:41  paused task: \Microsoft\Windows\WindowsUpdate\Scheduled Start
+12:48:42  paused task: \Microsoft\Windows\WlanSvc\CDSSync
+12:48:43  paused task: \Microsoft\Windows\WlanSvc\MoProfileManagement
+12:48:43  paused task: \Microsoft\Windows\Work Folders\Work Folders Logon Synchronization
+12:48:44  paused task: \Microsoft\Windows\Work Folders\Work Folders Maintenance Work
+12:48:45  paused task: \Microsoft\Windows\WwanSvc\NotificationTask
+12:48:45  paused task: \Microsoft\Windows\WwanSvc\OobeDiscovery
+12:48:46  paused task: \Mozilla\Firefox Background Update S-1-5-21-546694188-126083826-4013810330-1001 308046B0AF4A39CB
+12:48:47  paused task: \Mozilla\Firefox Background Update S-1-5-21-546694188-126083826-4013810330-1001 BFCFDCF42A915CC6
+12:48:47  paused task: \Mozilla\Firefox Default Browser Agent 308046B0AF4A39CB
+12:48:48  paused task: \Mozilla\Firefox Default Browser Agent BFCFDCF42A915CC6
+12:48:49  paused task: \SoftLanding\S-1-5-21-546694188-126083826-4013810330-1002\SoftLandingCreativeManagementTask
+12:48:50  paused task: \SoftLanding\S-1-5-21-546694188-126083826-4013810330-1002\SoftLandingRefreshForExpirationTask-{05fd73d5-904c-475c-b2dd-cbe684b81a93}
+12:48:50  held back at next sign-in: Universal Control
+12:48:50  held back at next sign-in: Proton VPN
+12:48:50  held back at next sign-in: Proton Drive
+12:48:50  held back at next sign-in: Adobe Acrobat Synchronizer
+12:48:50  held back at next sign-in: MicrosoftEdgeAutoLaunch_33E3459BBA1179D5A7EDFB28FA9E3CE4
+12:48:50  held back at next sign-in: SunJavaUpdateSched
+12:48:50  held back at next sign-in: Update UWP App.lnk
+12:48:50  not running: Bidule
+12:48:50  not running: Bidule
+12:48:50  --- done ---
+12:49:04  started Bidule.exe  priority RealTime  cores your pick
+12:50:48  WiFi turned Off
+12:51:20  layout saved: default
+12:54:34  cores: 12  hybrid chip: True
+12:54:38  layout loaded: default
+12:54:38  ready. Nothing has been changed yet.
+12:55:00  Bluetooth turned Off
+12:55:21    could not stop bthserv: bthserv did not stop within 20 seconds
+12:55:21  stopped service: Bluetooth Audio Gateway Service
+12:55:21  stopped service: AVCTP service
+12:58:10  layout saved: default
+15:03:35  cores: 12  hybrid chip: True
+15:03:38  layout loaded: default
+15:03:39  ready. Nothing has been changed yet.
+15:11:08  WiFi turned On
+15:11:32  --- undoing everything ---
+15:11:32  undone: service BthAvctpSvc
+15:11:32  undone: service BTAGService
+15:11:32  undone: service bthserv
+15:11:32  undone: service BluetoothUserService_9634c
+15:11:32  undone: Bluetooth radio
+15:11:33  undone: WiFi radio
+15:11:33  undone: startup item Update UWP App.lnk
+15:11:33  undone: startup item SunJavaUpdateSched
+15:11:33  undone: startup item MicrosoftEdgeAutoLaunch_33E3459BBA1179D5A7EDFB28FA9E3CE4
+15:11:33  undone: startup item Adobe Acrobat Synchronizer
+15:11:33  undone: startup item Proton Drive
+15:11:33  undone: startup item Proton VPN
+15:11:33  undone: startup item Universal Control
+15:11:33  undone: scheduled task \SoftLanding\S-1-5-21-546694188-126083826-4013810330-1002\SoftLandingRefreshForExpirationTask-{05fd73d5-904c-475c-b2dd-cbe684b81a93}
+15:11:33  undone: scheduled task \SoftLanding\S-1-5-21-546694188-126083826-4013810330-1002\SoftLandingCreativeManagementTask
+15:11:33  undone: scheduled task \Mozilla\Firefox Default Browser Agent BFCFDCF42A915CC6
+15:11:33  undone: scheduled task \Mozilla\Firefox Default Browser Agent 308046B0AF4A39CB
+15:11:33  undone: scheduled task \Mozilla\Firefox Background Update S-1-5-21-546694188-126083826-4013810330-1001 BFCFDCF42A915CC6
+15:11:33  undone: scheduled task \Mozilla\Firefox Background Update S-1-5-21-546694188-126083826-4013810330-1001 308046B0AF4A39CB
+15:11:33  undone: scheduled task \Microsoft\Windows\WwanSvc\OobeDiscovery
+15:11:33  undone: scheduled task \Microsoft\Windows\WwanSvc\NotificationTask
+15:11:33  undone: scheduled task \Microsoft\Windows\Work Folders\Work Folders Maintenance Work
+15:11:33  undone: scheduled task \Microsoft\Windows\Work Folders\Work Folders Logon Synchronization
+15:11:33  undone: scheduled task \Microsoft\Windows\WlanSvc\MoProfileManagement
+15:11:33  undone: scheduled task \Microsoft\Windows\WlanSvc\CDSSync
+15:11:33  undone: scheduled task \Microsoft\Windows\WindowsUpdate\Scheduled Start
+15:11:33  undone: scheduled task \Microsoft\Windows\WindowsUpdate\Refresh Group Policy Cache
+15:11:33  undone: scheduled task \Microsoft\Windows\Windows Media Sharing\UpdateLibrary
+15:11:33  undone: scheduled task \Microsoft\Windows\Windows Error Reporting\QueueReporting
+15:11:33  undone: scheduled task \Microsoft\Windows\WDI\ResolutionHost
+15:11:33  undone: scheduled task \Microsoft\Windows\WCM\WiFiTask
+15:11:33  undone: scheduled task \Microsoft\Windows\UPnP\UPnPHostConfig
+15:11:33  undone: scheduled task \Microsoft\Windows\SystemRestore\SR
+15:11:33  undone: scheduled task \Microsoft\Windows\Sysmain\WsSwapAssessmentTask
+15:11:33  undone: scheduled task \Microsoft\Windows\Sysmain\ResPriStaticDbSync
+15:11:33  undone: scheduled task \Microsoft\Windows\Sustainability\SustainabilityTelemetry
+15:11:33  undone: scheduled task \Microsoft\Windows\Sustainability\PowerGridForecastTask
+15:11:33  undone: scheduled task \Microsoft\Windows\Subscription\EnableLicenseAcquisition
+15:11:33  undone: scheduled task \Microsoft\Windows\SpacePort\SpaceManagerTask
+15:11:33  undone: scheduled task \Microsoft\Windows\SpacePort\SpaceAgentTask
+15:11:33  undone: scheduled task \Microsoft\Windows\Shell\UpdateUserPictureTaskContained
+15:11:33  undone: scheduled task \Microsoft\Windows\Shell\UpdateUserPictureTask
+15:11:33  undone: scheduled task \Microsoft\Windows\Shell\ThemesSyncedImageDownload
+15:11:33  undone: scheduled task \Microsoft\Windows\Shell\IndexerAutomaticMaintenance
+15:11:33  undone: scheduled task \Microsoft\Windows\Shell\FamilySafetyRefreshTask
+15:11:33  undone: scheduled task \Microsoft\Windows\Shell\FamilySafetyMonitor
+15:11:33  undone: scheduled task \Microsoft\Windows\Servicing\StartComponentCleanup
+15:11:33  undone: scheduled task \Microsoft\Windows\Registry\RegIdleBackup
+15:11:33  undone: scheduled task \Microsoft\Windows\Printing\PrinterCleanupTask
+15:11:33  undone: scheduled task \Microsoft\Windows\Printing\EduPrintProv
+15:11:33  undone: scheduled task \Microsoft\Windows\Power Efficiency Diagnostics\AnalyzeSystem
+15:11:33  undone: scheduled task \Microsoft\Windows\PerformanceTrace\WhesvcToast
+15:11:34  undone: scheduled task \Microsoft\Windows\PerformanceTrace\ShowFeedbackToast
+15:11:34  undone: scheduled task \Microsoft\Windows\NlaSvc\WiFiTask
+15:11:34  undone: scheduled task \Microsoft\Windows\Multimedia\SystemSoundsService
+15:11:34  undone: scheduled task \Microsoft\Windows\MemoryDiagnostic\ProcessMemoryDiagnosticEvents
+15:11:34  undone: scheduled task \Microsoft\Windows\MemoryDiagnostic\AutomaticOfflineMemoryDiagnostic
+15:11:34  undone: scheduled task \Microsoft\Windows\Maps\MapsUpdateTask
+15:11:34  undone: scheduled task \Microsoft\Windows\Maps\MapsToastTask
+15:11:34  undone: scheduled task \Microsoft\Windows\Management\Provisioning\Logon
+15:11:34  undone: scheduled task \Microsoft\Windows\Management\Provisioning\Cellular
+15:11:34  undone: scheduled task \Microsoft\Windows\Maintenance\WinSAT
+15:11:34  undone: scheduled task \Microsoft\Windows\Location\WindowsActionDialog
+15:11:34  undone: scheduled task \Microsoft\Windows\LanguageComponentsInstaller\ReconcileLanguageResources
+15:11:34  undone: scheduled task \Microsoft\Windows\LanguageComponentsInstaller\Installation
+15:11:34  undone: scheduled task \Microsoft\Windows\International\Synchronize Language Settings
+15:11:34  undone: scheduled task \Microsoft\Windows\InstallService\SmartRetry
+15:11:34  undone: scheduled task \Microsoft\Windows\InstallService\ScanForUpdatesAsUser
+15:11:34  undone: scheduled task \Microsoft\Windows\InstallService\ScanForUpdates
+15:11:34  undone: scheduled task \Microsoft\Windows\InstallService\RestoreDevice
+15:11:34  undone: scheduled task \Microsoft\Windows\input\TouchpadSyncDataAvailable
+15:11:34  undone: scheduled task \Microsoft\Windows\input\syncpensettings
+15:11:34  undone: scheduled task \Microsoft\Windows\input\RemoteTouchpadSyncDataAvailable
+15:11:34  undone: scheduled task \Microsoft\Windows\input\RemotePenSyncDataAvailable
+15:11:34  undone: scheduled task \Microsoft\Windows\input\RemoteMouseSyncDataAvailable
+15:11:34  undone: scheduled task \Microsoft\Windows\input\PenSyncDataAvailable
+15:11:34  undone: scheduled task \Microsoft\Windows\input\MouseSyncDataAvailable
+15:11:34  undone: scheduled task \Microsoft\Windows\input\LocalUserSyncDataAvailable
+15:11:34  undone: scheduled task \Microsoft\Windows\input\InputSettingsRestoreDataAvailable
+15:11:34  undone: scheduled task \Microsoft\Windows\Hotpatch\Monitoring
+15:11:34  undone: scheduled task \Microsoft\Windows\Flighting\OneSettings\RefreshCache
+15:11:34  undone: scheduled task \Microsoft\Windows\Flighting\FeatureConfig\UsageDataReporting
+15:11:34  undone: scheduled task \Microsoft\Windows\Flighting\FeatureConfig\UsageDataReceiver
+15:11:34  undone: scheduled task \Microsoft\Windows\Flighting\FeatureConfig\UsageDataFlushing
+15:11:34  undone: scheduled task \Microsoft\Windows\Flighting\FeatureConfig\SafeguardsReconciliation
+15:11:34  undone: scheduled task \Microsoft\Windows\Flighting\FeatureConfig\ReconcileFeatures
+15:11:34  undone: scheduled task \Microsoft\Windows\Flighting\FeatureConfig\ReconcileConfigs
+15:11:34  undone: scheduled task \Microsoft\Windows\Flighting\FeatureConfig\GovernedFeatureUsageProcessing
+15:11:34  undone: scheduled task \Microsoft\Windows\FileHistory\File History (maintenance mode)
+15:11:34  undone: scheduled task \Microsoft\Windows\Feedback\Siuf\DmClientOnScenarioDownload
+15:11:34  undone: scheduled task \Microsoft\Windows\Feedback\Siuf\DmClient
+15:11:34  undone: scheduled task \Microsoft\Windows\ExploitGuard\ExploitGuard MDM policy Refresh
+15:11:34  undone: scheduled task \Microsoft\Windows\EDP\StorageCardEncryption Task
+15:11:34  undone: scheduled task \Microsoft\Windows\EDP\EDP Inaccessible Credentials Task
+15:11:34  undone: scheduled task \Microsoft\Windows\EDP\EDP Auth Task
+15:11:34  undone: scheduled task \Microsoft\Windows\EDP\EDP App Launch Task
+15:11:34  undone: scheduled task \Microsoft\Windows\DUSM\dusmtask
+15:11:34  undone: scheduled task \Microsoft\Windows\DiskFootprint\StorageSense
+15:11:34  undone: scheduled task \Microsoft\Windows\DiskFootprint\Diagnostics
+15:11:34  undone: scheduled task \Microsoft\Windows\DiskCleanup\SilentCleanup
+15:11:34  undone: scheduled task \Microsoft\Windows\Diagnosis\UnexpectedCodepath
+15:11:34  undone: scheduled task \Microsoft\Windows\Diagnosis\Scheduled
+15:11:35  undone: scheduled task \Microsoft\Windows\Diagnosis\RecommendedTroubleshootingScanner
+15:11:35  undone: scheduled task \Microsoft\Windows\Device Information\Device User
+15:11:35  undone: scheduled task \Microsoft\Windows\Device Information\Device
+15:11:35  undone: scheduled task \Microsoft\Windows\Defrag\ScheduledDefrag
+15:11:35  undone: scheduled task \Microsoft\Windows\Data Integrity Scan\Data Integrity Scan for Crash Recovery
+15:11:35  undone: scheduled task \Microsoft\Windows\Data Integrity Scan\Data Integrity Scan
+15:11:35  undone: scheduled task \Microsoft\Windows\Data Integrity Scan\Data Integrity Check And Scan
+15:11:35  undone: scheduled task \Microsoft\Windows\Customer Experience Improvement Program\UsbCeip
+15:11:35  undone: scheduled task \Microsoft\Windows\Customer Experience Improvement Program\Consolidator
+15:11:35  undone: scheduled task \Microsoft\Windows\ConsentUX\UnifiedConsent\UnifiedConsentSyncTask
+15:11:35  undone: scheduled task \Microsoft\Windows\CloudRestore\Restore
+15:11:35  undone: scheduled task \Microsoft\Windows\CloudRestore\Backup
+15:11:35  undone: scheduled task \Microsoft\Windows\Chkdsk\ProactiveScan
+15:11:35  undone: scheduled task \Microsoft\Windows\BitLocker\BitLocker MDM policy Refresh
+15:11:35  undone: scheduled task \Microsoft\Windows\BitLocker\BitLocker Encrypt All Drives
+15:11:35  undone: scheduled task \Microsoft\Windows\AppListBackup\BackupNonMaintenance
+15:11:35  undone: scheduled task \Microsoft\Windows\AppListBackup\Backup
+15:11:35  undone: scheduled task \Microsoft\Windows\Application Experience\StartupAppTask
+15:11:35  undone: scheduled task \Microsoft\Windows\Application Experience\SdbinstMergeDbTask
+15:11:35  undone: scheduled task \Microsoft\Windows\Application Experience\PcaPatchDbTask
+15:11:35  undone: scheduled task \Microsoft\Windows\Application Experience\Microsoft Compatibility Appraiser Exp
+15:11:35  undone: scheduled task \Microsoft\Windows\Application Experience\MareBackup
+15:11:35  undone: scheduled task \Microsoft\VisualStudio\Updates\BackgroundDownload
+15:11:35  undone: scheduled task \Microsoft\Office\Office Startup Maintenance
+15:11:35  undone: scheduled task \Microsoft\Office\Office Performance Monitor
+15:11:35  undone: scheduled task \Microsoft\Office\Office Feature Updates Logon
+15:11:35  undone: scheduled task \Microsoft\Office\Office Feature Updates C2R Client Logon
+15:11:35  undone: scheduled task \Microsoft\Office\Office Feature Updates C2R Client
+15:11:35  undone: scheduled task \Microsoft\Office\Office Feature Updates
+15:11:35  undone: scheduled task \Microsoft\Office\Office ClickToRun Service Monitor
+15:11:35  undone: scheduled task \Microsoft\Office\Office Background Push Maintenance
+15:11:35  undone: scheduled task \Microsoft\Office\Office Automatic Updates 2.0
+15:11:35  undone: scheduled task \Microsoft\Office\Office Actions Server
+15:11:35  undone: scheduled task \McAfee\wps\McAfee Sync Agent Pilot
+15:11:35  undone: scheduled task \Lenovo\Vantage\Schedule\VantageCoreAddinWeekScheduleTask
+15:11:35  undone: scheduled task \Lenovo\Vantage\Schedule\VantageCoreAddinIdleScheduleTask
+15:11:35  undone: scheduled task \Lenovo\Vantage\Schedule\VantageCoreAddinDailyScheduleTask
+15:11:35  undone: scheduled task \Lenovo\Vantage\Schedule\SmartPerformance.ExpireReminder
+15:11:35  undone: scheduled task \Lenovo\Vantage\Schedule\SmartLock.ExpireReminder
+15:11:35  undone: scheduled task \Lenovo\Vantage\Schedule\SettingsWidgetAddinDailyScheduleTask
+15:11:35  undone: scheduled task \Lenovo\Vantage\Schedule\LiveWallpaperScheduleTask
+15:11:35  undone: scheduled task \Lenovo\Vantage\Schedule\LiveWallpaperDailyScheduleTask
+15:11:35  undone: scheduled task \Lenovo\Vantage\Schedule\LenovoSystemUpdateAddin_WeeklyTask
+15:11:35  undone: scheduled task \Lenovo\Vantage\Schedule\LenovoSupportHealthReportSchedule
+15:11:35  undone: scheduled task \Lenovo\Vantage\Schedule\LenovoSupportContextEngineDaily
+15:11:35  undone: scheduled task \Lenovo\Vantage\Schedule\LenovoCompanionAppAddinDailyScheduleTask
+15:11:35  undone: scheduled task \Lenovo\Vantage\Schedule\Lenovo.Vantage.SmartPerformance.MonthlyReport
+15:11:35  undone: scheduled task \Lenovo\Vantage\Schedule\IdeaNotebookAddinDailyEvent
+15:11:35  undone: scheduled task \Lenovo\Vantage\Schedule\HeartbeatAddinDailyScheduleTask
+15:11:36  undone: scheduled task \Lenovo\Vantage\Schedule\GenericMessagingAddin_Pulsation
+15:11:36  undone: scheduled task \Lenovo\Vantage\Schedule\GenericMessagingAddin
+15:11:36  undone: scheduled task \Lenovo\Vantage\Schedule\DailyTelemetryTransmission
+15:11:36  undone: scheduled task \Lenovo\Vantage\Schedule\ConsumerAddinDailyScheduleTask
+15:11:36  undone: scheduled task \Lenovo\Vantage\Schedule\BatteryGaugeAddinDailyScheduleTask
+15:11:36  undone: scheduled task \Lenovo\Vantage\Lenovo.Vantage.ServiceMaintainance
+15:11:36  undone: scheduled task \Lenovo\UDC\Lenovo UDC Monitor
+15:11:36  undone: scheduled task \Lenovo\UDC\Lenovo UDC Maintainance Task
+15:11:36  undone: scheduled task \Lenovo\UDC\Lenovo UDC Lazy Deployment
+15:11:36  undone: scheduled task \Lenovo\ImController\TimeBasedEvents\97e81714-4255-4a60-a91f-2965941d3a3e
+15:11:36  undone: scheduled task \Lenovo\ImController\Lenovo iM Controller Scheduled Maintenance
+15:11:36  undone: scheduled task \Lenovo\ImController\Lenovo iM Controller Monitor
+15:11:36  undone: scheduled task \Lenovo\LenovoMachineFixUser_OOBE_AUTO_Notification
+15:11:36  undone: scheduled task \GoogleSystem\GoogleUpdater\GoogleUpdaterTaskSystem157.0.8089.0{5678B8B9-7C76-41CB-B179-6DC74F67A85F}
+15:11:36  undone: scheduled task \GoogleSystem\GoogleUpdater\GoogleUpdaterTaskSystem152.0.7933.0{94F9AC43-B1EA-45F7-AA84-098CCE5B7CFB}
+15:11:36  undone: scheduled task \DropboxSystem\DropboxUpdater\DropboxUpdaterTaskSystem123.0.6299.152{857AC886-0701-4EE0-A53F-DFBBEC026671}
+15:11:36  undone: scheduled task \ZoomUpdateTaskUser-S-1-5-21-546694188-126083826-4013810330-1001
+15:11:36  undone: scheduled task \Proton VPN NRPT watchdog
+15:11:36  undone: scheduled task \MicrosoftEdgeUpdateTaskMachineUA{883A5E2A-0595-480E-A4EC-536F847650F5}
+15:11:36  undone: scheduled task \MicrosoftEdgeUpdateTaskMachineCore{D2799CF4-E121-4922-8B77-AD0646920725}
+15:11:36  undone: scheduled task \LastPassUpdater
+15:11:36  undone: scheduled task \BraveSoftwareUpdateTaskMachineUA{061867A0-FDB0-4961-8907-5DA2FB3C66BC}
+15:11:36  undone: scheduled task \BraveSoftwareUpdateTaskMachineCore{137CAE5D-42A2-4C8E-BFCE-DF0B392A5526}
+15:11:37  undone: service PreSonus Hardware Access Service
+15:11:37  undone: service NTKDaemonService
+15:11:37  undone: service tvnserver
+15:11:37  undone: service LenovoVantageService
+15:11:37  undone: service Bonjour Service
+15:11:37  undone: service ClickToRunSvc
+15:11:37  undone: service edgeupdatem
+15:11:37  undone: service edgeupdate
+15:11:37  undone: service stisvc
+15:11:38  undone: service PhoneSvc
+15:11:38  undone: service MapsBroker
+15:11:38  undone: service lfsvc
+15:11:38  undone: service PcaSvc
+15:11:38  undone: service DPS
+15:11:38  undone: service Spooler
+15:11:38  undone: service InstallService
+15:11:38  undone: service wuauserv
+15:11:43  undone: service DusmSvc
+15:11:43  undone: program Universal Control
+15:11:43  undone: program Gajim
+15:11:43  undone: program ProtonDrive
+15:11:43  undone: program Dropbox
+15:11:43  undone: setting HiberbootEnabled
+15:11:43  undone: setting GameDVR_Enabled
+15:11:43  undone: setting AutoGameModeEnabled
+15:11:43  undone: setting ConsentPromptBehaviorAdmin
+15:11:43    could not undo scheduled task \Lenovo\ImController\TimeBasedEvents\231a179f-2b74-40d1-8dff-caa05d507608 : The system cannot find the file specified.
+
+15:11:43  undone: service SysMain
+15:11:43  undone: service WSearch
+15:11:43  undone: service DoSvc
+15:11:48  undone: service BITS
+15:11:48  undone: service UsoSvc
+15:11:48  undone: service DiagTrack
+15:11:48    could not undo service BluetoothUserService_a6329 : Cannot find any service with service name 'BluetoothUserService_a6329'.
+15:11:49  --- done ---
+06:02:15  cores: 12  hybrid chip: True
+06:02:20  layout loaded: default
+06:02:20  ready. Nothing has been changed yet.
+06:09:28  layout saved: default
+06:09:50  --- optimizing ---
+06:09:50  setting changed: UAC quiet: administrators are never asked for permission (UAC stays on; no restart needed)
+06:09:50  setting changed: Game Mode off
+06:09:50  setting changed: Game recording off
+06:09:50  setting changed: Fast Startup off (full shutdown; takes effect at next shutdown)
+06:09:51  closed program: Dropbox
+06:09:53  closed program: ProtonDrive
+06:09:54  closed program: Gajim
+06:09:55  stopped service: Connected User Experiences and Telemetry
+06:09:55  stopped service: Data Usage
+06:09:55  stopped service: Update Orchestrator Service
+06:09:57  stopped service: Delivery Optimization
+06:09:57  stopped service: Microsoft Store Install Service
+06:09:58  stopped service: Windows Search
+06:09:58  stopped service: SysMain
+06:09:58  stopped service: Print Spooler
+06:09:58  stopped service: Diagnostic Policy Service
+06:09:59  stopped service: Program Compatibility Assistant Service
+06:09:59  stopped service: Geolocation Service
+06:09:59  stopped service: Phone Service
+06:10:01  started Bidule.exe  priority RealTime  cores your pick
+06:10:19    could not stop stisvc: stisvc did not stop within 20 seconds
+06:10:19  stopped service: Microsoft Office Click-to-Run Service
+06:10:19  stopped service: Bonjour Service
+06:10:22  stopped service: Critical Service for Lenovo Vantage
+06:10:22  stopped service: TightVNC Server
+06:10:23  stopped service: NTKDaemonService
+06:10:23  stopped service: PreSonus Hardware Access Service
+06:10:24  paused task: \Microsoft\Windows\Application Experience\PcaPatchDbTask
+06:10:25    could not pause \Microsoft\Windows\Application Experience\SdbinstMergeDbTask : Access is denied.
+
+06:10:26    could not pause \Microsoft\Windows\BitLocker\BitLocker Encrypt All Drives : Access is denied.
+
+06:10:27    could not pause \Microsoft\Windows\BitLocker\BitLocker MDM policy Refresh : Access is denied.
+
+06:10:28    could not pause \Microsoft\Windows\EDP\EDP App Launch Task : Access is denied.
+
+06:10:29    could not pause \Microsoft\Windows\EDP\EDP Auth Task : Access is denied.
+
+06:10:29    could not pause \Microsoft\Windows\EDP\EDP Inaccessible Credentials Task : Access is denied.
+
+06:10:30    could not pause \Microsoft\Windows\EDP\StorageCardEncryption Task : Access is denied.
+
+06:10:31    could not pause \Microsoft\Windows\Shell\UpdateUserPictureTask : Access is denied.
+
+06:10:32    could not pause \Microsoft\Windows\Shell\UpdateUserPictureTaskContained : Access is denied.
+
+06:10:33    could not pause \Microsoft\Windows\WindowsUpdate\Refresh Group Policy Cache : Access is denied.
+
+06:10:33  held back at next sign-in: Universal Control
+06:10:33  held back at next sign-in: Proton VPN
+06:10:33  held back at next sign-in: Proton Drive
+06:10:33  held back at next sign-in: Adobe Acrobat Synchronizer
+06:10:33  held back at next sign-in: MicrosoftEdgeAutoLaunch_33E3459BBA1179D5A7EDFB28FA9E3CE4
+06:10:33  held back at next sign-in: SunJavaUpdateSched
+06:10:33  held back at next sign-in: Update UWP App.lnk
+06:10:33  tuned Bidule (pid 11672): priority RealTime, cores all 12
+06:10:33  tuned Bidule (pid 11672): priority RealTime, cores all 12
+06:10:33  --- done ---
+06:24:16  opened Dropbox
+06:25:01  started Bidule.exe  priority RealTime  cores your pick
+08:03:37  layout saved: default
+08:05:21  cores: 12  hybrid chip: True
+08:05:26  layout loaded: default
+08:05:26  ready. Nothing has been changed yet.
+08:05:49  --- optimizing ---
+08:05:49  setting changed: UAC quiet: administrators are never asked for permission (UAC stays on; no restart needed)
+08:05:49  setting changed: Game Mode off
+08:05:49  setting changed: Game recording off
+08:05:49  setting changed: Fast Startup off (full shutdown; takes effect at next shutdown)
+08:05:50  closed program: Dropbox
+08:05:52  closed program: Gajim
+08:05:52  stopped service: Data Usage
+08:05:52  stopped service: Print Spooler
+08:05:52  stopped service: Diagnostic Policy Service
+08:05:52  stopped service: Program Compatibility Assistant Service
+08:05:52  stopped service: Geolocation Service
+08:05:53  stopped service: Phone Service
+08:05:53  stopped service: Windows Biometric Service
+08:05:54  stopped service: Windows Image Acquisition (WIA)
+08:05:54  stopped service: Microsoft Office Click-to-Run Service
+08:05:54  stopped service: Bonjour Service
+08:05:59  stopped service: Critical Service for Lenovo Vantage
+08:05:59  stopped service: TightVNC Server
+08:05:59  stopped service: PreSonus Hardware Access Service
+08:06:00  paused task: \BraveSoftwareUpdateTaskMachineCore{137CAE5D-42A2-4C8E-BFCE-DF0B392A5526}
+08:06:01  paused task: \BraveSoftwareUpdateTaskMachineUA{061867A0-FDB0-4961-8907-5DA2FB3C66BC}
+08:06:02  paused task: \LastPassUpdater
+08:06:03  paused task: \MicrosoftEdgeUpdateTaskMachineCore{D2799CF4-E121-4922-8B77-AD0646920725}
+08:06:04  paused task: \MicrosoftEdgeUpdateTaskMachineUA{883A5E2A-0595-480E-A4EC-536F847650F5}
+08:06:05  paused task: \Proton VPN NRPT watchdog
+08:06:05  paused task: \ZoomUpdateTaskUser-S-1-5-21-546694188-126083826-4013810330-1001
+08:06:06  paused task: \DropboxSystem\DropboxUpdater\DropboxUpdaterTaskSystem123.0.6299.152{857AC886-0701-4EE0-A53F-DFBBEC026671}
+08:06:07  paused task: \GoogleSystem\GoogleUpdater\GoogleUpdaterTaskSystem152.0.7933.0{94F9AC43-B1EA-45F7-AA84-098CCE5B7CFB}
+08:06:08  paused task: \GoogleSystem\GoogleUpdater\GoogleUpdaterTaskSystem157.0.8089.0{5678B8B9-7C76-41CB-B179-6DC74F67A85F}
+08:06:09  paused task: \Lenovo\LenovoMachineFixUser_OOBE_AUTO_Notification
+08:06:10  paused task: \Lenovo\ImController\Lenovo iM Controller Monitor
+08:06:11  paused task: \Lenovo\ImController\Lenovo iM Controller Scheduled Maintenance
+08:06:12  paused task: \Lenovo\ImController\TimeBasedEvents\97e81714-4255-4a60-a91f-2965941d3a3e
+08:06:14  paused task: \Lenovo\UDC\Lenovo UDC Lazy Deployment
+08:06:16  paused task: \Lenovo\UDC\Lenovo UDC Maintainance Task
+08:06:17  paused task: \Lenovo\UDC\Lenovo UDC Monitor
+08:06:19  paused task: \Lenovo\Vantage\Lenovo.Vantage.ServiceMaintainance
+08:06:20  paused task: \Lenovo\Vantage\Schedule\BatteryGaugeAddinDailyScheduleTask
+08:06:22  paused task: \Lenovo\Vantage\Schedule\ConsumerAddinDailyScheduleTask
+08:06:23  paused task: \Lenovo\Vantage\Schedule\DailyTelemetryTransmission
+08:06:25  paused task: \Lenovo\Vantage\Schedule\GenericMessagingAddin
+08:06:26  paused task: \Lenovo\Vantage\Schedule\GenericMessagingAddin_Pulsation
+08:06:28  paused task: \Lenovo\Vantage\Schedule\HeartbeatAddinDailyScheduleTask
+08:06:29  paused task: \Lenovo\Vantage\Schedule\IdeaNotebookAddinDailyEvent
+08:06:30  paused task: \Lenovo\Vantage\Schedule\Lenovo.Vantage.SmartPerformance.MonthlyReport
+08:06:31  paused task: \Lenovo\Vantage\Schedule\LenovoCompanionAppAddinDailyScheduleTask
+08:06:33  paused task: \Lenovo\Vantage\Schedule\LenovoSupportContextEngineDaily
+08:06:34  paused task: \Lenovo\Vantage\Schedule\LenovoSupportHealthReportSchedule
+08:06:35  paused task: \Lenovo\Vantage\Schedule\LenovoSystemUpdateAddin_WeeklyTask
+08:06:36  paused task: \Lenovo\Vantage\Schedule\LiveWallpaperDailyScheduleTask
+08:06:38  paused task: \Lenovo\Vantage\Schedule\LiveWallpaperScheduleTask
+08:06:39  paused task: \Lenovo\Vantage\Schedule\SettingsWidgetAddinDailyScheduleTask
+08:06:40  paused task: \Lenovo\Vantage\Schedule\SmartLock.ExpireReminder
+08:06:42  paused task: \Lenovo\Vantage\Schedule\SmartPerformance.ExpireReminder
+08:06:43  paused task: \Lenovo\Vantage\Schedule\VantageCoreAddinDailyScheduleTask
+08:06:45  paused task: \Lenovo\Vantage\Schedule\VantageCoreAddinIdleScheduleTask
+08:06:46  paused task: \Lenovo\Vantage\Schedule\VantageCoreAddinWeekScheduleTask
+08:06:47  paused task: \McAfee\wps\McAfee Sync Agent Pilot
+08:06:49  paused task: \Microsoft\Office\Office Actions Server
+08:06:50  paused task: \Microsoft\Office\Office Automatic Updates 2.0
+08:06:51  paused task: \Microsoft\Office\Office Background Push Maintenance
+08:06:53  paused task: \Microsoft\Office\Office ClickToRun Service Monitor
+08:06:54  paused task: \Microsoft\Office\Office Feature Updates
+08:06:55  paused task: \Microsoft\Office\Office Feature Updates C2R Client
+08:06:57  paused task: \Microsoft\Office\Office Feature Updates C2R Client Logon
+08:06:58  paused task: \Microsoft\Office\Office Feature Updates Logon
+08:06:59  paused task: \Microsoft\Office\Office Performance Monitor
+08:07:01  paused task: \Microsoft\Office\Office Startup Maintenance
+08:07:02  paused task: \Microsoft\VisualStudio\Updates\BackgroundDownload
+08:07:04  paused task: \Microsoft\Windows\Application Experience\MareBackup
+08:07:05  paused task: \Microsoft\Windows\Application Experience\Microsoft Compatibility Appraiser Exp
+08:07:07  paused task: \Microsoft\Windows\Application Experience\PcaPatchDbTask
+08:07:08    could not pause \Microsoft\Windows\Application Experience\SdbinstMergeDbTask : Access is denied.
+
+08:07:10  paused task: \Microsoft\Windows\Application Experience\StartupAppTask
+08:07:11  paused task: \Microsoft\Windows\AppListBackup\Backup
+08:07:12  paused task: \Microsoft\Windows\AppListBackup\BackupNonMaintenance
+08:07:14    could not pause \Microsoft\Windows\BitLocker\BitLocker Encrypt All Drives : Access is denied.
+
+08:07:15    could not pause \Microsoft\Windows\BitLocker\BitLocker MDM policy Refresh : Access is denied.
+
+08:07:16  paused task: \Microsoft\Windows\Chkdsk\ProactiveScan
+08:07:18  paused task: \Microsoft\Windows\CloudRestore\Backup
+08:07:19  paused task: \Microsoft\Windows\CloudRestore\Restore
+08:07:21  paused task: \Microsoft\Windows\ConsentUX\UnifiedConsent\UnifiedConsentSyncTask
+08:07:22  paused task: \Microsoft\Windows\Customer Experience Improvement Program\Consolidator
+08:07:23  paused task: \Microsoft\Windows\Customer Experience Improvement Program\UsbCeip
+08:07:25  paused task: \Microsoft\Windows\Data Integrity Scan\Data Integrity Check And Scan
+08:07:26  paused task: \Microsoft\Windows\Data Integrity Scan\Data Integrity Scan
+08:07:28  paused task: \Microsoft\Windows\Data Integrity Scan\Data Integrity Scan for Crash Recovery
+08:07:30  paused task: \Microsoft\Windows\Defrag\ScheduledDefrag
+08:07:31  paused task: \Microsoft\Windows\Device Information\Device
+08:07:33  paused task: \Microsoft\Windows\Device Information\Device User
+08:07:34  paused task: \Microsoft\Windows\Diagnosis\RecommendedTroubleshootingScanner
+08:07:36  paused task: \Microsoft\Windows\Diagnosis\Scheduled
+08:07:37  paused task: \Microsoft\Windows\Diagnosis\UnexpectedCodepath
+08:07:38  paused task: \Microsoft\Windows\DiskCleanup\SilentCleanup
+08:07:39  paused task: \Microsoft\Windows\DiskFootprint\Diagnostics
+08:07:40  paused task: \Microsoft\Windows\DiskFootprint\StorageSense
+08:07:42  paused task: \Microsoft\Windows\DUSM\dusmtask
+08:07:43    could not pause \Microsoft\Windows\EDP\EDP App Launch Task : Access is denied.
+
+08:07:44    could not pause \Microsoft\Windows\EDP\EDP Auth Task : Access is denied.
+
+08:07:45    could not pause \Microsoft\Windows\EDP\EDP Inaccessible Credentials Task : Access is denied.
+
+08:07:46    could not pause \Microsoft\Windows\EDP\StorageCardEncryption Task : Access is denied.
+
+08:07:48  paused task: \Microsoft\Windows\ExploitGuard\ExploitGuard MDM policy Refresh
+08:07:50  paused task: \Microsoft\Windows\Feedback\Siuf\DmClient
+08:07:51  paused task: \Microsoft\Windows\Feedback\Siuf\DmClientOnScenarioDownload
+08:07:53  paused task: \Microsoft\Windows\FileHistory\File History (maintenance mode)
+08:07:55  paused task: \Microsoft\Windows\Flighting\FeatureConfig\GovernedFeatureUsageProcessing
+08:07:56  paused task: \Microsoft\Windows\Flighting\FeatureConfig\ReconcileConfigs
+08:07:57  paused task: \Microsoft\Windows\Flighting\FeatureConfig\ReconcileFeatures
+08:07:58  paused task: \Microsoft\Windows\Flighting\FeatureConfig\SafeguardsReconciliation
+08:07:59  paused task: \Microsoft\Windows\Flighting\FeatureConfig\UsageDataFlushing
+08:08:00  paused task: \Microsoft\Windows\Flighting\FeatureConfig\UsageDataReceiver
+08:08:01  paused task: \Microsoft\Windows\Flighting\FeatureConfig\UsageDataReporting
+08:08:02  paused task: \Microsoft\Windows\Flighting\OneSettings\RefreshCache
+08:08:03  paused task: \Microsoft\Windows\Hotpatch\Monitoring
+08:08:05  paused task: \Microsoft\Windows\input\InputSettingsRestoreDataAvailable
+08:08:05  paused task: \Microsoft\Windows\input\LocalUserSyncDataAvailable
+08:08:06  paused task: \Microsoft\Windows\input\MouseSyncDataAvailable
+08:08:07  paused task: \Microsoft\Windows\input\PenSyncDataAvailable
+08:08:08  paused task: \Microsoft\Windows\input\RemoteMouseSyncDataAvailable
+08:08:09  paused task: \Microsoft\Windows\input\RemotePenSyncDataAvailable
+08:08:10  paused task: \Microsoft\Windows\input\RemoteTouchpadSyncDataAvailable
+08:08:11  paused task: \Microsoft\Windows\input\syncpensettings
+08:08:12  paused task: \Microsoft\Windows\input\TouchpadSyncDataAvailable
+08:08:13  paused task: \Microsoft\Windows\InstallService\RestoreDevice
+08:08:14  paused task: \Microsoft\Windows\InstallService\ScanForUpdates
+08:08:15  paused task: \Microsoft\Windows\InstallService\ScanForUpdatesAsUser
+08:08:16  paused task: \Microsoft\Windows\InstallService\SmartRetry
+08:08:17  paused task: \Microsoft\Windows\International\Synchronize Language Settings
+08:08:17  paused task: \Microsoft\Windows\LanguageComponentsInstaller\Installation
+08:08:18  paused task: \Microsoft\Windows\LanguageComponentsInstaller\ReconcileLanguageResources
+08:08:19  paused task: \Microsoft\Windows\Location\WindowsActionDialog
+08:08:20  paused task: \Microsoft\Windows\Maintenance\WinSAT
+08:08:21  paused task: \Microsoft\Windows\Management\Provisioning\Cellular
+08:08:22  paused task: \Microsoft\Windows\Management\Provisioning\Logon
+08:08:23  paused task: \Microsoft\Windows\Maps\MapsToastTask
+08:08:24  paused task: \Microsoft\Windows\Maps\MapsUpdateTask
+08:08:25  paused task: \Microsoft\Windows\MemoryDiagnostic\AutomaticOfflineMemoryDiagnostic
+08:08:25  paused task: \Microsoft\Windows\MemoryDiagnostic\ProcessMemoryDiagnosticEvents
+08:08:26  paused task: \Microsoft\Windows\NlaSvc\WiFiTask
+08:08:27  paused task: \Microsoft\Windows\PerformanceTrace\ShowFeedbackToast
+08:08:28  paused task: \Microsoft\Windows\PerformanceTrace\WhesvcToast
+08:08:29  paused task: \Microsoft\Windows\Power Efficiency Diagnostics\AnalyzeSystem
+08:08:30  paused task: \Microsoft\Windows\Printing\EduPrintProv
+08:08:31  paused task: \Microsoft\Windows\Printing\PrinterCleanupTask
+08:08:32  paused task: \Microsoft\Windows\Registry\RegIdleBackup
+08:08:33  paused task: \Microsoft\Windows\Servicing\StartComponentCleanup
+08:08:35  paused task: \Microsoft\Windows\Shell\FamilySafetyMonitor
+08:08:36  paused task: \Microsoft\Windows\Shell\FamilySafetyRefreshTask
+08:08:37  paused task: \Microsoft\Windows\Shell\IndexerAutomaticMaintenance
+08:08:38  paused task: \Microsoft\Windows\Shell\ThemesSyncedImageDownload
+08:08:38    could not pause \Microsoft\Windows\Shell\UpdateUserPictureTask : Access is denied.
+
+08:08:39    could not pause \Microsoft\Windows\Shell\UpdateUserPictureTaskContained : Access is denied.
+
+08:08:41  paused task: \Microsoft\Windows\SpacePort\SpaceAgentTask
+08:08:42  paused task: \Microsoft\Windows\SpacePort\SpaceManagerTask
+08:08:43  paused task: \Microsoft\Windows\Subscription\EnableLicenseAcquisition
+08:08:44  paused task: \Microsoft\Windows\Sustainability\PowerGridForecastTask
+08:08:45  paused task: \Microsoft\Windows\Sustainability\SustainabilityTelemetry
+08:08:46  paused task: \Microsoft\Windows\Sysmain\ResPriStaticDbSync
+08:08:47  paused task: \Microsoft\Windows\Sysmain\WsSwapAssessmentTask
+08:08:48  paused task: \Microsoft\Windows\SystemRestore\SR
+08:08:49  paused task: \Microsoft\Windows\UPnP\UPnPHostConfig
+08:08:50  paused task: \Microsoft\Windows\WCM\WiFiTask
+08:08:51  paused task: \Microsoft\Windows\WDI\ResolutionHost
+08:08:52  paused task: \Microsoft\Windows\Windows Error Reporting\QueueReporting
+08:08:53  paused task: \Microsoft\Windows\Windows Media Sharing\UpdateLibrary
+08:08:54    could not pause \Microsoft\Windows\WindowsUpdate\Refresh Group Policy Cache : Access is denied.
+
+08:08:55  paused task: \Microsoft\Windows\WindowsUpdate\Scheduled Start
+08:08:56  paused task: \Microsoft\Windows\WlanSvc\CDSSync
+08:08:56  paused task: \Microsoft\Windows\WlanSvc\MoProfileManagement
+08:08:57  paused task: \Microsoft\Windows\Work Folders\Work Folders Logon Synchronization
+08:08:58  paused task: \Microsoft\Windows\Work Folders\Work Folders Maintenance Work
+08:08:59  paused task: \Microsoft\Windows\WwanSvc\NotificationTask
+08:09:00  paused task: \Microsoft\Windows\WwanSvc\OobeDiscovery
+08:09:01  paused task: \Mozilla\Firefox Background Update S-1-5-21-546694188-126083826-4013810330-1001 308046B0AF4A39CB
+08:09:02  paused task: \Mozilla\Firefox Background Update S-1-5-21-546694188-126083826-4013810330-1001 BFCFDCF42A915CC6
+08:09:03  paused task: \Mozilla\Firefox Default Browser Agent 308046B0AF4A39CB
+08:09:04  paused task: \Mozilla\Firefox Default Browser Agent BFCFDCF42A915CC6
+08:09:04  paused task: \SoftLanding\S-1-5-21-546694188-126083826-4013810330-1002\SoftLandingCreativeManagementTask
+08:09:06  paused task: \SoftLanding\S-1-5-21-546694188-126083826-4013810330-1002\SoftLandingDeferralTask-{e55ad2da-d1f2-4691-b7b1-76c1aa9fac01}
+08:09:07  paused task: \SoftLanding\S-1-5-21-546694188-126083826-4013810330-1002\SoftLandingRefreshForExpirationTask-{733b5fac-bc2a-4d8e-8271-28687e317609}
+08:09:07  held back at next sign-in: Universal Control
+08:09:07  held back at next sign-in: Proton VPN
+08:09:07  held back at next sign-in: Proton Drive
+08:09:07  held back at next sign-in: Adobe Acrobat Synchronizer
+08:09:07  held back at next sign-in: MicrosoftEdgeAutoLaunch_33E3459BBA1179D5A7EDFB28FA9E3CE4
+08:09:07  held back at next sign-in: SunJavaUpdateSched
+08:09:07  held back at next sign-in: Update UWP App.lnk
+08:09:07  tuned Bidule (pid 15892): priority RealTime, cores all 12
+08:09:07  tuned Bidule (pid 15892): priority RealTime, cores all 12
+08:09:07  --- done ---
+10:14:08  opened Dropbox
+11:34:34  layout saved: default
+11:34:49  cores: 12  hybrid chip: True
+11:34:52  layout loaded: default
+11:34:52  ready. Nothing has been changed yet.
+11:34:54  --- analyzing this PC ---
+11:34:54  backup of the settings file: C:\Users\rich\bidoptimize11\state\settings-backup-20261029-113454-before-analyze.psd1
+11:34:55  added 5 new services (unticked): BraveElevationService, DropboxElevationService, GoogleChromeElevationService, ProtonVPN Service, ProtonVPN WireGuard
+11:34:55  added 7 new programs (unticked): AbletonAudioCpl, AppxUpgrade, jusched, QSHelper, refiddle-win, rich, tvnserver
+11:34:56  scheduled tasks to 'Pause': 31
+11:34:56  scheduled tasks to 'Leave alone': 77
+11:34:57  --- analysis done ---
+11:40:03  not running: Bidule
+11:40:43  started Bidule.exe  priority RealTime  cores your pick
+11:46:37  --- optimizing ---
+11:46:37  setting changed: UAC quiet: administrators are never asked for permission (UAC stays on; no restart needed)
+11:46:37  setting changed: Game Mode off
+11:46:37  setting changed: Game recording off
+11:46:37  setting changed: Fast Startup off (full shutdown; takes effect at next shutdown)
+11:46:39  closed program: Dropbox
+11:46:39  stopped service: Program Compatibility Assistant Service
+11:46:39  stopped service: Geolocation Service
+11:46:46  stopped service: Critical Service for Lenovo Vantage
+11:46:48  stopped service: NTKDaemonService
+11:46:48  stopped service: Connected Devices Platform Service
+11:46:48  stopped service: Inventory and Compatibility Appraisal service
+11:46:48  stopped service: Windows Health and Optimized Experiences
+11:46:48  stopped service: Windows AI Components Host
+11:46:48  stopped service: Web Threat Defense Service
+11:46:48    could not stop wscsvc: Exception calling "Stop" with "0" argument(s): "Cannot open wscsvc service on computer '.'."
+11:46:49  stopped service: Windows Push Notifications System Service
+11:46:49  stopped service: Server
+11:46:49  stopped service: TCP/IP NetBIOS Helper
+11:46:49  stopped service: Distributed Link Tracking Client
+11:46:49  stopped service: Quality Windows Audio Video Experience
+11:46:49  stopped service: Remote Procedure Call (RPC) Locator
+11:46:49  stopped service: WMI Performance Adapter
+11:46:49  stopped service: BitLocker Drive Encryption Service
+11:46:50  stopped service: Windows License Manager Service
+11:46:50  stopped service: Display Enhancement Service
+11:46:50  stopped service: Sensor Service
+11:46:50  stopped service: Windows Time
+11:46:50  stopped service: Dolby DAX API Service
+11:46:50  stopped service: SenaryAudioApp.Svc
+11:46:52  paused task: \Lenovo\Vantage\Schedule\LenovoSystemUpdateAddin_WeeklyTask
+11:46:53    could not pause \Microsoft\Windows\Application Experience\SdbinstMergeDbTask : Access is denied.
+
+11:46:54    could not pause \Microsoft\Windows\BitLocker\BitLocker Encrypt All Drives : Access is denied.
+
+11:46:55    could not pause \Microsoft\Windows\BitLocker\BitLocker MDM policy Refresh : Access is denied.
+
+11:46:56    could not pause \Microsoft\Windows\EDP\EDP App Launch Task : Access is denied.
+
+11:46:57    could not pause \Microsoft\Windows\EDP\EDP Auth Task : Access is denied.
+
+11:46:58    could not pause \Microsoft\Windows\EDP\EDP Inaccessible Credentials Task : Access is denied.
+
+11:46:59    could not pause \Microsoft\Windows\EDP\StorageCardEncryption Task : Access is denied.
+
+11:47:00    could not pause \Microsoft\Windows\Shell\UpdateUserPictureTask : Access is denied.
+
+11:47:01    could not pause \Microsoft\Windows\Shell\UpdateUserPictureTaskContained : Access is denied.
+
+11:47:02    could not pause \Microsoft\Windows\WindowsUpdate\Refresh Group Policy Cache : Access is denied.
+
+11:47:03  paused task: \Mozilla\Firefox Background Update S-1-5-21-546694188-126083826-4013810330-1002 308046B0AF4A39CB
+11:47:03  held back at next sign-in: Universal Control
+11:47:03  held back at next sign-in: Proton VPN
+11:47:03  held back at next sign-in: Proton Drive
+11:47:03  held back at next sign-in: Adobe Acrobat Synchronizer
+11:47:03  held back at next sign-in: MicrosoftEdgeAutoLaunch_33E3459BBA1179D5A7EDFB28FA9E3CE4
+11:47:03  held back at next sign-in: SunJavaUpdateSched
+11:47:03  held back at next sign-in: Dropbox
+11:47:03  held back at next sign-in: Update UWP App.lnk
+11:47:03  tuned Bidule (pid 21464): priority RealTime, cores all 12
+11:47:03  tuned Bidule (pid 21464): priority RealTime, cores all 12
+11:47:03  --- done ---
+11:47:41  tuned Bidule (pid 21464): priority RealTime, cores 0-3
+11:47:47  remembered for 1 row(s). It is used when they start, and on Optimize.
+11:48:10  no app chosen. Tick an app on the App + helpers tab
+11:48:27  started Bidule.exe  priority RealTime  cores your pick
+14:44:58  started Bidule.exe  priority RealTime  cores your pick
+15:38:15  opened Dropbox
+16:59:06  started Bidule.exe  priority RealTime  cores your pick
+17:33:58  started Bidule.exe  priority RealTime  cores your pick
+18:56:56  started Bidule.exe  priority RealTime  cores your pick
+08:13:34  started Bidule.exe  priority RealTime  cores your pick
+08:29:22  started Bidule.exe  priority RealTime  cores your pick
+02:50:26  started Bidule.exe  priority RealTime  cores your pick
+06:10:11  started Bidule.exe  priority RealTime  cores your pick
+06:13:02  started Bidule.exe  priority RealTime  cores your pick
+10:52:42  started Bidule.exe  priority RealTime  cores your pick
+15:01:45  cores: 12  hybrid chip: True
+15:01:52  layout loaded: default
+15:01:52  ready. Nothing has been changed yet.

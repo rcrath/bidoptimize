@@ -1,0 +1,1620 @@
+#requires -Version 5.1
+# bidoptimize11 - real-time audio tuning for Windows 11.
+# Every change is written to a journal first, so any single change or all of them can be undone.
+param([switch]$Check, [switch]$BuildOnly, [switch]$RebuildServices, [switch]$SelfTest)
+
+$ErrorActionPreference = 'Continue'
+$StateDir    = Join-Path $PSScriptRoot 'state'
+$JournalFile = Join-Path $StateDir 'journal.json'
+$LogFile     = Join-Path $StateDir 'bidoptimize11.log'
+New-Item -ItemType Directory -Force -Path $StateDir | Out-Null
+
+# ---- admin ------------------------------------------------------------------------------------
+$isAdmin = ([Security.Principal.WindowsPrincipal][Security.Principal.WindowsIdentity]::GetCurrent()).IsInRole([Security.Principal.WindowsBuiltInRole]::Administrator)
+if (-not $isAdmin -and -not $Check -and -not $BuildOnly -and -not $RebuildServices -and -not $SelfTest) {
+    Start-Process powershell.exe -Verb RunAs -ArgumentList '-NoProfile', '-ExecutionPolicy', 'Bypass', '-WindowStyle', 'Hidden', '-File', "`"$PSCommandPath`""
+    exit
+}
+
+Add-Type -AssemblyName System.Windows.Forms, System.Drawing
+[Windows.Forms.Application]::EnableVisualStyles()
+
+$Settings = Import-PowerShellDataFile -Path (Join-Path $PSScriptRoot 'bidoptimize11.settings.psd1')
+
+# ---- log --------------------------------------------------------------------------------------
+$script:LogBox = $null
+function Write-Log([string]$msg) {
+    $line = '{0:HH:mm:ss}  {1}' -f (Get-Date), $msg
+    try { Add-Content -Path $LogFile -Value $line } catch {}
+    if ($script:LogBox) { $script:LogBox.AppendText($line + "`r`n"); [Windows.Forms.Application]::DoEvents() }
+    elseif ($Check) { Write-Host $line }
+}
+
+# ---- journal ----------------------------------------------------------------------------------
+# Windows PowerShell 5.1 hands back a JSON list as one object, so wrapping it in @() adds a layer
+# on every reload. Looping over it with foreach gives the real items.
+function ConvertFrom-JsonList([string]$text) {
+    $o = ConvertFrom-Json -InputObject $text
+    foreach ($e in $o) { $e }
+}
+function Get-Journal {
+    if (Test-Path $JournalFile) {
+        $t = Get-Content $JournalFile -Raw
+        if ($t -and $t.Trim()) { return @(ConvertFrom-JsonList $t) }
+    }
+    return @()
+}
+function Save-Journal($entries) {
+    ConvertTo-Json -InputObject @($entries) -Depth 8 | Set-Content -Path $JournalFile -Encoding UTF8
+}
+# Keeps the first record for an item, so running Optimize twice never overwrites the true original.
+function Add-Entry([string]$kind, [string]$key, [hashtable]$data) {
+    $j = @(Get-Journal)
+    if ($j | Where-Object { $_.kind -eq $kind -and $_.key -eq $key }) { return }
+    $j += [pscustomobject]@{ kind = $kind; key = $key; when = (Get-Date).ToString('s'); data = $data }
+    Save-Journal $j
+}
+
+# ---- cores ------------------------------------------------------------------------------------
+if (-not ('CpuInfo' -as [type])) {
+    Add-Type -TypeDefinition @'
+using System;
+using System.Runtime.InteropServices;
+using System.Text;
+public static class CpuInfo {
+    [DllImport("kernel32.dll", SetLastError = true)]
+    static extern bool GetSystemCpuSetInformation(IntPtr info, uint len, out uint ret, IntPtr proc, uint flags);
+    // Returns "logicalProcessor:efficiencyClass;" pairs. A higher class means a faster core.
+    public static string Dump() {
+        uint len = 0;
+        GetSystemCpuSetInformation(IntPtr.Zero, 0, out len, IntPtr.Zero, 0);
+        if (len == 0) return "";
+        IntPtr buf = Marshal.AllocHGlobal((int)len);
+        StringBuilder sb = new StringBuilder();
+        try {
+            if (!GetSystemCpuSetInformation(buf, len, out len, IntPtr.Zero, 0)) return "";
+            int off = 0;
+            while (off < len) {
+                int size = Marshal.ReadInt32(buf, off);
+                int type = Marshal.ReadInt32(buf, off + 4);
+                if (type == 0) {
+                    byte lp  = Marshal.ReadByte(buf, off + 14);
+                    byte eff = Marshal.ReadByte(buf, off + 18);
+                    sb.Append(lp + ":" + eff + ";");
+                }
+                if (size <= 0) break;
+                off += size;
+            }
+        } finally { Marshal.FreeHGlobal(buf); }
+        return sb.ToString();
+    }
+}
+'@
+}
+
+# One record per logical processor. IsFast is true only on chips that mix fast and slow cores.
+function Get-CoreList {
+    $cores = @()
+    foreach ($pair in ((([CpuInfo]::Dump()) -split ';') | Where-Object { $_ })) {
+        $p = $pair -split ':'
+        $cores += [pscustomobject]@{ Index = [int]$p[0]; Class = [int]$p[1] }
+    }
+    if (-not $cores) {
+        $n = [Environment]::ProcessorCount
+        $cores = 0..($n - 1) | ForEach-Object { [pscustomobject]@{ Index = $_; Class = 0 } }
+    }
+    $top    = ($cores | Measure-Object Class -Maximum).Maximum
+    $hybrid = [bool]($cores | Where-Object { $_.Class -ne $top })
+    foreach ($c in $cores) { Add-Member -InputObject $c -NotePropertyName IsFast -NotePropertyValue ($hybrid -and $c.Class -eq $top) }
+    $cores
+}
+function Get-MaskFromCores($indexes) { $m = [int64]0; foreach ($i in @($indexes)) { $m += [int64][math]::Pow(2, [int]$i) }; $m }
+function Get-CoreMasks {
+    $cores = @(Get-CoreList)
+    $all    = [int64]0; foreach ($c in $cores) { $all += [int64][math]::Pow(2, $c.Index) }
+    $top    = ($cores | Measure-Object Class -Maximum).Maximum
+    $hybrid = [bool]($cores | Where-Object { $_.Class -ne $top })
+    $fast = [int64]0; $slow = [int64]0
+    if ($hybrid) {
+        foreach ($c in $cores) { if ($c.Class -eq $top) { $fast += [int64][math]::Pow(2, $c.Index) } else { $slow += [int64][math]::Pow(2, $c.Index) } }
+    } else {
+        $fast = $all
+        # Same idea as the old FC mask: keep helpers off the first two cores.
+        $slow = if ($cores.Count -ge 4) { $all - 3 } else { $all }
+    }
+    [pscustomobject]@{ All = $all; Fast = $fast; Slow = $slow; Hybrid = $hybrid; Count = $cores.Count }
+}
+function Resolve-Mask($name) {
+    $m = Get-CoreMasks
+    switch ($name) { 'Fast' { $m.Fast } 'Slow' { $m.Slow } default { $m.All } }
+}
+
+# ---- services ---------------------------------------------------------------------------------
+function Set-ServiceStartRaw($name, $start, $delayed) {
+    $k = "HKLM:\SYSTEM\CurrentControlSet\Services\$name"
+    Set-ItemProperty -LiteralPath $k -Name Start -Value $start -Type DWord -ErrorAction Stop
+    if ($null -eq $delayed) { Remove-ItemProperty -LiteralPath $k -Name DelayedAutostart -ErrorAction SilentlyContinue }
+    else { Set-ItemProperty -LiteralPath $k -Name DelayedAutostart -Value $delayed -Type DWord -ErrorAction Stop }
+}
+function Stop-ServiceTracked([string]$pattern, [string]$mode) {
+    foreach ($s in @(Get-Service -Name $pattern -ErrorAction SilentlyContinue)) {
+        $isUser  = $s.Name -match '_[0-9a-f]{4,}$'
+        $prop    = Get-ItemProperty -LiteralPath "HKLM:\SYSTEM\CurrentControlSet\Services\$($s.Name)" -ErrorAction SilentlyContinue
+        $running = ($s.Status -eq 'Running')
+        $change  = ($mode -eq 'disable' -and -not $isUser -and $prop -and $prop.Start -ne 4)
+        if (-not $running -and -not $change) { continue }
+        # Dependents first, so undo (which runs backwards) starts the parent before them.
+        foreach ($d in @($s.DependentServices | Where-Object { $_.Status -eq 'Running' })) {
+            Add-Entry 'service' $d.Name @{ running = $true; changed = $false }
+        }
+        Add-Entry 'service' $s.Name @{ running = $running; changed = [bool]$change; start = $(if ($prop) { $prop.Start }); delayed = $(if ($prop) { $prop.DelayedAutostart }) }
+        if ($change) {
+            try { Set-ServiceStartRaw $s.Name 4 $null } catch { Write-Log "  could not block restarts of $($s.Name): $($_.Exception.Message)" }
+        }
+        if ($running) {
+            try { [void](Stop-ServiceBounded $s.Name); Write-Log "stopped service: $($s.DisplayName)" }
+            catch { Write-Log "  could not stop $($s.Name): $($_.Exception.Message)" }
+        }
+    }
+}
+
+# ---- scheduled tasks --------------------------------------------------------------------------
+function Suspend-TaskTracked([string]$path, [string]$name) {
+    $t = Get-ScheduledTask -TaskPath $path -TaskName $name -ErrorAction SilentlyContinue
+    if (-not $t -or $t.State -eq 'Disabled') { return }
+    Add-Entry 'task' ($path + $name) @{ path = $path; name = $name }
+    if ($t.State -eq 'Running') { Stop-ScheduledTask -TaskPath $path -TaskName $name -ErrorAction SilentlyContinue }
+    try { Disable-ScheduledTask -TaskPath $path -TaskName $name -ErrorAction Stop | Out-Null; Write-Log "paused task: $path$name" }
+    catch { Write-Log "  could not pause $path$name : $($_.Exception.Message)" }
+}
+
+# ---- programs ---------------------------------------------------------------------------------
+function Close-ProgramTracked([string]$name) {
+    $procs = @(Get-Process -Name $name -ErrorAction SilentlyContinue)
+    if (-not $procs) { return }
+    $path = ($procs | Where-Object { $_.Path } | Select-Object -First 1).Path
+    Add-Entry 'process' $name @{ path = $path }
+    foreach ($p in $procs) { [void]$p.CloseMainWindow() }
+    Start-Sleep -Milliseconds 1500
+    Get-Process -Name $name -ErrorAction SilentlyContinue | Stop-Process -Force -ErrorAction SilentlyContinue
+    Write-Log "closed program: $name"
+}
+
+# ---- startup items ----------------------------------------------------------------------------
+$StartupSources = @(
+    @{ Label = 'Your sign-in (registry)';       Kind = 'reg';    Run = 'HKCU:\Software\Microsoft\Windows\CurrentVersion\Run';              Appr = 'HKCU:\Software\Microsoft\Windows\CurrentVersion\Explorer\StartupApproved\Run' }
+    @{ Label = 'All users (registry)';          Kind = 'reg';    Run = 'HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\Run';              Appr = 'HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\Explorer\StartupApproved\Run' }
+    @{ Label = 'All users, 32-bit (registry)';  Kind = 'reg';    Run = 'HKLM:\SOFTWARE\WOW6432Node\Microsoft\Windows\CurrentVersion\Run';  Appr = 'HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\Explorer\StartupApproved\Run32' }
+    @{ Label = 'Your Startup folder';           Kind = 'folder'; Run = "$env:APPDATA\Microsoft\Windows\Start Menu\Programs\Startup";      Appr = 'HKCU:\Software\Microsoft\Windows\CurrentVersion\Explorer\StartupApproved\StartupFolder' }
+    @{ Label = 'All users Startup folder';      Kind = 'folder'; Run = "$env:ProgramData\Microsoft\Windows\Start Menu\Programs\StartUp";  Appr = 'HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\Explorer\StartupApproved\StartupFolder' }
+)
+function Get-StartupItems {
+    foreach ($src in $StartupSources) {
+        $names = @()
+        if ($src.Kind -eq 'reg') {
+            $k = Get-Item -LiteralPath $src.Run -ErrorAction SilentlyContinue
+            if ($k) { foreach ($n in $k.GetValueNames()) { if ($n) { $names += [pscustomobject]@{ Name = $n; Cmd = [string]$k.GetValue($n) } } } }
+        } elseif (Test-Path $src.Run) {
+            foreach ($f in Get-ChildItem -LiteralPath $src.Run -File -ErrorAction SilentlyContinue | Where-Object { $_.Name -ne 'desktop.ini' }) {
+                $names += [pscustomobject]@{ Name = $f.Name; Cmd = $f.FullName }
+            }
+        }
+        foreach ($n in $names) {
+            $bytes = $null
+            $ak = Get-Item -LiteralPath $src.Appr -ErrorAction SilentlyContinue
+            if ($ak -and ($ak.GetValueNames() -contains $n.Name)) { $bytes = [byte[]]$ak.GetValue($n.Name) }
+            [pscustomobject]@{ Label = $src.Label; Name = $n.Name; Cmd = $n.Cmd; Appr = $src.Appr; Enabled = (-not $bytes -or ($bytes[0] -band 1) -eq 0) }
+        }
+    }
+}
+function Set-StartupState($item, [bool]$enable) {
+    if (-not (Test-Path $item.Appr)) { New-Item -Path $item.Appr -Force | Out-Null }
+    $ak  = Get-Item -LiteralPath $item.Appr
+    $had = $ak.GetValueNames() -contains $item.Name
+    Add-Entry 'startup' ($item.Appr + '|' + $item.Name) @{ appr = $item.Appr; name = $item.Name; had = $had; bytes = $(if ($had) { [byte[]]$ak.GetValue($item.Name) }) }
+    $b = New-Object byte[] 12
+    $b[0] = if ($enable) { 2 } else { 3 }
+    if (-not $enable) { [BitConverter]::GetBytes([DateTime]::UtcNow.ToFileTimeUtc()).CopyTo($b, 4) }
+    Set-ItemProperty -LiteralPath $item.Appr -Name $item.Name -Value $b -Type Binary
+    Write-Log ("{0} at next sign-in: {1}" -f $(if ($enable) { 'allowed' } else { 'held back' }), $item.Name)
+}
+
+# ---- registry settings ------------------------------------------------------------------------
+function Set-RegTracked($tweak) {
+    $k = Get-Item -LiteralPath $tweak.Path -ErrorAction SilentlyContinue
+    $had = $k -and ($k.GetValueNames() -contains $tweak.Name)
+    $d = @{ path = $tweak.Path; name = $tweak.Name; had = [bool]$had }
+    if ($had) { $d.value = $k.GetValue($tweak.Name, $null, 'DoNotExpandEnvironmentNames'); $d.kind = $k.GetValueKind($tweak.Name).ToString() }
+    Add-Entry 'reg' ($tweak.Path + '|' + $tweak.Name) $d
+    if (-not $k) { New-Item -Path $tweak.Path -Force | Out-Null }
+    Set-ItemProperty -LiteralPath $tweak.Path -Name $tweak.Name -Value $tweak.Data -Type DWord
+    Write-Log "setting changed: $($tweak.Note)"
+}
+
+# ---- power plan -------------------------------------------------------------------------------
+function Get-ActiveSchemeGuid { ((powercfg /getactivescheme) | Out-String) -replace '(?s).*GUID:\s*([0-9a-fA-F-]{36}).*', '$1' }
+# ProAudio power plan. Its settings live in ProAudio.pow, next to this script. It is imported from that file
+# (nothing is copied from any plan on this PC), named ProAudio, and made active. Undo goes back and deletes it.
+function Get-PlanGuid([string]$name) {
+    foreach ($l in (powercfg /list)) { if ($l -match 'GUID:\s*([0-9a-fA-F-]{36})\s*\((.*)\)' -and $Matches[2] -eq $name) { return $Matches[1] } }
+}
+function Set-ProAudioPlan {
+    $prev = Get-ActiveSchemeGuid
+    $new = $null
+    $target = Get-PlanGuid 'ProAudio'
+    if (-not $target) {
+        $file = Join-Path $PSScriptRoot 'ProAudio.pow'
+        if (-not (Test-Path -LiteralPath $file)) { Write-Log "ProAudio plan: $file not found"; return }
+        $out = (powercfg /import $file 2>&1) | Out-String
+        if ($out -notmatch 'GUID:\s*([0-9a-fA-F-]{36})') { Write-Log '  could not import the ProAudio power plan'; return }
+        $new = $Matches[1]; $target = $new
+        powercfg -changename $new 'ProAudio' 'Made by bidoptimize11 from ProAudio.pow. Removed on undo.' | Out-Null
+    }
+    Add-Entry 'power' 'proaudio' @{ prev = $prev; new = $null }
+    powercfg /setactive $target | Out-Null
+    Write-Log 'power plan: switched to ProAudio'
+    if ([Windows.Forms.MessageBox]::Show('Open the advanced power settings?', 'ProAudio power plan', 'YesNo', 'Question') -eq 'Yes') {
+        Start-Process rundll32.exe 'shell32.dll,Control_RunDLL powercfg.cpl,,3'
+    }
+}
+
+# ---- things that can stall: radios and services----------------------------------------------
+# Windows radio and service calls can hang. Radios run in a small helper process that is killed
+# after a time limit; services are asked to start or stop and then polled with a time limit.
+# Both keep the window alive while they wait.
+function Invoke-Background([string]$code, [int]$timeoutSec = 15) {
+    $enc = [Convert]::ToBase64String([Text.Encoding]::Unicode.GetBytes($code))
+    $psi = New-Object Diagnostics.ProcessStartInfo('powershell.exe', "-NoProfile -MTA -NonInteractive -ExecutionPolicy Bypass -EncodedCommand $enc")
+    $psi.UseShellExecute = $false; $psi.CreateNoWindow = $true; $psi.RedirectStandardOutput = $true
+    $p = [Diagnostics.Process]::Start($psi)
+    $sw = [Diagnostics.Stopwatch]::StartNew()
+    while (-not $p.HasExited) {
+        if ($sw.Elapsed.TotalSeconds -gt $timeoutSec) { try { $p.Kill() } catch {}; return 'TIMEOUT' }
+        [Windows.Forms.Application]::DoEvents(); Start-Sleep -Milliseconds 50
+    }
+    $p.StandardOutput.ReadToEnd().Trim()
+}
+$RadioCode = @'
+$ErrorActionPreference = 'Stop'
+try {
+    Add-Type -AssemblyName System.Runtime.WindowsRuntime
+    [void][Windows.Devices.Radios.Radio, Windows.System.Devices, ContentType = WindowsRuntime]
+    [void][Windows.Devices.Radios.RadioAccessStatus, Windows.System.Devices, ContentType = WindowsRuntime]
+    $as = ([System.WindowsRuntimeSystemExtensions].GetMethods() | Where-Object {
+        $_.Name -eq 'AsTask' -and $_.GetParameters().Count -eq 1 -and $_.GetParameters()[0].ParameterType.Name -eq 'IAsyncOperation`1' })[0]
+    function W($op, $t) { $x = $as.MakeGenericMethod($t).Invoke($null, @($op)); if (-not $x.Wait(10000)) { throw 'radio call timed out' }; $x.Result }
+    [void](W ([Windows.Devices.Radios.Radio]::RequestAccessAsync()) ([Windows.Devices.Radios.RadioAccessStatus]))
+    $all = W ([Windows.Devices.Radios.Radio]::GetRadiosAsync()) ([System.Collections.Generic.IReadOnlyList[Windows.Devices.Radios.Radio]])
+    $r = @($all) | Where-Object { [string]$_.Kind -eq '__KIND__' } | Select-Object -First 1
+    if (-not $r) { 'NONE'; exit }
+    if ('__ACTION__' -ne 'get') { [void](W ($r.SetStateAsync('__ACTION__')) ([Windows.Devices.Radios.RadioAccessStatus])) }
+    [string]$r.State
+} catch { 'ERR: ' + $_.Exception.Message }
+'@
+function Get-RadioState([string]$kind) {
+    $o = Invoke-Background ($RadioCode -replace '__KIND__', $kind -replace '__ACTION__', 'get') 15
+    if ($o -in 'On', 'Off', 'Disabled', 'Unknown') { return $o }
+    if ($o -and $o -ne 'NONE') { Write-Log "  $kind radio check: $o" }
+    return $null
+}
+function Set-RadioTracked([string]$kind, [string]$state) {
+    $prev = Get-RadioState $kind
+    if (-not $prev) { Write-Log "no $kind radio found"; return $false }
+    Add-Entry 'radio' $kind @{ kind = $kind; prev = $prev }
+    $now = Invoke-Background ($RadioCode -replace '__KIND__', $kind -replace '__ACTION__', $state) 20
+    if ($now -eq $state) { Write-Log "$kind turned $state"; return $true }
+    Write-Log "  $kind did not change ($now)"
+    return $false
+}
+
+function Wait-ServiceStatus($s, [string]$want, [int]$timeoutSec) {
+    $sw = [Diagnostics.Stopwatch]::StartNew()
+    while ($sw.Elapsed.TotalSeconds -lt $timeoutSec) {
+        $s.Refresh(); if ([string]$s.Status -eq $want) { return $true }
+        [Windows.Forms.Application]::DoEvents(); Start-Sleep -Milliseconds 100
+    }
+    return $false
+}
+function Stop-ServiceBounded([string]$name, [int]$timeoutSec = 20) {
+    $s = Get-Service -Name $name -ErrorAction Stop
+    if ($s.Status -eq 'Stopped') { return $true }
+    foreach ($d in @($s.DependentServices | Where-Object { $_.Status -ne 'Stopped' })) { [void](Stop-ServiceBounded $d.Name $timeoutSec) }
+    $s.Stop()
+    if (-not (Wait-ServiceStatus $s 'Stopped' $timeoutSec)) { throw "$name did not stop within $timeoutSec seconds" }
+    return $true
+}
+function Start-ServiceBounded([string]$name, [int]$timeoutSec = 20) {
+    $s = Get-Service -Name $name -ErrorAction Stop
+    if ($s.Status -eq 'Running') { return $true }
+    $s.Start()
+    if (-not (Wait-ServiceStatus $s 'Running' $timeoutSec)) { throw "$name did not start within $timeoutSec seconds" }
+    return $true
+}
+
+function Switch-Bluetooth {
+    $state = Get-RadioState 'Bluetooth'
+    if (-not $state) { Write-Log 'no Bluetooth radio found'; return }
+    $svc = 'bthserv', 'BTAGService', 'BthAvctpSvc'
+    if ($state -eq 'On') {
+        [void](Set-RadioTracked 'Bluetooth' 'Off')
+        foreach ($s in ($svc + 'BluetoothUserService_*')) { Stop-ServiceTracked $s 'stop' }
+    } else {
+        foreach ($s in $svc) { try { [void](Start-ServiceBounded $s 10) } catch { Write-Log "  could not start ${s}: $($_.Exception.Message)" } }
+        [void](Set-RadioTracked 'Bluetooth' 'On')
+    }
+}
+
+# ---- launching --------------------------------------------------------------------------------
+function Start-AppTuned([string]$exe, [string]$arg, [string]$priority, [string]$affinity, [int64]$maskOverride = 0) {
+    if (-not (Test-Path -LiteralPath $exe)) { Write-Log "not found: $exe"; return }
+    $p = @{ FilePath = $exe; WorkingDirectory = (Split-Path $exe); PassThru = $true }
+    if ($arg) { $p.ArgumentList = "`"$arg`"" }
+    $proc = Start-Process @p
+    Start-Sleep -Milliseconds 600
+    try { $proc.PriorityClass = [Diagnostics.ProcessPriorityClass]$priority } catch { Write-Log "  priority not set: $($_.Exception.Message)" }
+    $mask = if ($maskOverride -gt 0) { $maskOverride } else { Resolve-Mask $affinity }
+    try { $proc.ProcessorAffinity = [IntPtr]$mask } catch { Write-Log "  cores not set: $($_.Exception.Message)" }
+    Write-Log ("started {0}  priority {1}  cores {2}" -f (Split-Path $exe -Leaf), $priority, $(if ($maskOverride -gt 0) { 'your pick' } else { $affinity }))
+}
+
+# ---- undo -------------------------------------------------------------------------------------
+function Undo-Entry($e) {
+    $d = $e.data
+    switch ($e.kind) {
+        'service' {
+            if ($d.changed) { Set-ServiceStartRaw $e.key $d.start $d.delayed }
+            if ($d.running -and $d.start -ne 4) { [void](Start-ServiceBounded $e.key) }
+        }
+        'task'    { Enable-ScheduledTask -TaskPath $d.path -TaskName $d.name -ErrorAction Stop | Out-Null }
+        'process' {
+            if ($d.path -and -not (Get-Process -Name $e.key -ErrorAction SilentlyContinue)) {
+                # Through Explorer, so the program comes back as you, not as administrator.
+                Start-Process -FilePath explorer.exe -ArgumentList "`"$($d.path)`""
+            }
+        }
+        'startup' {
+            if ($d.had) { Set-ItemProperty -LiteralPath $d.appr -Name $d.name -Value ([byte[]]$d.bytes) -Type Binary }
+            else { Remove-ItemProperty -LiteralPath $d.appr -Name $d.name -ErrorAction SilentlyContinue }
+        }
+        'reg' {
+            if ($d.had) { Set-ItemProperty -LiteralPath $d.path -Name $d.name -Value $d.value -Type $(if ($d.kind -eq 'DWord') { 'DWord' } else { $d.kind }) }
+            else { Remove-ItemProperty -LiteralPath $d.path -Name $d.name -ErrorAction SilentlyContinue }
+        }
+        'power' {
+            $target = $d.prev
+            powercfg /setactive $target 2>$null | Out-Null
+            if ($LASTEXITCODE -ne 0) { powercfg /setactive 381b4222-f694-41f0-9685-ff5bb260df2e | Out-Null }
+            if ($d.new) { powercfg /delete $d.new | Out-Null }
+        }
+        'tune' {
+            foreach ($p in @(Get-Process -Name $e.key -ErrorAction SilentlyContinue)) {
+                try { $p.PriorityClass = [Diagnostics.ProcessPriorityClass]$d.prio } catch {}
+                try { $p.ProcessorAffinity = [IntPtr][int64]$d.mask } catch {}
+            }
+        }
+        'radio' {
+            $null = Invoke-Background ($RadioCode -replace '__KIND__', [string]$d.kind -replace '__ACTION__', [string]$d.prev) 20
+        }
+    }
+}
+function Invoke-Undo($entries) {
+    $all = @(Get-Journal)
+    $ids = @($entries | ForEach-Object { $_.kind + '|' + $_.key })
+    $todo = @($all | Where-Object { $ids -contains ($_.kind + '|' + $_.key) })
+    [array]::Reverse($todo)
+    $done = @()
+    foreach ($e in $todo) {
+        try { Undo-Entry $e; $done += ($e.kind + '|' + $e.key); Write-Log ("undone: " + (Describe-Entry $e)) }
+        catch { Write-Log ("  could not undo " + (Describe-Entry $e) + " : " + $_.Exception.Message) }
+    }
+    Save-Journal @($all | Where-Object { $done -notcontains ($_.kind + '|' + $_.key) })
+}
+function Describe-Entry($e) {
+    switch ($e.kind) {
+        'service' { "service $($e.key)" }
+        'task'    { "scheduled task $($e.key)" }
+        'process' { "program $($e.key)" }
+        'startup' { "startup item $($e.data.name)" }
+        'reg'     { "setting $($e.data.name)" }
+        'power'   { 'power plan' }
+        'radio'   { "$($e.key) radio" }
+        'tune'    { "priority and cores of $($e.key)" }
+        default   { "$($e.kind) $($e.key)" }
+    }
+}
+function Describe-Undo($e) {
+    switch ($e.kind) {
+        'service' { if ($e.data.running) { 'start it again' } else { 'put its startup type back' } }
+        'task'    { 'turn it back on' }
+        'process' { 'open it again' }
+        'startup' { 'let it start at sign-in again' }
+        'reg'     { if ($e.data.had) { "put back $($e.data.value)" } else { 'remove the setting' } }
+        'power'   { 'go back to your old power plan, delete the copy' }
+        'radio'   { "set it back to $($e.data.prev)" }
+        'tune'    { "put it back to $($e.data.prio) priority on its original cores" }
+    }
+}
+
+# ---- update lists from this PC ----------------------------------------------------------------
+# Adds new things found on this PC to the settings file, unticked. Existing entries, notes, and
+# comments are left as they are. A backup is saved first.
+function Add-ToSettingsList([string]$listName, [string[]]$newLines) {
+    $path  = Join-Path $PSScriptRoot 'bidoptimize11.settings.psd1'
+    $lines = Get-Content -LiteralPath $path
+    $start = ($lines | Select-String -Pattern ('^\s*' + $listName + '\s*=\s*@\(') | Select-Object -First 1).LineNumber
+    if (-not $start) { Write-Log "could not find the $listName list in the settings file"; return $false }
+    $end = $null
+    for ($i = $start; $i -lt $lines.Count; $i++) { if ($lines[$i] -match '^\s{4}\)\s*$') { $end = $i; break } }
+    if ($null -eq $end) { Write-Log "could not find the end of the $listName list"; return $false }
+    Copy-Item -LiteralPath $path -Destination (Join-Path $StateDir ('settings-backup-{0:yyyyMMdd-HHmmss}.psd1' -f (Get-Date)))
+    $out = @($lines[0..($end - 1)]) + $newLines + @($lines[$end..($lines.Count - 1)])
+    Set-Content -LiteralPath $path -Value $out -Encoding UTF8
+    $script:Settings = Import-PowerShellDataFile -Path $path
+    return $true
+}
+function Update-ProgramList([switch]$All) {
+    $known = @($Settings.Programs | ForEach-Object { $_.Name })
+    $sh = New-Object -ComObject WScript.Shell
+    $names = foreach ($i in (Get-StartupItems)) {
+        $c = [string]$i.Cmd
+        if ($c -like '*.lnk') { try { $c = $sh.CreateShortcut($c).TargetPath } catch { continue } }
+        $exe = if ($c -match '^\s*"([^"]+)"') { $Matches[1] } else { ($c.Trim() -split '\s+(?=[-/])')[0] }
+        if ($exe) { try { [IO.Path]::GetFileNameWithoutExtension([Environment]::ExpandEnvironmentVariables($exe)) } catch { } }
+    }
+    $skip = 'explorer', 'SecurityHealthSystray', 'ctfmon', 'powershell', 'pwsh', 'cmd', 'conhost'
+    $found = @($names | Sort-Object -Unique | Where-Object {
+        $_ -and $known -notcontains $_ -and $skip -notcontains $_ -and
+        ($All -or (Get-Process -Name $_ -ErrorAction SilentlyContinue | Where-Object { $_.Path -and $_.Path -notlike "$env:windir\*" }))
+    })
+    if (-not $found) { Write-Log 'no new auto-start programs found'; return }
+    $stamp = Get-Date -Format 'yyyy-MM-dd'
+    $new = foreach ($n in $found) { "        @{ Name='" + ($n -replace "'", "''") + "'; Note='Starts at sign-in (found $stamp)'; Default=`$false }" }
+    if (Add-ToSettingsList 'Programs' $new) { Write-Log ("added {0} new programs (unticked): {1}" -f $found.Count, ($found -join ', ')) }
+}
+function Update-AllLists([switch]$All) { Update-ServiceList -All:$All; Update-ProgramList -All:$All }
+function Update-ServiceList([switch]$All) {
+    $known = @($Settings.Services | ForEach-Object { $_.Name })
+    $found = @(Get-CimInstance Win32_Service | Where-Object {
+        ($(if ($All) { $_.StartMode -ne 'Disabled' } else { $_.State -eq 'Running' })) -and $_.PathName -and $_.Name -notmatch '_[0-9a-f]{4,}$' -and $known -notcontains $_.Name -and
+        $_.PathName -notmatch 'system32|SysWOW64|WindowsApps|Windows Defender|Microsoft|:\\Windows\\'
+    } | Sort-Object DisplayName)
+    $gone = @($known | Where-Object { -not (Get-Service -Name $_ -ErrorAction SilentlyContinue) })
+    if ($gone) { Write-Log ("listed but not installed here (kept in the file, hidden in the window): " + ($gone -join ', ')) }
+    if (-not $found) { Write-Log 'no new third-party services found'; return }
+
+    $stamp = Get-Date -Format 'yyyy-MM-dd'
+    $new = foreach ($s in $found) {
+        $n = $s.Name -replace "'", "''"
+        $d = $s.DisplayName -replace "'", "''"
+        "        @{ Name='$n'; Note='$d (found $stamp)'; Mode='stop'; Default=`$false }"
+    }
+    if (Add-ToSettingsList 'Services' $new) { Write-Log ("added {0} new services (unticked): {1}" -f $found.Count, (($found | ForEach-Object { $_.Name }) -join ', ')) }
+}
+
+# ---- task rules -------------------------------------------------------------------------------
+function Get-TaskGroup($t) {
+    $full = ($t.TaskPath + $t.TaskName) -replace '^\\Microsoft\\', '' -replace '^\\', ''
+    if ($t.TaskPath -notlike '\Microsoft\*') { return 'Pause' }
+    foreach ($r in $Settings.TaskRules) { if ($full -match $r.Pattern) { return $r.Group } }
+    return 'Leave alone'
+}
+
+# =================================================================================================
+if ($Check) {
+    $m = Get-CoreMasks
+    Write-Log ("admin: $isAdmin   cores: $($m.Count)   hybrid: $($m.Hybrid)   fast mask: $($m.Fast)   slow mask: $($m.Slow)")
+    Write-Log ("services listed: $(@($Settings.Services).Count)   present here: $(@($Settings.Services | Where-Object { Get-Service -Name $_.Name -ErrorAction SilentlyContinue }).Count)")
+    $tasks = @(Get-ScheduledTask | Where-Object { $_.State -ne 'Disabled' })
+    $tasks | Group-Object { Get-TaskGroup $_ } | ForEach-Object { Write-Log ("tasks in '{0}': {1}" -f $_.Name, $_.Count) }
+    Write-Log ("startup items: $(@(Get-StartupItems).Count)")
+    $bt = Get-RadioState 'Bluetooth'; $wf = Get-RadioState 'WiFi'
+    Write-Log ("radios: Bluetooth=$(if ($bt) { $bt } else { 'none' })  WiFi=$(if ($wf) { $wf } else { 'none' })")
+    Write-Log ("journal entries: $(@(Get-Journal).Count)")
+    exit
+}
+
+if ($RebuildServices) { $Check = $true; Update-AllLists; exit }
+
+# Journal round trip: five saves and reloads must keep exactly five flat entries. Run it in a copy.
+if ($SelfTest) {
+    1..5 | ForEach-Object { Add-Entry 'zz' "item$_" @{ n = $_; flag = $true } }
+    Add-Entry 'zz' 'item1' @{ n = 99 }
+    $j = @(Get-Journal)
+    $flat = ($j | Where-Object { $_.kind -eq 'zz' -and $_.data.n -ge 1 }).Count
+    Write-Host ("entries: {0}  flat: {1}  first kept original: {2}" -f $j.Count, $flat, ($j[0].data.n -eq 1))
+    # radios: read, set to the state they already have (no real change), and the time limit
+    $sw = [Diagnostics.Stopwatch]::StartNew()
+    $bt = Get-RadioState 'Bluetooth'; $wf = Get-RadioState 'WiFi'
+    Write-Host ("radio read: Bluetooth={0} WiFi={1} ({2:N1}s)" -f $bt, $wf, $sw.Elapsed.TotalSeconds)
+    if ($bt) { Write-Host ("set Bluetooth to its current state ({0}): {1}" -f $bt, (Set-RadioTracked 'Bluetooth' $bt)) }
+    $sw.Restart(); $r = Invoke-Background 'Start-Sleep -Seconds 30; "late"' 2
+    Write-Host ("time limit: got '{0}' after {1:N1}s" -f $r, $sw.Elapsed.TotalSeconds)
+    if (Get-Service -Name Spooler -ErrorAction SilentlyContinue | Where-Object Status -eq 'Running') { Write-Host ("start of a running service returns: {0}" -f (Start-ServiceBounded 'Spooler' 5)) }
+    exit
+}
+
+# ---- window -----------------------------------------------------------------------------------
+$form = New-Object Windows.Forms.Form
+$form.Text = 'bidoptimize11'
+$form.Size = New-Object Drawing.Size(1200, 820)
+$form.StartPosition = 'CenterScreen'
+$form.Font = New-Object Drawing.Font('Segoe UI', 9)
+
+# Items you hide live in the state folder and are shared by every tab. A hidden item is never applied.
+$HiddenFile = Join-Path $StateDir 'hidden.json'
+function Get-Hidden {
+    if (Test-Path $HiddenFile) {
+        $t = Get-Content $HiddenFile -Raw
+        if ($t -and $t.Trim()) { return @(ConvertFrom-JsonList $t) }
+    }
+    return @()
+}
+function Save-Hidden($h) { ConvertTo-Json -InputObject @($h) -Depth 4 | Set-Content -Path $HiddenFile -Encoding UTF8 }
+$script:Hidden = @(Get-Hidden)
+function Test-Hidden([string]$tab, [string]$key) { [bool]($script:Hidden | Where-Object { $_.tab -eq $tab -and $_.key -eq $key }) }
+
+function New-ListView {
+    $lv = New-Object Windows.Forms.ListView
+    $lv.View = 'Details'; $lv.CheckBoxes = $true; $lv.FullRowSelect = $true; $lv.HideSelection = $false
+    $lv.Dock = 'Fill'; $lv.ShowGroups = $true
+    [void]$lv.Columns.Add('Item', 250); [void]$lv.Columns.Add('What it is', 380); [void]$lv.Columns.Add('Now', 110); [void]$lv.Columns.Add('Use now / tuning', 250)
+    $lv
+}
+# Simple row add, used by the Undo and Hidden lists.
+function Add-Row($lv, [string]$group, [string]$text, [string]$note, [string]$now, [bool]$checked, $tag) {
+    $g = $lv.Groups | Where-Object { $_.Header -eq $group } | Select-Object -First 1
+    if (-not $g) { $g = New-Object Windows.Forms.ListViewGroup($group, $group); [void]$lv.Groups.Add($g) }
+    $it = New-Object Windows.Forms.ListViewItem($text)
+    [void]$it.SubItems.Add($note); [void]$it.SubItems.Add($now)
+    $it.Group = $g; $it.Tag = $tag; $it.Checked = $checked
+    [void]$lv.Items.Add($it)
+    $it
+}
+
+# Each main tab keeps its own row records. The list on screen is drawn from them, so filters and
+# hiding never lose a tick.
+# Ms = made by Microsoft / part of Windows. Cpu (seconds used so far) and Mem (MB) are -1 when unknown.
+function New-Row([string]$key, [string]$group, [string]$text, [string]$note, [string]$now, [bool]$rec, [bool]$checked, $data, [bool]$ms = $false, [double]$cpu = -1, [double]$mem = -1) {
+    $use = if ($cpu -ge 0) { '{0:N0} s CPU, {1:N0} MB' -f $cpu, $mem } else { '' }
+    [pscustomobject]@{ Key = $key; Group = $group; Text = $text; Note = $note; Now = $now; Rec = $rec; Checked = $checked; Data = $data; Ms = $ms; Cpu = $cpu; Mem = $mem; Use = $use }
+}
+$FilterNames = @(
+    'Show all', 'Running only', 'Stopped or paused only', 'Recommended to turn off only',
+    'Ticked only', 'Unticked only', 'Microsoft only', 'Third-party only',
+    'Changed by me (in the undo list)', 'Restart themselves', 'New since last update', 'Audio gear related',
+    'Busiest CPU first', 'Biggest memory first'
+)
+$DefaultAudioGear = 'Antelope', 'Discrete', 'Oryx', 'NTK', 'Native Instruments', 'PreSonus', 'PACE', 'iLok', 'Focusrite', 'Universal Control', 'Ableton', 'MOTU', 'RME', 'Steinberg', 'ASIO', 'Plogue', 'Bidule', 'MIDI', 'SoftStep', 'Max'
+function Get-RowJournalKey($t, $r) {
+    switch ($t.Title) {
+        'Services'           { 'service|' + $r.Key }
+        'Programs'           { 'process|' + $r.Key }
+        'Scheduled tasks'    { 'task|' + $r.Key }
+        'Startup'            { 'startup|' + $r.Key }
+        'Power and settings' { 'reg|' + $r.Key }
+        default              { '' }
+    }
+}
+
+function Render-Tab($t) {
+    $lv = $t.List
+    $mode  = if ($t.Combo) { [string]$t.Combo.SelectedItem } else { 'Show all' }
+    $query = if ($t.Search) { $t.Search.Text.Trim() } else { '' }
+    $gear  = if ($Settings.AudioGearPatterns) { @($Settings.AudioGearPatterns) } else { $DefaultAudioGear }
+    $changed = @{}
+    if ($mode -like 'Changed by me*') { foreach ($e in @(Get-Journal)) { $changed[$e.kind + '|' + $e.key] = $true } }
+    $hasUse = [bool]($t.Rows | Where-Object { $_.Cpu -ge 0 } | Select-Object -First 1)
+    $rows = @($t.Rows)
+    if ($hasUse -and $mode -eq 'Busiest CPU first')     { $rows = @($rows | Sort-Object Cpu -Descending) }
+    if ($hasUse -and $mode -eq 'Biggest memory first')  { $rows = @($rows | Sort-Object Mem -Descending) }
+    $shown = 0
+    # Redraws keep your selection and scroll position.
+    $script:Rendering = $true
+    $selKeys = @{}; foreach ($it in $lv.SelectedItems) { if ($it.Tag) { $selKeys[$it.Tag.Key] = $true } }
+    $topKey = if ($lv.TopItem -and $lv.TopItem.Tag) { $lv.TopItem.Tag.Key }
+    $topItem = $null
+    $lv.BeginUpdate(); $lv.Items.Clear(); $lv.Groups.Clear()
+    foreach ($r in $rows) {
+        if (Test-Hidden $t.Title $r.Key) { continue }
+        $active = $r.Now -in 'running', 'starts at sign-in', 'found'
+        $show = switch ($mode) {
+            'Running only'                     { $active }
+            'Stopped or paused only'           { -not $active }
+            'Recommended to turn off only'     { $r.Rec }
+            'Ticked only'                      { $r.Checked }
+            'Unticked only'                    { -not $r.Checked }
+            'Microsoft only'                   { $r.Ms }
+            'Third-party only'                 { -not $r.Ms }
+            'Changed by me (in the undo list)' { $changed.ContainsKey((Get-RowJournalKey $t $r)) }
+            'Restart themselves'               { $r.Data -is [hashtable] -and $r.Data.Mode -eq 'disable' }
+            'New since last update'            { $r.Note -match '\(found \d{4}-\d{2}-\d{2}\)' }
+            'Audio gear related'               { $hay = "$($r.Text) $($r.Note) $($r.Key)"; [bool]($gear | Where-Object { $hay -match ('(?i)\b' + [regex]::Escape($_) + '\b') }) }
+            'Busiest CPU first'                { (-not $hasUse) -or $r.Cpu -ge 0 }
+            'Biggest memory first'             { (-not $hasUse) -or $r.Cpu -ge 0 }
+            default                            { $true }
+        }
+        if (-not $show) { continue }
+        if ($query -and "$($r.Text) $($r.Note) $($r.Key)" -notlike "*$query*") { continue }
+        $g = $lv.Groups | Where-Object { $_.Header -eq $r.Group } | Select-Object -First 1
+        if (-not $g) { $g = New-Object Windows.Forms.ListViewGroup($r.Group, $r.Group); [void]$lv.Groups.Add($g) }
+        $it = New-Object Windows.Forms.ListViewItem($r.Text)
+        [void]$it.SubItems.Add($r.Note); [void]$it.SubItems.Add($r.Now); [void]$it.SubItems.Add($r.Use + (Get-TuningText $t $r))
+        $it.Group = $g; $it.Tag = $r; $it.Checked = $r.Checked
+        [void]$lv.Items.Add($it)
+        if ($selKeys.ContainsKey($r.Key)) { $it.Selected = $true }
+        if ($topKey -and $r.Key -eq $topKey) { $topItem = $it }
+        $shown++
+    }
+    if ($topItem) { try { $lv.TopItem = $topItem } catch {} }
+    $lv.EndUpdate()
+    $script:Rendering = $false
+    $t.Count.Text = "showing $shown of $(@($t.Rows).Count)"
+}
+function Set-Rows($t, $rows) {
+    # Keep the ticks you already made when a list is rebuilt.
+    $old = @{}; foreach ($r in $t.Rows) { $old[$r.Key] = $r.Checked }
+    $sigOld = (@($t.Rows) | ForEach-Object { $_.Key + '|' + $_.Now + '|' + $_.Group }) -join ';'
+    $sigNew = (@($rows)   | ForEach-Object { $_.Key + '|' + $_.Now + '|' + $_.Group }) -join ';'
+    foreach ($r in $rows) { if ($old.ContainsKey($r.Key)) { $r.Checked = $old[$r.Key] } }
+    $t.Rows = @($rows)
+    if ($sigOld -eq $sigNew -and $t.List.Items.Count -gt 0) {
+        # Nothing was added, removed, or changed state: just refresh the CPU and memory text in place.
+        $byKey = @{}; foreach ($r in $rows) { $byKey[$r.Key] = $r }
+        foreach ($it in $t.List.Items) {
+            $nr = $byKey[$it.Tag.Key]
+            if ($nr) { $it.Tag = $nr; $it.SubItems[3].Text = $nr.Use + (Get-TuningText $t $nr) }
+        }
+    } else { Render-Tab $t }
+}
+function Get-Ticked($t) { @($t.Rows | Where-Object { $_.Checked -and -not (Test-Hidden $t.Title $_.Key) }) }
+
+# Select all / Unselect all / Invert ticks, for the rows currently shown in a list.
+function Add-TickButtons($bar, $lv) {
+    $a = New-Object Windows.Forms.Button; $a.Text = 'Select all';   $a.Width = 80
+    $a.Add_Click({ foreach ($i in $lv.Items) { $i.Checked = $true } }.GetNewClosure())
+    $b = New-Object Windows.Forms.Button; $b.Text = 'Unselect all'; $b.Width = 90
+    $b.Add_Click({ foreach ($i in $lv.Items) { $i.Checked = $false } }.GetNewClosure())
+    $c = New-Object Windows.Forms.Button; $c.Text = 'Invert ticks'; $c.Width = 90
+    $c.Add_Click({ foreach ($i in $lv.Items) { $i.Checked = -not $i.Checked } }.GetNewClosure())
+    $bar.Controls.AddRange(@($a, $b, $c))
+}
+function New-TabWithList([string]$title, [string]$hint, [bool]$filter) {
+    $tab = New-Object Windows.Forms.TabPage($title)
+    $lv = New-ListView
+    $bar = New-Object Windows.Forms.FlowLayoutPanel
+    $bar.Dock = 'Bottom'; $bar.Height = 70; $bar.WrapContents = $true
+    $t = [pscustomobject]@{ Title = $title; Tab = $tab; List = $lv; Rows = @(); Combo = $null; Search = $null; Count = (New-Object Windows.Forms.Label) }
+    $lv.Add_ItemChecked({ param($s, $e) if ($e.Item.Tag -and $e.Item.Tag.PSObject.Properties['Checked']) { $e.Item.Tag.Checked = $e.Item.Checked } })
+    $b3 = New-Object Windows.Forms.Button; $b3.Text = 'Tick selected';  $b3.Width = 95; $b3.Add_Click({ foreach ($i in $lv.SelectedItems) { $i.Checked = $true } }.GetNewClosure())
+    $b4 = New-Object Windows.Forms.Button; $b4.Text = 'Clear selected'; $b4.Width = 100; $b4.Add_Click({ foreach ($i in $lv.SelectedItems) { $i.Checked = $false } }.GetNewClosure())
+    $b5 = New-Object Windows.Forms.Button; $b5.Text = 'Hide selected'; $b5.Width = 100
+    $b5.Add_Click({
+        foreach ($r in @($t.List.SelectedItems | ForEach-Object { $_.Tag })) {
+            $script:Hidden += [pscustomobject]@{ tab = $t.Title; key = $r.Key; text = $r.Text; note = $r.Note }
+        }
+        Save-Hidden $script:Hidden; Render-Tab $t; Fill-Hidden
+    }.GetNewClosure())
+    Add-TickButtons $bar $lv
+    $bar.Controls.AddRange(@($b3, $b4, $b5))
+    $t.Combo = New-Object Windows.Forms.ComboBox; $t.Combo.DropDownStyle = 'DropDownList'; $t.Combo.Width = 220
+    [void]$t.Combo.Items.AddRange($FilterNames); $t.Combo.SelectedIndex = 0
+    $t.Combo.Add_SelectedIndexChanged({ Render-Tab $t }.GetNewClosure())
+    $t.Search = New-Object Windows.Forms.TextBox; $t.Search.Width = 130
+    $t.Search.Add_TextChanged({ Render-Tab $t }.GetNewClosure())
+    $lblFind = New-Object Windows.Forms.Label; $lblFind.Text = 'Find:'; $lblFind.AutoSize = $true; $lblFind.Padding = New-Object Windows.Forms.Padding(6, 7, 0, 0)
+    $bar.Controls.AddRange(@($t.Combo, $lblFind, $t.Search))
+    $t.Count.AutoSize = $true; $t.Count.Padding = New-Object Windows.Forms.Padding(8, 7, 0, 0)
+    $bar.Controls.Add($t.Count)
+    $lblHint = New-Object Windows.Forms.Label; $lblHint.Text = $hint; $lblHint.Dock = 'Top'; $lblHint.Height = 24; $lblHint.Padding = New-Object Windows.Forms.Padding(4, 5, 0, 0)
+    $tab.Controls.Add($lv); $tab.Controls.Add($bar); $tab.Controls.Add($lblHint)
+    $t
+}
+
+$tabs = New-Object Windows.Forms.TabControl; $tabs.Dock = 'Fill'
+$NoteAll = ' Filters only change what you see; Optimize applies every ticked item.'
+
+# services
+$tSvc = New-TabWithList 'Services' ('Ticked services are stopped. Undo starts them again.' + $NoteAll) $true
+function Fill-Services {
+    $info = @{}; foreach ($c in (Get-CimInstance Win32_Service)) { $info[$c.Name] = $c }
+    $procs = @{}; foreach ($p in (Get-Process)) { $procs[[int]$p.Id] = $p }
+    $rows = foreach ($s in $Settings.Services) {
+        $found = @(Get-Service -Name $s.Name -ErrorAction SilentlyContinue)
+        if (-not $found) { continue }
+        $grp = if ($s.Default) { 'Stop (recommended)' } else { 'Your call' }
+        $now = if ($found | Where-Object { $_.Status -eq 'Running' }) { 'running' } else { ([string]$found[0].Status).ToLower() }
+        $c = $info[$found[0].Name]
+        $ms = (-not $c) -or (-not $c.PathName) -or ($c.PathName -match 'system32|SysWOW64|WindowsApps|Windows Defender|Microsoft')
+        $cpu = -1; $mem = -1
+        if ($c -and $c.ProcessId -gt 0 -and $procs.ContainsKey([int]$c.ProcessId)) { $p = $procs[[int]$c.ProcessId]; $cpu = [double]$p.CPU; $mem = $p.WorkingSet64 / 1MB }
+        New-Row $s.Name $grp $found[0].DisplayName $s.Note $now ([bool]$s.Default) ([bool]$s.Default) $s $ms $cpu $mem
+    }
+    Set-Rows $tSvc $rows
+}
+
+# programs
+$tPrg = New-TabWithList 'Programs' ('Ticked programs are closed. Undo reopens them.' + $NoteAll) $false
+function Fill-Programs {
+    $rows = foreach ($p in $Settings.Programs) {
+        $procs = @(Get-Process -Name $p.Name -ErrorAction SilentlyContinue)
+        if (-not $procs) { continue }
+        $grp = if ($p.Default) { 'Close (recommended)' } else { 'Your call' }
+        $path = ($procs | Where-Object { $_.Path } | Select-Object -First 1).Path
+        $ms = [bool]($path -and ($path -like "$env:windir\*" -or $path -match 'Microsoft'))
+        $cpu = ($procs | Measure-Object CPU -Sum).Sum; $mem = ($procs | Measure-Object WorkingSet64 -Sum).Sum / 1MB
+        New-Row $p.Name $grp $p.Name $p.Note 'running' ([bool]$p.Default) ([bool]$p.Default) $p $ms ([double]$cpu) ([double]$mem)
+    }
+    Set-Rows $tPrg $rows
+}
+
+# scheduled tasks
+$tTsk = New-TabWithList 'Scheduled tasks' ('Ticked tasks are switched off. Undo switches them back on.' + $NoteAll) $true
+function Fill-Tasks {
+    $form.Cursor = 'WaitCursor'
+    $rows = foreach ($t in (Get-ScheduledTask | Where-Object { $_.State -ne 'Disabled' } | Sort-Object TaskPath, TaskName)) {
+        $g = Get-TaskGroup $t
+        $label = ($t.TaskPath -replace '^\\Microsoft\\', '').TrimEnd('\') + '\' + $t.TaskName
+        New-Row ($t.TaskPath + $t.TaskName) $g $t.TaskName $label ([string]$t.State) ($g -eq 'Pause') ($g -eq 'Pause') @{ path = $t.TaskPath; name = $t.TaskName } ($t.TaskPath -like '\Microsoft\*')
+    }
+    Set-Rows $tTsk $rows
+    $form.Cursor = 'Default'
+}
+
+# startup
+$tSta = New-TabWithList 'Startup' ('Ticked items are held back from starting at your next sign-in. Undo lets them start again.' + $NoteAll) $false
+function Fill-Startup {
+    $rows = foreach ($i in (Get-StartupItems)) {
+        $hold = $false; foreach ($h in $Settings.StartupHold) { if ($i.Name -like "*$h*") { $hold = $true } }
+        $now = if ($i.Enabled) { 'starts at sign-in' } else { 'already held back' }
+        New-Row ($i.Appr + '|' + $i.Name) $i.Label $i.Name $i.Cmd $now $hold ($hold -and $i.Enabled) $i ([bool]($i.Cmd -match 'Microsoft|\\Windows\\|system32|SecurityHealth'))
+    }
+    Set-Rows $tSta $rows
+}
+
+# settings
+$tSet = New-TabWithList 'Power and settings' ('Ticked settings are changed. Undo puts each back exactly as it was.' + $NoteAll) $false
+function Fill-Settings {
+    $rows = @()
+    foreach ($r in $Settings.RegistryTweaks) {
+        $k = Get-Item -LiteralPath $r.Path -ErrorAction SilentlyContinue
+        $now = if ($k -and ($k.GetValueNames() -contains $r.Name)) { [string]$k.GetValue($r.Name) } else { '(not set)' }
+        $rows += New-Row ($r.Path + '|' + $r.Name) 'Windows settings' $r.Note ($r.Path + '  ' + $r.Name + ' = ' + $r.Data) $now ([bool]$r.Default) ([bool]$r.Default) @{ type = 'reg'; tweak = $r } $true
+    }
+    Set-Rows $tSet $rows
+}
+
+# App + helpers
+# Apps list: tick = shows up in the Start dropdown at the top. Helpers list: tick = closed (if open) before the app starts.
+$tApps = New-TabWithList 'Apps' ('Ticked apps appear in the Start dropdown at the top. Select a row, then press Start selected app.' + $NoteAll) $false
+$tHelp = New-TabWithList 'Helpers' ('Ticked helpers are closed, if open, before the app starts. Undo reopens them.' + $NoteAll) $false
+$pageBid = New-Object Windows.Forms.TabPage('App + helpers')
+$split = New-Object Windows.Forms.SplitContainer; $split.Dock = 'Fill'; $split.Orientation = 'Horizontal'
+foreach ($c in @($tApps.Tab.Controls | ForEach-Object { $_ })) { $split.Panel1.Controls.Add($c) }
+foreach ($c in @($tHelp.Tab.Controls | ForEach-Object { $_ })) { $split.Panel2.Controls.Add($c) }
+$appPanel = New-Object Windows.Forms.FlowLayoutPanel; $appPanel.Dock = 'Top'; $appPanel.Height = 40; $appPanel.Padding = New-Object Windows.Forms.Padding(4, 4, 0, 0)
+$btnStartSel  = New-Object Windows.Forms.Button; $btnStartSel.Text  = 'Start selected app';     $btnStartSel.Width  = 140
+$btnOpenApps  = New-Object Windows.Forms.Button; $btnOpenApps.Text  = 'Open selected apps';      $btnOpenApps.Width  = 140
+$btnOpenSel   = New-Object Windows.Forms.Button; $btnOpenSel.Text   = 'Open selected helpers';  $btnOpenSel.Width   = 150
+$btnOpenAll   = New-Object Windows.Forms.Button; $btnOpenAll.Text   = 'Open all helpers';       $btnOpenAll.Width   = 120
+$btnCloseTick = New-Object Windows.Forms.Button; $btnCloseTick.Text = 'Close ticked helpers';   $btnCloseTick.Width = 140
+$btnAddApp    = New-Object Windows.Forms.Button; $btnAddApp.Text    = 'Add app...';             $btnAddApp.Width    = 90
+$btnAddHelp   = New-Object Windows.Forms.Button; $btnAddHelp.Text   = 'Add helper...';          $btnAddHelp.Width   = 100
+$appPanel.Controls.AddRange(@($btnStartSel, $btnOpenApps, $btnOpenSel, $btnOpenAll, $btnCloseTick, $btnAddApp, $btnAddHelp))
+$pageBid.Controls.Add($split); $pageBid.Controls.Add($appPanel)
+
+# Finds the program file. A path may use * (for example Ableton's version number); the newest version wins.
+function Resolve-AppExe($candidates) {
+    foreach ($c in @($candidates)) {
+        $p = [Environment]::ExpandEnvironmentVariables([string]$c)
+        if ($p -match '[*?]') {
+            $hit = Get-ChildItem -Path $p -File -ErrorAction SilentlyContinue |
+                Sort-Object { if ($_.FullName -match 'Live (\d+)') { [int]$Matches[1] } else { 0 } } -Descending | Select-Object -First 1
+            if ($hit) { return $hit.FullName }
+        } elseif (Test-Path -LiteralPath $p) { return $p }
+    }
+    return $null
+}
+function Fill-Apps {
+    $rows = foreach ($a in $Settings.Apps) {
+        $exe = Resolve-AppExe $a.Exe
+        $proc = if ($exe) { [IO.Path]::GetFileNameWithoutExtension($exe) }
+        $running = [bool]($proc -and (Get-Process -Name $proc -ErrorAction SilentlyContinue))
+        $now = if (-not $exe) { 'not found' } elseif ($running) { 'running' } else { 'ready' }
+        $note = if ($exe) { $exe } else { 'not installed here' }
+        if ($a.File) { $note += '   opens: ' + $a.File }
+        $label = if ($a.Default) { $a.Name + '  (default)' } else { $a.Name }
+        New-Row $a.Name 'Apps' $label $note $now ([bool]$a.Quick) ([bool]$a.Quick) ([pscustomobject]@{ Def = $a; Exe = $exe; Proc = $proc })
+    }
+    Set-Rows $tApps $rows
+}
+function Fill-Helpers {
+    $rows = foreach ($h in $Settings.Helpers) {
+        $exe = [Environment]::ExpandEnvironmentVariables([string]$h.Exe)
+        $ok = Test-Path -LiteralPath $exe
+        $proc = [IO.Path]::GetFileNameWithoutExtension($exe)
+        $open = $ok -and [bool](Get-Process -Name $proc -ErrorAction SilentlyContinue)
+        $now = if (-not $ok) { 'not found' } elseif ($open) { 'running' } else { 'closed' }
+        New-Row $h.Name 'Helpers' $h.Name $exe $now ([bool]$h.Default) ([bool]($h.Default -and $ok)) ([pscustomobject]@{ Def = $h; Exe = $exe; Proc = $proc })
+    }
+    Set-Rows $tHelp $rows
+}
+
+# The routine: close the ticked helpers that are open, then start the app.
+function Start-AppRoutine($row) {
+    $d = $row.Data
+    if (-not $d.Exe) { Write-Log "$($row.Text.Trim()) was not found. Fix its path in bidoptimize11.settings.psd1"; return }
+    foreach ($h in (Get-Ticked $tHelp)) {
+        if ($h.Data.Proc -and (Get-Process -Name $h.Data.Proc -ErrorAction SilentlyContinue)) { Close-ProgramTracked $h.Data.Proc }
+    }
+    Open-App $row
+}
+# Just open it: no helpers are closed. You can open several apps this way.
+function Open-App($row) {
+    $d = $row.Data
+    if (-not $d.Exe) { Write-Log "$($row.Text.Trim()) was not found. Fix its path in bidoptimize11.settings.psd1"; return }
+    $arg = [Environment]::ExpandEnvironmentVariables([string]$d.Def.File)
+    if ($arg -and -not (Test-Path -LiteralPath $arg)) { Write-Log "file not found: $arg"; return }
+    $lt = Get-LaunchTuning 'Apps' $row
+    Start-AppTuned $d.Exe $arg $lt.Priority $lt.Affinity $lt.Mask
+    Fill-Helpers; Fill-Apps; Fill-Undo
+}
+function Open-Helper($row) {
+    $d = $row.Data
+    if (-not (Test-Path -LiteralPath $d.Exe)) { Write-Log "not found: $($row.Text)"; return }
+    if (Get-Process -Name $d.Proc -ErrorAction SilentlyContinue) { Write-Log "already open: $($row.Text)"; return }
+    $lt = Get-LaunchTuning 'Helpers' $row
+    Start-AppTuned $d.Exe '' $lt.Priority $lt.Affinity $lt.Mask
+}
+function Get-VisibleRows($t) { @($t.List.Items | ForEach-Object { $_.Tag }) }
+
+$btnStartSel.Add_Click({
+    $sel = @($tApps.List.SelectedItems | ForEach-Object { $_.Tag }) | Select-Object -First 1
+    if (-not $sel) { $sel = Get-Ticked $tApps | Where-Object { $_.Data.Def.Default } | Select-Object -First 1 }
+    if (-not $sel) { Write-Log 'select an app in the list first'; return }
+    Start-AppRoutine $sel
+})
+$btnOpenApps.Add_Click({
+    $sel = @($tApps.List.SelectedItems | ForEach-Object { $_.Tag })
+    if (-not $sel) { Write-Log 'select one or more apps first'; return }
+    foreach ($r in $sel) { Open-App $r }
+})
+$btnOpenSel.Add_Click({ foreach ($r in @($tHelp.List.SelectedItems | ForEach-Object { $_.Tag })) { Open-Helper $r }; Start-Sleep -Milliseconds 800; Fill-Helpers })
+$btnOpenAll.Add_Click({ foreach ($r in (Get-VisibleRows $tHelp)) { Open-Helper $r }; Start-Sleep -Milliseconds 800; Fill-Helpers })
+$btnCloseTick.Add_Click({
+    foreach ($h in (Get-Ticked $tHelp)) { if ($h.Data.Proc -and (Get-Process -Name $h.Data.Proc -ErrorAction SilentlyContinue)) { Close-ProgramTracked $h.Data.Proc } }
+    Start-Sleep -Milliseconds 500; Fill-Helpers; Fill-Undo
+})
+$tHelp.List.Add_DoubleClick({ $sel = @($tHelp.List.SelectedItems | ForEach-Object { $_.Tag }) | Select-Object -First 1; if ($sel) { Open-Helper $sel; Start-Sleep -Milliseconds 800; Fill-Helpers } })
+$tApps.List.Add_DoubleClick({ $sel = @($tApps.List.SelectedItems | ForEach-Object { $_.Tag }) | Select-Object -First 1; if ($sel) { Start-AppRoutine $sel } })
+
+# Add an app or helper by picking its program file. It is written to the settings file (with a backup).
+function Add-ExeToList([string]$listName, [string]$path) {
+    $name = ([IO.Path]::GetFileNameWithoutExtension($path) -replace "'", "''")
+    $exe  = $path -replace "'", "''"
+    $line = if ($listName -eq 'Apps') { "        @{ Name='$name'; Exe=@('$exe'); File=''; Priority='High'; Affinity='All'; Quick=`$false; Default=`$false }" }
+            else { "        @{ Name='$name'; Exe='$exe'; Priority='Normal'; Affinity='Slow'; Default=`$false }" }
+    if (Add-ToSettingsList $listName @($line)) { Write-Log "added to ${listName}: $name"; if ($listName -eq 'Apps') { Fill-Apps } else { Fill-Helpers } }
+}
+function Add-ProgramFromPicker([string]$listName) {
+    $dlg = New-Object Windows.Forms.OpenFileDialog
+    $dlg.Filter = 'Programs (*.exe)|*.exe|All files (*.*)|*.*'; $dlg.Title = "Pick the program to add to $listName"
+    if ($dlg.ShowDialog($form) -ne 'OK') { return }
+    Add-ExeToList $listName $dlg.FileName
+}
+# Open any program, once. It uses the priority and cores ticked in the tuning strip, if any.
+# Afterwards you can add it to the Apps list so it is there next time.
+function Open-OtherProgram {
+    $dlg = New-Object Windows.Forms.OpenFileDialog
+    $dlg.Filter = 'Programs (*.exe)|*.exe'; $dlg.Title = 'Pick a program to open'
+    if ($dlg.ShowDialog($form) -ne 'OK') { return }
+    $tune = Get-PanelTuning
+    $prio = if ($tune.prio) { [string]$tune.prio } else { 'Normal' }
+    $mask = if ($tune.cores -and @($tune.cores).Count) { Get-MaskFromCores @($tune.cores) } else { 0 }
+    Start-AppTuned $dlg.FileName '' $prio 'All' $mask
+    $name = [IO.Path]::GetFileNameWithoutExtension($dlg.FileName)
+    $known = @($Settings.Apps | ForEach-Object { Resolve-AppExe $_.Exe }) + @($Settings.Helpers | ForEach-Object { [Environment]::ExpandEnvironmentVariables([string]$_.Exe) })
+    if ($known -notcontains $dlg.FileName -and
+        [Windows.Forms.MessageBox]::Show("Add '$name' to the Apps list so it is here next time?", 'bidoptimize11', 'YesNo', 'Question') -eq 'Yes') {
+        Add-ExeToList 'Apps' $dlg.FileName
+    }
+    Fill-Apps; Fill-Helpers
+}
+$btnAddApp.Add_Click({ Add-ProgramFromPicker 'Apps' })
+$btnAddHelp.Add_Click({ Add-ProgramFromPicker 'Helpers' })
+
+# hidden tab
+$tHid = New-Object Windows.Forms.TabPage('Hidden')
+$lvHid = New-ListView
+$lvHid.Columns.Clear(); [void]$lvHid.Columns.Add('Item', 300); [void]$lvHid.Columns.Add('What it is', 420); [void]$lvHid.Columns.Add('Tab', 150)
+$hidBar = New-Object Windows.Forms.FlowLayoutPanel; $hidBar.Dock = 'Bottom'; $hidBar.Height = 36
+$bH1 = New-Object Windows.Forms.Button; $bH1.Text = 'Unhide ticked'; $bH1.Width = 100
+$bH2 = New-Object Windows.Forms.Button; $bH2.Text = 'Unhide all';    $bH2.Width = 100
+Add-TickButtons $hidBar $lvHid
+$hidBar.Controls.AddRange(@($bH1, $bH2))
+$lblHid = New-Object Windows.Forms.Label; $lblHid.Text = 'Hidden items are never shown or applied. Tick items here and unhide them to bring them back.'; $lblHid.Dock = 'Top'; $lblHid.Height = 24; $lblHid.Padding = New-Object Windows.Forms.Padding(4, 5, 0, 0)
+$tHid.Controls.Add($lvHid); $tHid.Controls.Add($hidBar); $tHid.Controls.Add($lblHid)
+function Fill-Hidden {
+    $lvHid.Items.Clear(); $lvHid.Groups.Clear()
+    foreach ($h in $script:Hidden) { [void](Add-Row $lvHid $h.tab $h.text $h.note $h.tab $false $h) }
+}
+function Invoke-Unhide($items) {
+    $drop = @($items | ForEach-Object { $_.tab + '|' + $_.key })
+    $script:Hidden = @($script:Hidden | Where-Object { $drop -notcontains ($_.tab + '|' + $_.key) })
+    Save-Hidden $script:Hidden
+    foreach ($t in $tSvc, $tPrg, $tTsk, $tSta, $tSet, $tApps, $tHelp) { Render-Tab $t }
+    Update-QuickList
+    Fill-Hidden
+}
+$bH1.Add_Click({ Invoke-Unhide @($lvHid.CheckedItems | ForEach-Object { $_.Tag }) })
+$bH2.Add_Click({ Invoke-Unhide @($script:Hidden) })
+
+# undo tab
+$tUndo = New-Object Windows.Forms.TabPage('Undo')
+$lvUndo = New-ListView
+$lvUndo.Columns.Clear(); [void]$lvUndo.Columns.Add('Changed', 320); [void]$lvUndo.Columns.Add('Undo will', 420); [void]$lvUndo.Columns.Add('When', 150)
+$undoBar = New-Object Windows.Forms.FlowLayoutPanel; $undoBar.Dock = 'Bottom'; $undoBar.Height = 36
+$bU1 = New-Object Windows.Forms.Button; $bU1.Text = 'Undo ticked'; $bU1.Width = 100
+$bU2 = New-Object Windows.Forms.Button; $bU2.Text = 'Undo everything'; $bU2.Width = 120
+Add-TickButtons $undoBar $lvUndo
+$undoBar.Controls.AddRange(@($bU1, $bU2))
+$tUndo.Controls.Add($lvUndo); $tUndo.Controls.Add($undoBar)
+function Fill-Undo {
+    $lvUndo.Items.Clear(); $lvUndo.Groups.Clear()
+    foreach ($e in @(Get-Journal)) {
+        [void](Add-Row $lvUndo (Describe-Entry $e).Split(' ')[0] (Describe-Entry $e) (Describe-Undo $e) ($e.when -replace 'T', ' ') $false $e)
+    }
+}
+function Refresh-All {
+    Fill-Services; Fill-Programs; Fill-Startup; Fill-Settings; Fill-Apps; Fill-Helpers; Fill-Hidden; Fill-Undo
+    Update-Toggles
+}
+$bU1.Add_Click({ Invoke-Undo @($lvUndo.CheckedItems | ForEach-Object { $_.Tag }); Refresh-All })
+$bU2.Add_Click({ Invoke-Undo @(Get-Journal); Refresh-All })
+
+$tabs.TabPages.AddRange(@($tSvc.Tab, $tPrg.Tab, $tTsk.Tab, $tSta.Tab, $tSet.Tab, $pageBid, $tHid, $tUndo))
+
+# ---- priority and affinity --------------------------------------------------------------------
+# Pick rows on the Services, Programs, or App + helpers tabs, set priority and/or cores here, then
+# Apply now (changes the running programs) or Remember (used whenever the app or helper is started
+# and when you press Optimize). Every change is journaled, so Undo puts priority and cores back.
+$TuningFile = Join-Path $StateDir 'tuning.json'
+$script:Tuning = @{}
+$script:TuneTab = $tSvc
+$PrioMap = [ordered]@{
+    'Realtime'            = 'RealTime'
+    'High'                = 'High'
+    'Above normal'        = 'AboveNormal'
+    'Normal'              = 'Normal'
+    'Below normal'        = 'BelowNormal'
+    'Lowest (background)' = 'Idle'
+}
+function Load-Tuning {
+    if (Test-Path $TuningFile) {
+        try { $o = Get-Content $TuningFile -Raw | ConvertFrom-Json; foreach ($p in $o.PSObject.Properties) { $script:Tuning[$p.Name] = $p.Value } } catch {}
+    }
+}
+function Save-Tuning { ConvertTo-Json -InputObject $script:Tuning -Depth 5 | Set-Content -Path $TuningFile -Encoding UTF8 }
+Load-Tuning
+
+# Fast cores first, in their own color. On a chip with only one kind of core nothing is colored.
+$script:CoreItems = @(Get-CoreList | Sort-Object -Property @{ Expression = { if ($_.IsFast) { 0 } else { 1 } } }, Index)
+function Format-Cores($indexes) {
+    $idx = @($indexes | Sort-Object -Unique)
+    if ($idx.Count -eq $script:CoreItems.Count) { return "all $($idx.Count)" }
+    if (-not $idx.Count) { return 'none' }
+    $out = @(); $i = 0
+    while ($i -lt $idx.Count) {
+        $s = [int]$idx[$i]; $e = $s
+        while ($i + 1 -lt $idx.Count -and [int]$idx[$i + 1] -eq $e + 1) { $i++; $e = [int]$idx[$i] }
+        $out += $(if ($s -eq $e) { "$s" } else { "$s-$e" }); $i++
+    }
+    $out -join ','
+}
+function Get-TuningText($t, $r) {
+    $x = $script:Tuning["$($t.Title)|$($r.Key)"]
+    if (-not $x) { return '' }
+    $parts = @()
+    if ($x.prio)  { $parts += [string]$x.prio }
+    if ($x.cores) { $parts += 'cores ' + (Format-Cores @($x.cores)) }
+    if ($parts) { '   [' + ($parts -join ', ') + ']' } else { '' }
+}
+function Get-LaunchTuning($title, $row) {
+    $def  = $row.Data.Def
+    $tune = $script:Tuning["$title|$($row.Key)"]
+    $prio = if ($tune -and $tune.prio) { [string]$tune.prio } else { [string]$def.Priority }
+    $mask = if ($tune -and $tune.cores) { Get-MaskFromCores @($tune.cores) } else { 0 }
+    @{ Priority = $prio; Mask = [int64]$mask; Affinity = [string]$def.Affinity }
+}
+
+# Which running programs does a row mean? Shared Windows host processes are never touched.
+function Get-RowProcesses($t, $row) {
+    switch ($t.Title) {
+        'Services' {
+            $c = Get-CimInstance Win32_Service -Filter "Name='$($row.Key -replace "'", "''")'" -ErrorAction SilentlyContinue
+            if ($c -and $c.ProcessId -gt 0) {
+                $p = Get-Process -Id $c.ProcessId -ErrorAction SilentlyContinue
+                if ($p -and $p.ProcessName -ieq 'svchost') { Write-Log "  $($row.Text) runs inside a shared Windows host; left alone"; return }
+                $p
+            }
+        }
+        'Programs' { Get-Process -Name $row.Data.Name -ErrorAction SilentlyContinue }
+        default    { if ($row.Data.Proc) { Get-Process -Name $row.Data.Proc -ErrorAction SilentlyContinue } }
+    }
+}
+function Set-ProcessTuned($p, $tune) {
+    try {
+        Add-Entry 'tune' $p.ProcessName @{ prio = [string]$p.PriorityClass; mask = [int64]$p.ProcessorAffinity }
+        if ($tune.prio)  { $p.PriorityClass = [Diagnostics.ProcessPriorityClass][string]$tune.prio }
+        if ($tune.cores) { $p.ProcessorAffinity = [IntPtr][int64](Get-MaskFromCores @($tune.cores)) }
+        Write-Log ("tuned {0} (pid {1}): priority {2}, cores {3}" -f $p.ProcessName, $p.Id, $p.PriorityClass, (Format-Cores (@(0..63 | Where-Object { ([int64]$p.ProcessorAffinity -shr $_) -band 1 }))))
+    } catch { Write-Log "  could not tune $($p.ProcessName): $($_.Exception.Message)" }
+}
+function Apply-TuningToRow($t, $r, $tune) {
+    $procs = @(Get-RowProcesses $t $r)
+    if (-not $procs) { Write-Log "not running: $($r.Text.Trim())"; return }
+    foreach ($p in $procs) { Set-ProcessTuned $p $tune }
+}
+function Apply-AllRemembered {
+    foreach ($t in $tSvc, $tPrg, $tApps, $tHelp) {
+        foreach ($r in $t.Rows) {
+            $k = "$($t.Title)|$($r.Key)"
+            if ($script:Tuning.ContainsKey($k) -and -not (Test-Hidden $t.Title $r.Key)) { Apply-TuningToRow $t $r $script:Tuning[$k] }
+        }
+    }
+}
+
+# the panel
+$tunePanel = New-Object Windows.Forms.FlowLayoutPanel
+$tunePanel.Dock = 'Bottom'; $tunePanel.Height = 44; $tunePanel.WrapContents = $false; $tunePanel.Padding = New-Object Windows.Forms.Padding(6, 6, 0, 0)
+$lblTune   = New-Object Windows.Forms.Label; $lblTune.Text = 'Tune selected rows:'; $lblTune.AutoSize = $true; $lblTune.Padding = New-Object Windows.Forms.Padding(0, 6, 6, 0)
+$chkPrio   = New-Object Windows.Forms.CheckBox; $chkPrio.Text = 'Set priority'; $chkPrio.AutoSize = $true; $chkPrio.Padding = New-Object Windows.Forms.Padding(0, 3, 0, 0)
+$cmbPrio   = New-Object Windows.Forms.ComboBox; $cmbPrio.DropDownStyle = 'DropDownList'; $cmbPrio.Width = 150
+foreach ($k in $PrioMap.Keys) { [void]$cmbPrio.Items.Add($k) }
+$cmbPrio.SelectedItem = 'Normal'
+$chkAff    = New-Object Windows.Forms.CheckBox; $chkAff.Text = 'Set cores'; $chkAff.AutoSize = $true; $chkAff.Padding = New-Object Windows.Forms.Padding(10, 3, 0, 0)
+$btnCores  = New-Object Windows.Forms.Button; $btnCores.Width = 150
+$btnTuneNow    = New-Object Windows.Forms.Button; $btnTuneNow.Text = 'Apply now';  $btnTuneNow.Width = 90
+$btnTuneKeep   = New-Object Windows.Forms.Button; $btnTuneKeep.Text = 'Remember'; $btnTuneKeep.Width = 90
+$btnTuneForget = New-Object Windows.Forms.Button; $btnTuneForget.Text = 'Forget';  $btnTuneForget.Width = 70
+$lblTuneInfo   = New-Object Windows.Forms.Label; $lblTuneInfo.AutoSize = $true; $lblTuneInfo.Padding = New-Object Windows.Forms.Padding(8, 6, 0, 0)
+$tunePanel.Controls.AddRange(@($lblTune, $chkPrio, $cmbPrio, $chkAff, $btnCores, $btnTuneNow, $btnTuneKeep, $btnTuneForget, $lblTuneInfo))
+
+# core list dropdown: all ticked by default, fast cores at the top in green
+$coreList = New-Object Windows.Forms.CheckedListBox
+$coreList.Dock = 'Fill'; $coreList.CheckOnClick = $true; $coreList.DrawMode = 'OwnerDrawFixed'; $coreList.ItemHeight = 20
+$coreList.IntegralHeight = $false; $coreList.BorderStyle = 'None'
+foreach ($c in $script:CoreItems) {
+    $kind = if ($c.IsFast) { 'fast core' } elseif (($script:CoreItems | Where-Object { $_.IsFast })) { 'slow core' } else { 'core' }
+    [void]$coreList.Items.Add(("CPU {0}   {1}" -f $c.Index, $kind), $true)
+}
+$coreList.Add_DrawItem({
+    param($s, $e)
+    if ($e.Index -lt 0) { return }
+    $c = $script:CoreItems[$e.Index]
+    $selected = ($e.State -band [Windows.Forms.DrawItemState]::Selected) -ne 0
+    $back = if ($selected) { [Drawing.SystemColors]::Highlight } elseif ($c.IsFast) { [Drawing.Color]::FromArgb(200, 235, 200) } else { [Drawing.Color]::White }
+    $fore = if ($selected) { [Drawing.SystemColors]::HighlightText } elseif ($c.IsFast) { [Drawing.Color]::FromArgb(20, 90, 20) } else { [Drawing.Color]::Black }
+    $b = New-Object Drawing.SolidBrush($back); $e.Graphics.FillRectangle($b, $e.Bounds); $b.Dispose()
+    $box = New-Object Drawing.Rectangle(($e.Bounds.X + 3), ($e.Bounds.Y + 3), 14, 14)
+    $state = if ($s.GetItemChecked($e.Index)) { [Windows.Forms.ButtonState]::Checked } else { [Windows.Forms.ButtonState]::Normal }
+    [Windows.Forms.ControlPaint]::DrawCheckBox($e.Graphics, $box, $state)
+    $f = New-Object Drawing.SolidBrush($fore)
+    $e.Graphics.DrawString([string]$s.Items[$e.Index], $e.Font, $f, [single]($e.Bounds.X + 22), [single]($e.Bounds.Y + 2)); $f.Dispose()
+})
+$corePanel = New-Object Windows.Forms.Panel
+$coreHeight = [math]::Min(420, 36 + 20 * $script:CoreItems.Count + 4)
+$corePanel.Size = New-Object Drawing.Size(300, $coreHeight)
+$coreBtns = New-Object Windows.Forms.FlowLayoutPanel; $coreBtns.Dock = 'Top'; $coreBtns.Height = 32
+foreach ($spec in @(@('All', 'all'), @('None', 'none'), @('Fast only', 'fast'), @('Slow only', 'slow'))) {
+    $b = New-Object Windows.Forms.Button; $b.Text = $spec[0]; $b.Width = 68; $b.Tag = $spec[1]
+    $b.Add_Click({
+        param($s, $e)
+        for ($i = 0; $i -lt $script:CoreItems.Count; $i++) {
+            $fast = [bool]$script:CoreItems[$i].IsFast
+            $coreList.SetItemChecked($i, ($s.Tag -eq 'all') -or ($s.Tag -eq 'fast' -and $fast) -or ($s.Tag -eq 'slow' -and -not $fast))
+        }
+        $coreList.Invalidate()
+    })
+    $coreBtns.Controls.Add($b)
+}
+$corePanel.Controls.Add($coreList); $corePanel.Controls.Add($coreBtns)
+$coreHost = New-Object Windows.Forms.ToolStripControlHost($corePanel)
+$coreHost.AutoSize = $false; $coreHost.Size = $corePanel.Size
+$coreHost.Margin = New-Object Windows.Forms.Padding(0); $coreHost.Padding = New-Object Windows.Forms.Padding(0)
+$coreDrop = New-Object Windows.Forms.ToolStripDropDown
+$coreDrop.Padding = New-Object Windows.Forms.Padding(0); [void]$coreDrop.Items.Add($coreHost)
+function Get-CheckedCores { @(for ($i = 0; $i -lt $script:CoreItems.Count; $i++) { if ($coreList.GetItemChecked($i)) { $script:CoreItems[$i].Index } }) }
+function Set-CheckedCores($indexes) {
+    for ($i = 0; $i -lt $script:CoreItems.Count; $i++) { $coreList.SetItemChecked($i, (@($indexes) -contains $script:CoreItems[$i].Index)) }
+    $coreList.Invalidate(); Update-CoresText
+}
+function Update-CoresText { $btnCores.Text = 'Cores: ' + (Format-Cores (Get-CheckedCores)) + '  v' }
+Update-CoresText
+$btnCores.Add_Click({ $coreDrop.Show($btnCores, (New-Object Drawing.Point(0, $btnCores.Height))) })
+$coreDrop.Add_Closed({ Update-CoresText })
+
+function Get-PanelTuning {
+    @{
+        prio  = $(if ($chkPrio.Checked) { $PrioMap[[string]$cmbPrio.SelectedItem] } else { $null })
+        cores = $(if ($chkAff.Checked) { @(Get-CheckedCores) } else { $null })
+    }
+}
+# Show the first selected row's saved tuning (or the app's own defaults) in the panel.
+function Load-TuningPanel {
+    $t = $script:TuneTab
+    $rows = @($t.List.SelectedItems | ForEach-Object { $_.Tag })
+    $lblTuneInfo.Text = "$($rows.Count) selected in $($t.Title)"
+    if (-not $rows) { return }
+    $r = $rows[0]
+    $x = $script:Tuning["$($t.Title)|$($r.Key)"]
+    $chkPrio.Checked = [bool]($x -and $x.prio)
+    $chkAff.Checked  = [bool]($x -and $x.cores)
+    $prio = if ($x -and $x.prio) { [string]$x.prio } elseif ($r.Data.Def.Priority) { [string]$r.Data.Def.Priority } else { 'Normal' }
+    foreach ($k in $PrioMap.Keys) { if ($PrioMap[$k] -eq $prio) { $cmbPrio.SelectedItem = $k } }
+    if ($x -and $x.cores) { Set-CheckedCores @($x.cores) }
+    elseif ($r.Data.Def.Affinity) {
+        $m = Resolve-Mask ([string]$r.Data.Def.Affinity)
+        Set-CheckedCores @($script:CoreItems | Where-Object { ($m -shr $_.Index) -band 1 } | ForEach-Object { $_.Index })
+    } else { Set-CheckedCores @($script:CoreItems | ForEach-Object { $_.Index }) }
+}
+foreach ($t in $tSvc, $tPrg, $tApps, $tHelp) {
+    $t.List.Add_SelectedIndexChanged({ param($s, $e) if ($script:Rendering) { return }; foreach ($x in $tSvc, $tPrg, $tApps, $tHelp) { if ($x.List -eq $s -and $s.SelectedItems.Count) { $script:TuneTab = $x } }; Load-TuningPanel })
+}
+function Get-TuneTargets {
+    $t = $script:TuneTab
+    $rows = @($t.List.SelectedItems | ForEach-Object { $_.Tag })
+    if (-not $rows) { Write-Log 'select one or more rows on the Services, Programs, or App + helpers tab first'; return $null }
+    $tune = Get-PanelTuning
+    if (-not $tune.prio -and -not $tune.cores) { Write-Log 'tick Set priority and/or Set cores first'; return $null }
+    if ($tune.cores -and @($tune.cores).Count -eq 0) { Write-Log 'tick at least one core'; return $null }
+    @{ Tab = $t; Rows = $rows; Tune = $tune }
+}
+$btnTuneNow.Add_Click({
+    $x = Get-TuneTargets; if (-not $x) { return }
+    foreach ($r in $x.Rows) { Apply-TuningToRow $x.Tab $r $x.Tune }
+    Fill-Undo
+})
+$btnTuneKeep.Add_Click({
+    $x = Get-TuneTargets; if (-not $x) { return }
+    foreach ($r in $x.Rows) { $script:Tuning["$($x.Tab.Title)|$($r.Key)"] = $x.Tune }
+    Save-Tuning; Render-Tab $x.Tab
+    Write-Log "remembered for $($x.Rows.Count) row(s). It is used when they start, and on Optimize."
+})
+$btnTuneForget.Add_Click({
+    $t = $script:TuneTab
+    foreach ($r in @($t.List.SelectedItems | ForEach-Object { $_.Tag })) { [void]$script:Tuning.Remove("$($t.Title)|$($r.Key)") }
+    Save-Tuning; Render-Tab $t
+})
+
+# quick switches (top)
+$top = New-Object Windows.Forms.FlowLayoutPanel; $top.Dock = 'Top'; $top.Height = 44; $top.Padding = New-Object Windows.Forms.Padding(6, 6, 0, 0)
+$lblTop = New-Object Windows.Forms.Label; $lblTop.Text = 'Switch now:'; $lblTop.AutoSize = $true; $lblTop.Padding = New-Object Windows.Forms.Padding(0, 6, 8, 0)
+$btnBt = New-Object Windows.Forms.Button; $btnBt.Width = 170
+$btnWf = New-Object Windows.Forms.Button; $btnWf.Width = 170
+$btnDb = New-Object Windows.Forms.Button; $btnDb.Width = 170
+$lblQuick = New-Object Windows.Forms.Label; $lblQuick.Text = 'Start app:'; $lblQuick.AutoSize = $true; $lblQuick.Padding = New-Object Windows.Forms.Padding(14, 6, 4, 0)
+$quickBox = New-Object Windows.Forms.ComboBox; $quickBox.DropDownStyle = 'DropDownList'; $quickBox.Width = 190
+$btnQuick = New-Object Windows.Forms.Button; $btnQuick.Text = 'Start'; $btnQuick.Width = 60
+$top.WrapContents = $false
+$btnQuick.Text = 'Start'; $btnQuick.Width = 56
+$btnOpenQuick = New-Object Windows.Forms.Button; $btnOpenQuick.Text = 'Open'; $btnOpenQuick.Width = 56
+$btnOpenOther = New-Object Windows.Forms.Button; $btnOpenOther.Text = 'Open program...'; $btnOpenOther.Width = 110
+$quickTip = New-Object Windows.Forms.ToolTip
+$quickTip.SetToolTip($btnQuick, 'Closes the ticked helpers that are open, then opens the chosen app.')
+$quickTip.SetToolTip($btnOpenQuick, 'Just opens the chosen app. Nothing is closed, so you can open several.')
+$quickTip.SetToolTip($btnOpenOther, 'Pick any program and open it, using the priority and cores ticked in the tuning strip.')
+$top.Controls.AddRange(@($lblTop, $btnBt, $btnWf, $btnDb, $lblQuick, $quickBox, $btnQuick, $btnOpenQuick, $btnOpenOther))
+# The dropdown lists the apps ticked on the App + helpers tab; the default app is chosen first.
+function Update-QuickList {
+    $prev = [string]$quickBox.SelectedItem
+    $rows = @(Get-Ticked $tApps | Where-Object { $_.Data.Exe })
+    $quickBox.Items.Clear()
+    foreach ($r in $rows) { [void]$quickBox.Items.Add($r.Text) }
+    $pick = if ($prev -and $quickBox.Items.Contains($prev)) { $prev } else { ($rows | Where-Object { $_.Data.Def.Default } | Select-Object -First 1).Text }
+    if ($pick) { $quickBox.SelectedItem = $pick } elseif ($quickBox.Items.Count) { $quickBox.SelectedIndex = 0 }
+}
+$quickBox.Add_DropDown({ Update-QuickList })
+$btnQuick.Add_Click({
+    $row = Get-Ticked $tApps | Where-Object { $_.Text -eq [string]$quickBox.SelectedItem } | Select-Object -First 1
+    if ($row) { Start-AppRoutine $row } else { Write-Log 'no app chosen. Tick an app on the App + helpers tab' }
+})
+$btnOpenQuick.Add_Click({
+    $row = Get-Ticked $tApps | Where-Object { $_.Text -eq [string]$quickBox.SelectedItem } | Select-Object -First 1
+    if ($row) { Open-App $row } else { Write-Log 'no app chosen. Tick an app on the App + helpers tab' }
+})
+$btnOpenOther.Add_Click({ Open-OtherProgram })
+# Radio states are read in the helper process, which takes a second or two, so they are cached.
+# Pass -Radios to read them again.
+$script:RadioCache = @{ Bluetooth = $null; WiFi = $null; Read = $false }
+$script:Busy = $false
+function Update-Toggles([switch]$Radios) {
+    if ($Radios -or -not $script:RadioCache.Read) {
+        $form.Cursor = 'WaitCursor'
+        $script:RadioCache.Bluetooth = Get-RadioState 'Bluetooth'
+        $script:RadioCache.WiFi      = Get-RadioState 'WiFi'
+        $script:RadioCache.Read = $true
+        $form.Cursor = 'Default'
+    }
+    $bt = $script:RadioCache.Bluetooth; $wf = $script:RadioCache.WiFi
+    $btnBt.Text = if ($bt) { "Bluetooth is $bt - turn $(if ($bt -eq 'On') { 'off' } else { 'on' })" } else { 'Bluetooth: none found' }
+    $btnWf.Text = if ($wf) { "Wi-Fi is $wf - turn $(if ($wf -eq 'On') { 'off' } else { 'on' })" } else { 'Wi-Fi: none found' }
+    $btnBt.Enabled = $bt -in 'On', 'Off'; $btnWf.Enabled = $wf -in 'On', 'Off'
+    $db = [bool](Get-Process -Name Dropbox -ErrorAction SilentlyContinue)
+    $btnDb.Text = "Dropbox is $(if ($db) { 'running - close it' } else { 'closed - open it' })"
+}
+$btnBt.Add_Click({
+    if ($script:Busy) { return }
+    $script:Busy = $true; $top.Enabled = $false
+    try { Switch-Bluetooth; Update-Toggles -Radios; Fill-Undo } finally { $top.Enabled = $true; $script:Busy = $false }
+})
+$btnWf.Add_Click({
+    if ($script:Busy) { return }
+    $script:Busy = $true; $top.Enabled = $false
+    try {
+        $cur = $script:RadioCache.WiFi
+        if ($cur) { [void](Set-RadioTracked 'WiFi' $(if ($cur -eq 'On') { 'Off' } else { 'On' })) }
+        Update-Toggles -Radios; Fill-Undo
+    } finally { $top.Enabled = $true; $script:Busy = $false }
+})
+$btnDb.Add_Click({
+    if (Get-Process -Name Dropbox -ErrorAction SilentlyContinue) { Close-ProgramTracked 'Dropbox' }
+    else {
+        $exe = @("$env:ProgramFiles\Dropbox\Client\Dropbox.exe", "${env:ProgramFiles(x86)}\Dropbox\Client\Dropbox.exe") | Where-Object { Test-Path $_ } | Select-Object -First 1
+        if ($exe) { Start-Process -FilePath explorer.exe -ArgumentList "`"$exe`""; Write-Log 'opened Dropbox' } else { Write-Log 'Dropbox not found' }
+    }
+    Start-Sleep -Milliseconds 800; Update-Toggles; Fill-Undo
+})
+
+# ---- layouts ----------------------------------------------------------------------------------
+# A layout remembers: every tick, each tab's filter and search, the hidden items, the selected tab,
+# and the window size and position. 'default' loads at start.
+$PrefsFile = Join-Path $StateDir 'prefs.json'
+$script:LayoutName = 'default'
+$MainTabs = @($tSvc, $tPrg, $tTsk, $tSta, $tSet, $tApps, $tHelp)
+$script:Loading = $false
+
+function Get-Prefs {
+    $p = [pscustomobject]@{ askOnExit = $true; lastLayout = 'default'; layoutFolder = '' }
+    if (Test-Path $PrefsFile) {
+        try {
+            $j = Get-Content $PrefsFile -Raw | ConvertFrom-Json
+            if ($null -ne $j.askOnExit) { $p.askOnExit = [bool]$j.askOnExit }
+            if ($j.lastLayout) { $p.lastLayout = [string]$j.lastLayout }
+            if ($j.layoutFolder) { $p.layoutFolder = [string]$j.layoutFolder }
+        } catch {}
+    }
+    $p
+}
+function Save-Prefs { ConvertTo-Json -InputObject @{ askOnExit = [bool]$chkAsk.Checked; lastLayout = $script:LayoutName; layoutFolder = $script:PrefLayoutFolder } | Set-Content -Path $PrefsFile -Encoding UTF8 }
+# Layout folder: the window's choice wins, then the settings file, then the state folder.
+$script:PrefLayoutFolder = [string](Get-Prefs).layoutFolder
+function Get-LayoutFolder {
+    if ($script:PrefLayoutFolder) { return $script:PrefLayoutFolder }
+    if ($Settings.LayoutFolder) { return [Environment]::ExpandEnvironmentVariables([string]$Settings.LayoutFolder) }
+    return (Join-Path $StateDir 'layouts')
+}
+$script:LayoutDir = Get-LayoutFolder
+function Get-LayoutNames { @(Get-ChildItem -LiteralPath $LayoutDir -Filter '*.bop' -ErrorAction SilentlyContinue | Sort-Object Name | ForEach-Object { $_.BaseName }) }
+function Update-LayoutTitle { $form.Text = "bidoptimize11 - layout: $($script:LayoutName)" }
+function Update-LayoutList {
+    $script:Loading = $true
+    $layoutBox.Items.Clear()
+    # 'default' is always the first choice, even before you have saved one.
+    foreach ($n in (@('default') + @(Get-LayoutNames | Where-Object { $_ -ne 'default' }))) { [void]$layoutBox.Items.Add($n) }
+    $layoutBox.SelectedItem = $script:LayoutName
+    $script:Loading = $false
+}
+# With no saved 'default' layout, choosing it puts every tick, filter, and search back to the built-in starting state.
+function Reset-ToDefaults {
+    $script:Loading = $true
+    foreach ($t in $MainTabs) { $t.Rows = @(); $t.Combo.SelectedIndex = 0; $t.Search.Text = '' }
+    $script:Loading = $false
+    $form.Cursor = 'WaitCursor'; Fill-Tasks; Refresh-All; $form.Cursor = 'Default'
+    $script:LayoutName = 'default'; Update-LayoutTitle; Save-Prefs
+    Write-Log 'layout: built-in defaults'
+}
+function Read-Name([string]$prompt, [string]$default) {
+    $d = New-Object Windows.Forms.Form
+    $d.Text = 'Save layout as'; $d.StartPosition = 'CenterParent'; $d.FormBorderStyle = 'FixedDialog'
+    $d.MaximizeBox = $false; $d.MinimizeBox = $false; $d.ClientSize = New-Object Drawing.Size(340, 100)
+    $l = New-Object Windows.Forms.Label; $l.Text = $prompt; $l.AutoSize = $true; $l.Location = New-Object Drawing.Point(12, 12)
+    $tb = New-Object Windows.Forms.TextBox; $tb.Text = $default; $tb.Location = New-Object Drawing.Point(12, 36); $tb.Width = 316
+    $ok = New-Object Windows.Forms.Button; $ok.Text = 'Save'; $ok.DialogResult = 'OK'; $ok.Location = New-Object Drawing.Point(172, 66)
+    $no = New-Object Windows.Forms.Button; $no.Text = 'Cancel'; $no.DialogResult = 'Cancel'; $no.Location = New-Object Drawing.Point(253, 66)
+    $d.Controls.AddRange(@($l, $tb, $ok, $no)); $d.AcceptButton = $ok; $d.CancelButton = $no
+    if ($d.ShowDialog($form) -ne 'OK') { return $null }
+    $clean = ($tb.Text -replace '[\\/:*?"<>|]', '').Trim()
+    if ($clean) { $clean } else { $null }
+}
+
+function Capture-Layout {
+    $tabsOut = @{}
+    foreach ($t in $MainTabs) {
+        $ticks = @{}; foreach ($r in $t.Rows) { $ticks[$r.Key] = [bool]$r.Checked }
+        $tabsOut[$t.Title] = @{ filter = [string]$t.Combo.SelectedItem; search = $t.Search.Text; ticks = $ticks }
+    }
+    $b = if ($form.WindowState -eq 'Normal') { $form.Bounds } else { $form.RestoreBounds }
+    @{
+        saved  = (Get-Date).ToString('s')
+        window = @{ x = $b.X; y = $b.Y; w = $b.Width; h = $b.Height; max = ($form.WindowState -eq 'Maximized') }
+        tab    = $tabs.SelectedIndex
+        tabs   = $tabsOut
+        hidden = @($script:Hidden)
+        tuning = $script:Tuning
+    }
+}
+function Save-Layout([string]$name, [switch]$Quiet) {
+    New-Item -ItemType Directory -Force -Path $LayoutDir | Out-Null
+    ConvertTo-Json -InputObject (Capture-Layout) -Depth 8 | Set-Content -LiteralPath (Join-Path $LayoutDir "$name.bop") -Encoding UTF8
+    if (-not $Quiet) {
+        $script:LayoutName = $name; Save-Prefs; Update-LayoutList; Update-LayoutTitle
+        Write-Log "layout saved: $name"
+    }
+}
+function Load-Layout([string]$name) {
+    $file = Join-Path $LayoutDir "$name.bop"
+    if (-not (Test-Path -LiteralPath $file)) { return $false }
+    try { $L = Get-Content -LiteralPath $file -Raw | ConvertFrom-Json } catch { Write-Log "could not read layout $name"; return $false }
+    $script:Loading = $true
+    try {
+        if ($L.hidden -ne $null) { $script:Hidden = @($L.hidden); Save-Hidden $script:Hidden }
+        if ($L.PSObject.Properties['tuning'] -and $L.tuning) {
+            $script:Tuning = @{}; foreach ($p in $L.tuning.PSObject.Properties) { $script:Tuning[$p.Name] = $p.Value }
+            Save-Tuning
+        }
+        foreach ($t in $MainTabs) {
+            $saved = $L.tabs.PSObject.Properties[$t.Title]
+            if (-not $saved) { continue }
+            $s = $saved.Value
+            foreach ($r in $t.Rows) { $p = $s.ticks.PSObject.Properties[$r.Key]; if ($p) { $r.Checked = [bool]$p.Value } }
+            if ($s.filter -and $FilterNames -contains [string]$s.filter) { $t.Combo.SelectedItem = [string]$s.filter }
+            $t.Search.Text = [string]$s.search
+            Render-Tab $t
+        }
+        Fill-Hidden
+        if ($null -ne $L.tab -and [int]$L.tab -lt $tabs.TabPages.Count) { $tabs.SelectedIndex = [int]$L.tab }
+        $w = $L.window
+        if ($w -and $w.w -gt 400 -and $w.h -gt 300) {
+            $rect = New-Object Drawing.Rectangle([int]$w.x, [int]$w.y, [int]$w.w, [int]$w.h)
+            if ([Windows.Forms.Screen]::AllScreens | Where-Object { $_.WorkingArea.IntersectsWith($rect) }) {
+                $form.StartPosition = 'Manual'; $form.Bounds = $rect
+            }
+            if ($w.max) { $form.WindowState = 'Maximized' }
+        }
+    } finally { $script:Loading = $false }
+    $script:LayoutName = $name; Update-LayoutTitle
+    if (-not $BuildOnly) { Save-Prefs }
+    Write-Log "layout loaded: $name"
+    return $true
+}
+
+$layoutBar = New-Object Windows.Forms.FlowLayoutPanel; $layoutBar.Dock = 'Top'; $layoutBar.Height = 40; $layoutBar.Padding = New-Object Windows.Forms.Padding(6, 4, 0, 0)
+$lblLay    = New-Object Windows.Forms.Label; $lblLay.Text = 'Layout:'; $lblLay.AutoSize = $true; $lblLay.Padding = New-Object Windows.Forms.Padding(0, 6, 6, 0)
+$layoutBox = New-Object Windows.Forms.ComboBox; $layoutBox.DropDownStyle = 'DropDownList'; $layoutBox.Width = 180
+$btnSave   = New-Object Windows.Forms.Button; $btnSave.Text = 'Save layout'; $btnSave.Width = 100
+$btnSaveAs = New-Object Windows.Forms.Button; $btnSaveAs.Text = 'Save layout as...'; $btnSaveAs.Width = 120
+$chkAsk    = New-Object Windows.Forms.CheckBox; $chkAsk.Text = 'Ask to save layout on exit'; $chkAsk.AutoSize = $true; $chkAsk.Checked = $true; $chkAsk.Padding = New-Object Windows.Forms.Padding(10, 3, 0, 0)
+$btnFolder = New-Object Windows.Forms.Button; $btnFolder.Text = 'Layout folder...'; $btnFolder.Width = 110
+$btnFolderReset = New-Object Windows.Forms.Button; $btnFolderReset.Text = 'Use default folder'; $btnFolderReset.Width = 120
+$tip = New-Object Windows.Forms.ToolTip
+function Update-FolderTip { $tip.SetToolTip($btnFolder, "Layouts are saved in: $($script:LayoutDir)") }
+$layoutBar.Controls.AddRange(@($lblLay, $layoutBox, $btnSave, $btnSaveAs, $btnFolder, $btnFolderReset, $chkAsk))
+$layoutBox.Add_SelectedIndexChanged({
+    if ($script:Loading -or -not $layoutBox.SelectedItem) { return }
+    $n = [string]$layoutBox.SelectedItem
+    if (-not (Load-Layout $n) -and $n -eq 'default') { Reset-ToDefaults }
+})
+$btnFolder.Add_Click({
+    $dlg = New-Object Windows.Forms.FolderBrowserDialog
+    $dlg.Description = 'Choose the folder where layouts (.bop files) are kept'
+    $dlg.SelectedPath = $script:LayoutDir
+    if ($dlg.ShowDialog($form) -ne 'OK') { return }
+    $script:PrefLayoutFolder = $dlg.SelectedPath; $script:LayoutDir = $dlg.SelectedPath
+    Save-Prefs; Update-LayoutList; Update-FolderTip
+    Write-Log "layout folder: $($script:LayoutDir)"
+})
+$btnFolderReset.Add_Click({
+    $script:PrefLayoutFolder = ''; $script:LayoutDir = Get-LayoutFolder
+    Save-Prefs; Update-LayoutList; Update-FolderTip
+    Write-Log "layout folder: $($script:LayoutDir)"
+})
+$btnSave.Add_Click({ Save-Layout $script:LayoutName })
+$btnSaveAs.Add_Click({
+    $n = Read-Name 'Name for this layout:' $script:LayoutName
+    if (-not $n) { return }
+    if ((Test-Path -LiteralPath (Join-Path $LayoutDir "$n.bop")) -and
+        [Windows.Forms.MessageBox]::Show("A layout named '$n' exists. Replace it?", 'bidoptimize11', 'YesNo', 'Question') -ne 'Yes') { return }
+    Save-Layout $n
+})
+$chkAsk.Add_CheckedChanged({ if (-not $script:Loading) { Save-Prefs } })
+$form.Add_FormClosing({
+    param($s, $e)
+    if ($BuildOnly) { return }
+    if ($chkAsk.Checked) {
+        $r = [Windows.Forms.MessageBox]::Show("Save the current layout ('$($script:LayoutName)') before closing?", 'bidoptimize11', 'YesNoCancel', 'Question')
+        if ($r -eq 'Cancel') { $e.Cancel = $true; return }
+        if ($r -eq 'Yes') { Save-Layout $script:LayoutName }
+    }
+    Save-Prefs
+})
+
+# bottom
+$log = New-Object Windows.Forms.TextBox; $log.Multiline = $true; $log.ReadOnly = $true; $log.ScrollBars = 'Vertical'; $log.Dock = 'Bottom'; $log.Height = 130
+$script:LogBox = $log
+$bottom = New-Object Windows.Forms.FlowLayoutPanel; $bottom.Dock = 'Bottom'; $bottom.Height = 44; $bottom.Padding = New-Object Windows.Forms.Padding(6, 6, 0, 0)
+$btnGo      = New-Object Windows.Forms.Button; $btnGo.Text = 'Optimize (apply all ticked)'; $btnGo.Width = 190
+$btnBack    = New-Object Windows.Forms.Button; $btnBack.Text = 'Undo everything'; $btnBack.Width = 130
+$btnRef     = New-Object Windows.Forms.Button; $btnRef.Text = 'Reload file and refresh'; $btnRef.Width = 160
+$btnRebuild = New-Object Windows.Forms.Button; $btnRebuild.Text = 'Update lists from this PC'; $btnRebuild.Width = 170
+$btnStatus  = New-Object Windows.Forms.Button; $btnStatus.Text = 'Refresh status now (F5)'; $btnStatus.Width = 170
+$btnPro     = New-Object Windows.Forms.Button; $btnPro.Text = 'ProAudio power plan'; $btnPro.Width = 150
+$btnAnalyze = New-Object Windows.Forms.Button; $btnAnalyze.Text = 'Analyze this PC'; $btnAnalyze.Width = 130
+$bottom.Controls.AddRange(@($btnGo, $btnBack, $btnAnalyze, $btnRef, $btnRebuild, $btnStatus, $btnPro))
+$btnPro.Add_Click({ Set-ProAudioPlan; Refresh-All })
+
+$btnGo.Add_Click({
+    $btnGo.Enabled = $false; $form.Cursor = 'WaitCursor'
+    Write-Log '--- optimizing ---'
+    foreach ($r in (Get-Ticked $tSet)) { Set-RegTracked $r.Data.tweak }
+    foreach ($r in (Get-Ticked $tPrg)) { Close-ProgramTracked $r.Data.Name }
+    foreach ($r in (Get-Ticked $tSvc)) { Stop-ServiceTracked $r.Data.Name $r.Data.Mode }
+    foreach ($r in (Get-Ticked $tTsk)) { Suspend-TaskTracked $r.Data.path $r.Data.name }
+    foreach ($r in (Get-Ticked $tSta)) { Set-StartupState $r.Data $false }
+    Apply-AllRemembered
+    Write-Log '--- done ---'
+    Refresh-All
+    $form.Cursor = 'Default'; $btnGo.Enabled = $true
+})
+$btnBack.Add_Click({ Write-Log '--- undoing everything ---'; Invoke-Undo @(Get-Journal); Refresh-All; Write-Log '--- done ---' })
+# Re-reads the settings file, so edits you make to it show up without restarting.
+$btnRef.Add_Click({
+    $form.Cursor = 'WaitCursor'
+    $script:Settings = Import-PowerShellDataFile -Path (Join-Path $PSScriptRoot 'bidoptimize11.settings.psd1')
+    Fill-Tasks; Refresh-All
+    Update-Toggles -Radios
+    Write-Log 'settings file reloaded'
+    $form.Cursor = 'Default'
+})
+# Full scan of services (running or not), auto-start programs, and scheduled tasks. The settings file
+# is backed up first; nothing in it is removed, and new finds start unticked.
+$btnAnalyze.Add_Click({
+    $form.Cursor = 'WaitCursor'
+    Write-Log '--- analyzing this PC ---'
+    $bak = Join-Path $StateDir ('settings-backup-{0:yyyyMMdd-HHmmss}-before-analyze.psd1' -f (Get-Date))
+    Copy-Item -LiteralPath (Join-Path $PSScriptRoot 'bidoptimize11.settings.psd1') -Destination $bak
+    Write-Log "backup of the settings file: $bak"
+    Update-AllLists -All
+    $tasks = @(Get-ScheduledTask | Where-Object { $_.State -ne 'Disabled' })
+    $tasks | Group-Object { Get-TaskGroup $_ } | ForEach-Object { Write-Log ("scheduled tasks to '{0}': {1}" -f $_.Name, $_.Count) }
+    Fill-Tasks
+    Refresh-All
+    Write-Log '--- analysis done ---'
+    $form.Cursor = 'Default'
+})
+# Adds anything new on this PC to the settings file (unticked), then redraws.
+$btnRebuild.Add_Click({
+    $form.Cursor = 'WaitCursor'
+    Update-AllLists
+    Refresh-All
+    $form.Cursor = 'Default'
+})
+
+# ---- keeping the window current ---------------------------------------------------------------
+# Changes made outside this window (Bluetooth in Settings, a program opened or closed, a service
+# started) show up: when you switch back to the window, every 30 seconds while it is in front,
+# and whenever you press Refresh status now (F5). F5 also re-reads startup items, settings, tasks.
+$script:Refreshing = $false
+$script:Ready = $false
+$script:LastRefresh = Get-Date
+function Update-Status([switch]$Full) {
+    if ($script:Busy -or $script:Refreshing) { return }
+    $script:Refreshing = $true
+    try {
+        Fill-Services; Fill-Programs; Fill-Apps; Fill-Helpers
+        Update-Toggles -Radios
+        if ($Full) { Fill-Startup; Fill-Settings; Fill-Tasks; Fill-Undo }
+        Update-QuickList
+    } catch { Write-Log "  refresh problem: $($_.Exception.Message)" }
+    finally { $script:Refreshing = $false; $script:LastRefresh = Get-Date; $form.Cursor = 'Default' }
+}
+$btnStatus.Add_Click({ Update-Status -Full; Write-Log 'status refreshed' })
+$form.KeyPreview = $true
+$form.Add_KeyDown({ param($s, $e) if ($e.KeyCode -eq 'F5') { $e.Handled = $true; Update-Status -Full; Write-Log 'status refreshed' } })
+$statusTimer = New-Object Windows.Forms.Timer; $statusTimer.Interval = 30000
+$statusTimer.Add_Tick({ if ($script:Ready -and $form.ContainsFocus -and $form.WindowState -ne 'Minimized') { Update-Status } })
+$form.Add_Activated({ if ($script:Ready -and ((Get-Date) - $script:LastRefresh).TotalSeconds -gt 3) { Update-Status } })
+
+$form.Controls.Add($tabs)
+$form.Controls.Add($layoutBar)
+$form.Controls.Add($top)
+$form.Controls.Add($tunePanel)
+$form.Controls.Add($log)
+$form.Controls.Add($bottom)
+
+$form.Add_Shown({
+    $form.Cursor = 'WaitCursor'
+    $m = Get-CoreMasks
+    Write-Log ("cores: {0}  hybrid chip: {1}" -f $m.Count, $m.Hybrid)
+    Fill-Tasks; Refresh-All
+    $prefs = Get-Prefs
+    $script:Loading = $true; $chkAsk.Checked = $prefs.askOnExit; $script:Loading = $false
+    $script:LayoutName = $prefs.lastLayout
+    if (-not (Load-Layout $script:LayoutName)) { $script:LayoutName = 'default'; Update-LayoutTitle }
+    Update-LayoutList; Update-FolderTip
+    $form.Cursor = 'Default'
+    Write-Log 'ready. Nothing has been changed yet.'
+    $script:Ready = $true; $script:LastRefresh = Get-Date; $statusTimer.Start()
+})
+if ($BuildOnly) {
+    # Smoke test: show the window, exercise filters and hide/unhide, report, close. Changes nothing.
+    $form.Show(); $t0 = Get-Date
+    while (((Get-Date) - $t0).TotalSeconds -lt 12) { [Windows.Forms.Application]::DoEvents(); Start-Sleep -Milliseconds 100 }
+    foreach ($x in $tSvc, $tPrg, $tTsk, $tSta, $tSet, $tApps, $tHelp) { Write-Host ('{0}: {1} rows, shown {2}' -f $x.Title, @($x.Rows).Count, $x.List.Items.Count) }
+    foreach ($i in 1..($FilterNames.Count - 1)) {
+        $line = @()
+        foreach ($x in $tSvc, $tPrg, $tTsk, $tSta, $tSet) { $x.Combo.SelectedIndex = $i; $line += ('{0}={1}' -f $x.Title.Split(' ')[0], $x.List.Items.Count) }
+        Write-Host ('"{0}": {1}' -f $FilterNames[$i], ($line -join '  '))
+    }
+    foreach ($x in $tSvc, $tPrg, $tTsk, $tSta, $tSet) { $x.Combo.SelectedIndex = 0 }
+    $tSvc.Search.Text = 'lenovo'; Write-Host ("find 'lenovo' in services: {0}" -f $tSvc.List.Items.Count); $tSvc.Search.Text = ''
+    $first = $tSvc.List.Items[0]; $first.Selected = $true
+    $before = $tSvc.List.Items.Count
+    $script:Hidden += [pscustomobject]@{ tab = 'Services'; key = $first.Tag.Key; text = $first.Text; note = 'test' }
+    Render-Tab $tSvc; Write-Host ("hide one: {0} -> {1}" -f $before, $tSvc.List.Items.Count)
+    $script:Hidden = @(); Render-Tab $tSvc; Write-Host ("unhide: back to {0}" -f $tSvc.List.Items.Count)
+    Write-Host ('apps: ' + ((@($tApps.Rows) | ForEach-Object { $_.Key + '=' + $_.Now }) -join '; '))
+    Write-Host ('helpers: ' + ((@($tHelp.Rows) | ForEach-Object { $_.Key + '=' + $_.Now }) -join '; '))
+    Update-QuickList
+    Write-Host ('quick list: ' + (@($quickBox.Items | ForEach-Object { $_ }) -join ', ') + '   chosen: ' + $quickBox.SelectedItem)
+    Write-Host ('layout list first item: ' + $layoutBox.Items[0] + '   folder: ' + $script:LayoutDir + '   tab pages: ' + (($tabs.TabPages | ForEach-Object { $_.Text }) -join ' | '))
+    # Open-App on a throwaway program: opens it with the priority and cores of its settings, closes no helpers
+    $victim3 = Join-Path $env:TEMP 'b11victim3.exe'; Copy-Item "$env:SystemRoot\System32\cmd.exe" $victim3 -Force
+    $fake = New-Row 'victim3' 'Apps' 'victim3' '' 'ready' $false $false ([pscustomobject]@{ Def = @{ Priority = 'BelowNormal'; Affinity = 'Slow'; File = '' }; Exe = $victim3; Proc = 'b11victim3' })
+    Open-App $fake; Start-Sleep -Seconds 1
+    $v3 = Get-Process -Name b11victim3 -ErrorAction SilentlyContinue | Select-Object -First 1
+    Write-Host ("open app: running={0} priority={1} cores={2}" -f [bool]$v3, $v3.PriorityClass, (Format-Cores (@(0..63 | Where-Object { ([int64]$v3.ProcessorAffinity -shr $_) -band 1 }))))
+    if ($v3) { Stop-Process -Id $v3.Id -Force }; Start-Sleep -Milliseconds 400; Remove-Item $victim3 -Force -ErrorAction SilentlyContinue
+    # refresh keeps selection; a program started and stopped outside shows up
+    $sel = $tSvc.List.Items[3]; $sel.Selected = $true; $selKey = $sel.Tag.Key
+    $victim2 = Join-Path $env:TEMP 'b11victim2.exe'; Copy-Item "$env:SystemRoot\System32\cmd.exe" $victim2 -Force
+    $settingsBackup = $Settings.Programs
+    $Settings.Programs = @($Settings.Programs) + @{ Name = 'b11victim2'; Note = 'test'; Default = $false }
+    $before = @($tPrg.Rows).Count
+    $v2 = Start-Process $victim2 -ArgumentList '/c', 'timeout /t 20 >nul' -PassThru -WindowStyle Hidden; Start-Sleep -Seconds 1
+    Update-Status
+    $afterStart = @($tPrg.Rows).Count
+    Stop-Process -Id $v2.Id -Force; Start-Sleep -Milliseconds 500
+    Update-Status
+    Write-Host ("status refresh: selection kept: {0}   programs before/started/stopped: {1}/{2}/{3}   radios cached: {4}/{5}" -f (@($tSvc.List.SelectedItems | ForEach-Object { $_.Tag.Key }) -contains $selKey), $before, $afterStart, @($tPrg.Rows).Count, $script:RadioCache.Bluetooth, $script:RadioCache.WiFi)
+    $Settings.Programs = $settingsBackup; Remove-Item $victim2 -Force -ErrorAction SilentlyContinue
+    # tuning: priority and cores on a throwaway program, then undo
+    Write-Host ('core list: ' + (($script:CoreItems | ForEach-Object { "$($_.Index)$(if ($_.IsFast) { '*' })" }) -join ' ') + '   (* = fast)   panel text: ' + $btnCores.Text)
+    $victimExe = Join-Path $env:TEMP 'b11victim.exe'; Copy-Item "$env:SystemRoot\System32\cmd.exe" $victimExe -Force
+    $vic = Start-Process $victimExe -ArgumentList '/c', 'timeout /t 30 >nul' -PassThru -WindowStyle Hidden
+    Start-Sleep -Seconds 1
+    $p0 = [string]$vic.PriorityClass; $m0 = [int64]$vic.ProcessorAffinity
+    Set-ProcessTuned $vic @{ prio = 'BelowNormal'; cores = @(4, 5) }
+    $vic.Refresh(); $p1 = [string]$vic.PriorityClass; $m1 = [int64]$vic.ProcessorAffinity
+    Invoke-Undo @(Get-Journal | Where-Object { $_.kind -eq 'tune' })
+    $vic.Refresh()
+    Write-Host ("tune test: before {0}/{1}  tuned {2}/{3}  after undo {4}/{5}  restored: {6}" -f $p0, $m0, $p1, $m1, $vic.PriorityClass, [int64]$vic.ProcessorAffinity, (([string]$vic.PriorityClass -eq $p0) -and ([int64]$vic.ProcessorAffinity -eq $m0)))
+    Stop-Process -Id $vic.Id -Force; Remove-Item $victimExe -Force -ErrorAction SilentlyContinue
+    # tick buttons: invert twice must give the original
+    $before = @($tSvc.List.Items | ForEach-Object { $_.Checked }) -join ','
+    foreach ($i in $tSvc.List.Items) { $i.Checked = -not $i.Checked }
+    $inv = @($tSvc.List.Items | ForEach-Object { $_.Checked }) -join ','
+    foreach ($i in $tSvc.List.Items) { $i.Checked = -not $i.Checked }
+    Write-Host ('invert ticks works: {0}; double invert restores: {1}' -f ($inv -ne $before), ((@($tSvc.List.Items | ForEach-Object { $_.Checked }) -join ',') -eq $before))
+    # layout round trip
+    $tSvc.Rows[0].Checked = -not $tSvc.Rows[0].Checked; $tSvc.Combo.SelectedItem = 'Ticked only'; $tSvc.Search.Text = 'a'
+    $want = $tSvc.Rows[0].Checked
+    Save-Layout 'zz-test' -Quiet
+    $tSvc.Rows[0].Checked = -not $want; $tSvc.Combo.SelectedIndex = 0; $tSvc.Search.Text = ''
+    $null = Load-Layout 'zz-test'
+    Write-Host ('layout restored tick: {0}  filter: {1}  search: "{2}"  title: {3}' -f ($tSvc.Rows[0].Checked -eq $want), $tSvc.Combo.SelectedItem, $tSvc.Search.Text, $form.Text)
+    Write-Host ('layout file: ' + (Get-ChildItem $LayoutDir -Filter 'zz-test.bop' | ForEach-Object { $_.Name + ' ' + $_.Length + ' bytes' }))
+    Remove-Item (Join-Path $LayoutDir 'zz-test.bop') -Force
+    Write-Host ('{0} | {1} | {2}' -f $btnBt.Text, $btnWf.Text, $btnDb.Text)
+    $form.Close(); exit
+}
+[void]$form.ShowDialog()

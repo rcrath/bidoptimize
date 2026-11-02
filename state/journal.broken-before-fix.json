@@ -1,0 +1,76 @@
+﻿[
+    {
+        "value":  [
+                      {
+                          "value":  [
+                                        {
+                                            "value":  [
+                                                          {
+                                                              "value":  [
+                                                                            {
+                                                                                "value":  " ",
+                                                                                "Count":  2
+                                                                            },
+                                                                            {
+                                                                                "kind":  "service",
+                                                                                "key":  "BluetoothUserService_a6329",
+                                                                                "when":  "2026-10-21T11:44:18",
+                                                                                "data":  "@{changed=False; running=True; delayed=; start=3}"
+                                                                            }
+                                                                        ],
+                                                              "Count":  2
+                                                          },
+                                                          {
+                                                              "kind":  "service",
+                                                              "key":  "bthserv",
+                                                              "when":  "2026-10-21T11:44:18",
+                                                              "data":  {
+                                                                           "changed":  false,
+                                                                           "running":  true,
+                                                                           "delayed":  null,
+                                                                           "start":  3
+                                                                       }
+                                                          }
+                                                      ],
+                                            "Count":  2
+                                        },
+                                        {
+                                            "kind":  "service",
+                                            "key":  "BTAGService",
+                                            "when":  "2026-10-21T11:44:18",
+                                            "data":  {
+                                                         "changed":  false,
+                                                         "running":  true,
+                                                         "delayed":  null,
+                                                         "start":  3
+                                                     }
+                                        }
+                                    ],
+                          "Count":  2
+                      },
+                      {
+                          "kind":  "service",
+                          "key":  "BthAvctpSvc",
+                          "when":  "2026-10-21T11:44:19",
+                          "data":  {
+                                       "changed":  false,
+                                       "running":  true,
+                                       "delayed":  null,
+                                       "start":  3
+                                   }
+                      }
+                  ],
+        "Count":  2
+    },
+    {
+        "kind":  "service",
+        "key":  "BluetoothUserService_a6329",
+        "when":  "2026-10-21T11:44:19",
+        "data":  {
+                     "changed":  false,
+                     "running":  true,
+                     "delayed":  null,
+                     "start":  3
+                 }
+    }
+]
