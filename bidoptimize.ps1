@@ -12,7 +12,10 @@ New-Item -ItemType Directory -Force -Path $StateDir | Out-Null
 # ---- admin ------------------------------------------------------------------------------------
 $isAdmin = ([Security.Principal.WindowsPrincipal][Security.Principal.WindowsIdentity]::GetCurrent()).IsInRole([Security.Principal.WindowsBuiltInRole]::Administrator)
 if (-not $isAdmin -and -not $Check -and -not $BuildOnly -and -not $RebuildServices -and -not $SelfTest) {
-    Start-Process powershell.exe -Verb RunAs -ArgumentList '-NoProfile', '-ExecutionPolicy', 'Bypass', '-WindowStyle', 'Hidden', '-File', "`"$PSCommandPath`""
+    # An admin window cannot see drive letters made with subst (E: here is really C:\Users\rich), so hand it the real path.
+    $real = $PSCommandPath
+    foreach ($m in @(subst 2>$null)) { if ($m -match '^([A-Z]:)\\: => (.+)$' -and $real.StartsWith($Matches[1], 'OrdinalIgnoreCase')) { $real = $Matches[2].TrimEnd('\') + $real.Substring(2) } }
+    Start-Process powershell.exe -Verb RunAs -ArgumentList '-NoProfile', '-ExecutionPolicy', 'Bypass', '-WindowStyle', 'Hidden', '-File', "`"$real`""
     exit
 }
 
@@ -452,6 +455,32 @@ function Add-ToSettingsList([string]$listName, [string[]]$newLines) {
     $script:Settings = Import-PowerShellDataFile -Path $path
     return $true
 }
+# Removes entries from the Apps or Helpers list in the settings file. Each entry is one line there.
+# An entry is matched by its name and its first program path, so two entries with the same name stay apart.
+function Remove-FromSettingsList([string]$listName, $defs) {
+    $path  = Join-Path $PSScriptRoot 'bidoptimize.settings.psd1'
+    $lines = Get-Content -LiteralPath $path
+    $start = ($lines | Select-String -Pattern ('^\s*' + $listName + '\s*=\s*@\(') | Select-Object -First 1).LineNumber
+    if (-not $start) { Write-Log "could not find the $listName list in the settings file"; return $false }
+    $end = $null
+    for ($i = $start; $i -lt $lines.Count; $i++) { if ($lines[$i] -match '^\s{4}\)\s*$') { $end = $i; break } }
+    if ($null -eq $end) { Write-Log "could not find the end of the $listName list"; return $false }
+    $drop = @()
+    foreach ($d in @($defs)) {
+        $name = [string]$d.Name; $exe = [string]@($d.Exe)[0]
+        $namePat = "Name\s*=\s*(?:'" + [regex]::Escape(($name -replace "'", "''")) + "'|`"" + [regex]::Escape($name) + "`")"
+        $exePat  = '(?:' + [regex]::Escape($exe) + '|' + [regex]::Escape(($exe -replace "'", "''")) + ')'
+        for ($i = $start; $i -lt $end; $i++) {
+            if ($drop -notcontains $i -and $lines[$i] -match $namePat -and $lines[$i] -match $exePat) { $drop += $i; break }
+        }
+    }
+    if (-not $drop.Count) { Write-Log "could not find those entries in the settings file"; return $false }
+    Copy-Item -LiteralPath $path -Destination (Join-Path $StateDir ('settings-backup-{0:yyyyMMdd-HHmmss}.psd1' -f (Get-Date)))
+    $out = for ($i = 0; $i -lt $lines.Count; $i++) { if ($drop -notcontains $i) { $lines[$i] } }
+    Set-Content -LiteralPath $path -Value $out -Encoding UTF8
+    $script:Settings = Import-PowerShellDataFile -Path $path
+    return $true
+}
 function Update-ProgramList([switch]$All) {
     $known = @($Settings.Programs | ForEach-Object { $_.Name })
     $sh = New-Object -ComObject WScript.Shell
@@ -539,6 +568,7 @@ $form.Text = 'bidoptimize'
 $form.Size = New-Object Drawing.Size(1200, 820)
 $form.StartPosition = 'CenterScreen'
 $form.Font = New-Object Drawing.Font('Segoe UI', 9)
+$form.BackColor = [Drawing.Color]::FromArgb(250, 250, 250)   # everything outside the tab box: lighter gray so the box stands out
 
 # Items you hide live in the state folder and are shared by every tab. A hidden item is never applied.
 $HiddenFile = Join-Path $StateDir 'hidden.json'
@@ -553,11 +583,18 @@ function Save-Hidden($h) { ConvertTo-Json -InputObject @($h) -Depth 4 | Set-Cont
 $script:Hidden = @(Get-Hidden)
 function Test-Hidden([string]$tab, [string]$key) { [bool]($script:Hidden | Where-Object { $_.tab -eq $tab -and $_.key -eq $key }) }
 
+# Copies the highlighted rows to the clipboard, one row per line, columns separated by tabs.
+function Copy-SelectedRows($lv) {
+    $lines = @(foreach ($i in $lv.SelectedItems) { @($i.SubItems | ForEach-Object { $_.Text.Trim() }) -join "`t" })
+    if (-not $lines.Count) { Write-Log 'nothing is highlighted to copy'; return }
+    try { [Windows.Forms.Clipboard]::SetText(($lines -join "`r`n")); Write-Log "copied $($lines.Count) row(s) to the clipboard" } catch { Write-Log "could not copy: $($_.Exception.Message)" }
+}
 function New-ListView {
     $lv = New-Object Windows.Forms.ListView
     $lv.View = 'Details'; $lv.CheckBoxes = $true; $lv.FullRowSelect = $true; $lv.HideSelection = $false
     $lv.Dock = 'Fill'; $lv.ShowGroups = $true
     [void]$lv.Columns.Add('Item', 250); [void]$lv.Columns.Add('What it is', 380); [void]$lv.Columns.Add('Now', 110); [void]$lv.Columns.Add('Use now / tuning', 250)
+    $lv.Add_KeyDown({ param($s, $e) if ($e.Control -and $e.KeyCode -eq 'C') { Copy-SelectedRows $s; $e.Handled = $true; $e.SuppressKeyPress = $true } })
     $lv
 }
 # Simple row add, used by the Undo and Hidden lists.
@@ -676,7 +713,9 @@ function Add-TickButtons($bar, $lv) {
     $b.Add_Click({ foreach ($i in $lv.Items) { $i.Checked = $false } }.GetNewClosure())
     $c = New-Object Windows.Forms.Button; $c.Text = 'Invert ticks'; $c.Width = 90
     $c.Add_Click({ foreach ($i in $lv.Items) { $i.Checked = -not $i.Checked } }.GetNewClosure())
-    $bar.Controls.AddRange(@($a, $b, $c))
+    $d = New-Object Windows.Forms.Button; $d.Text = 'Copy selected'; $d.Width = 100
+    $d.Add_Click({ Copy-SelectedRows $lv }.GetNewClosure())
+    $bar.Controls.AddRange(@($a, $b, $c, $d))
 }
 function New-TabWithList([string]$title, [string]$hint, [bool]$filter) {
     $tab = New-Object Windows.Forms.TabPage($title)
@@ -711,6 +750,19 @@ function New-TabWithList([string]$title, [string]$hint, [bool]$filter) {
 }
 
 $tabs = New-Object Windows.Forms.TabControl; $tabs.Dock = 'Fill'
+# Tab headers are drawn by hand so the open tab stands out: white, bold, blue stripe on top. Closed tabs sit back in gray.
+$tabs.DrawMode = 'OwnerDrawFixed'; $tabs.ItemSize = New-Object Drawing.Size(0, 30); $tabs.Padding = New-Object Drawing.Point(14, 5)
+$tabs.Add_DrawItem({
+    param($s, $e)
+    $r = $e.Bounds; $sel = ($e.Index -eq $s.SelectedIndex)
+    $bg = if ($sel) { [Drawing.Color]::White } else { [Drawing.Color]::FromArgb(222, 222, 222) }
+    $br = New-Object Drawing.SolidBrush($bg); $e.Graphics.FillRectangle($br, $r); $br.Dispose()
+    if ($sel) { $st = New-Object Drawing.SolidBrush([Drawing.Color]::FromArgb(0, 120, 215)); $e.Graphics.FillRectangle($st, $r.X + 2, $r.Y + 2, $r.Width - 4, 5); $st.Dispose() }
+    $font = if ($sel) { New-Object Drawing.Font($s.Font, [Drawing.FontStyle]::Bold) } else { $s.Font }
+    $sf = New-Object Drawing.StringFormat; $sf.Alignment = 'Center'; $sf.LineAlignment = 'Center'
+    $e.Graphics.DrawString($s.TabPages[$e.Index].Text, $font, [Drawing.Brushes]::Black, [Drawing.RectangleF]$r, $sf)
+    if ($sel) { $font.Dispose() }
+})
 $NoteAll = ' Filters only change what you see; Optimize applies every ticked item.'
 
 # services
@@ -799,7 +851,10 @@ $btnOpenAll   = New-Object Windows.Forms.Button; $btnOpenAll.Text   = 'Open all 
 $btnCloseTick = New-Object Windows.Forms.Button; $btnCloseTick.Text = 'Close ticked helpers';   $btnCloseTick.Width = 140
 $btnAddApp    = New-Object Windows.Forms.Button; $btnAddApp.Text    = 'Add app...';             $btnAddApp.Width    = 90
 $btnAddHelp   = New-Object Windows.Forms.Button; $btnAddHelp.Text   = 'Add helper...';          $btnAddHelp.Width   = 100
-$appPanel.Controls.AddRange(@($btnStartSel, $btnOpenApps, $btnOpenSel, $btnOpenAll, $btnCloseTick, $btnAddApp, $btnAddHelp))
+$btnDelApp    = New-Object Windows.Forms.Button; $btnDelApp.Text    = 'Remove app';             $btnDelApp.Width    = 95
+$btnDelHelp   = New-Object Windows.Forms.Button; $btnDelHelp.Text   = 'Remove helper';          $btnDelHelp.Width   = 105
+$appPanel.Height = 0; $appPanel.AutoSize = $true   # grows to a second row of buttons when the window is narrow
+$appPanel.Controls.AddRange(@($btnStartSel, $btnOpenApps, $btnOpenSel, $btnOpenAll, $btnCloseTick, $btnAddApp, $btnAddHelp, $btnDelApp, $btnDelHelp))
 $pageBid.Controls.Add($split); $pageBid.Controls.Add($appPanel)
 
 # Finds the program file. A path may use * (for example Ableton's version number); the newest version wins.
@@ -921,6 +976,16 @@ function Open-OtherProgram {
 }
 $btnAddApp.Add_Click({ Add-ProgramFromPicker 'Apps' })
 $btnAddHelp.Add_Click({ Add-ProgramFromPicker 'Helpers' })
+# Remove the highlighted rows from the Apps or Helpers list, after a yes/no.
+function Remove-SelectedEntries([string]$listName, $t) {
+    $defs = @($t.List.SelectedItems | ForEach-Object { $_.Tag.Data.Def })
+    if (-not $defs.Count) { Write-Log "highlight a row in $listName first"; return }
+    $names = @($defs | ForEach-Object { $_.Name }) -join ', '
+    if ([Windows.Forms.MessageBox]::Show("Remove from the $listName list: $names`n`nThis edits the settings file. A backup is saved in the state folder first.", 'bidoptimize', 'YesNo', 'Question') -ne 'Yes') { return }
+    if (Remove-FromSettingsList $listName $defs) { Write-Log "removed from ${listName}: $names"; if ($listName -eq 'Apps') { Fill-Apps } else { Fill-Helpers } }
+}
+$btnDelApp.Add_Click({ Remove-SelectedEntries 'Apps' $tApps })
+$btnDelHelp.Add_Click({ Remove-SelectedEntries 'Helpers' $tHelp })
 
 # hidden tab
 $tHid = New-Object Windows.Forms.TabPage('Hidden')
@@ -972,6 +1037,7 @@ $bU1.Add_Click({ Invoke-Undo @($lvUndo.CheckedItems | ForEach-Object { $_.Tag })
 $bU2.Add_Click({ Invoke-Undo @(Get-Journal); Refresh-All })
 
 $tabs.TabPages.AddRange(@($tSvc.Tab, $tPrg.Tab, $tTsk.Tab, $tSta.Tab, $tSet.Tab, $pageBid, $tHid, $tUndo))
+foreach ($p in $tabs.TabPages) { $p.BackColor = [Drawing.Color]::White }
 
 # ---- priority and affinity --------------------------------------------------------------------
 # Pick rows on the Services, Programs, or App + helpers tabs, set priority and/or cores here, then
@@ -1351,6 +1417,15 @@ function Save-Layout([string]$name, [switch]$Quiet) {
         Write-Log "layout saved: $name"
     }
 }
+function Set-WindowPlacement($w) {
+    if ($w -and $w.w -gt 400 -and $w.h -gt 300) {
+        $rect = New-Object Drawing.Rectangle([int]$w.x, [int]$w.y, [int]$w.w, [int]$w.h)
+        if ([Windows.Forms.Screen]::AllScreens | Where-Object { $_.WorkingArea.IntersectsWith($rect) }) {
+            $form.StartPosition = 'Manual'; $form.Bounds = $rect
+        }
+        if ($w.max) { $form.WindowState = 'Maximized' }
+    }
+}
 function Load-Layout([string]$name) {
     $file = Join-Path $LayoutDir "$name.bop"
     if (-not (Test-Path -LiteralPath $file)) { return $false }
@@ -1373,14 +1448,7 @@ function Load-Layout([string]$name) {
         }
         Fill-Hidden
         if ($null -ne $L.tab -and [int]$L.tab -lt $tabs.TabPages.Count) { $tabs.SelectedIndex = [int]$L.tab }
-        $w = $L.window
-        if ($w -and $w.w -gt 400 -and $w.h -gt 300) {
-            $rect = New-Object Drawing.Rectangle([int]$w.x, [int]$w.y, [int]$w.w, [int]$w.h)
-            if ([Windows.Forms.Screen]::AllScreens | Where-Object { $_.WorkingArea.IntersectsWith($rect) }) {
-                $form.StartPosition = 'Manual'; $form.Bounds = $rect
-            }
-            if ($w.max) { $form.WindowState = 'Maximized' }
-        }
+        Set-WindowPlacement $L.window
     } finally { $script:Loading = $false }
     $script:LayoutName = $name; Update-LayoutTitle
     if (-not $BuildOnly) { Save-Prefs }
@@ -1617,4 +1685,9 @@ if ($BuildOnly) {
     Write-Host ('{0} | {1} | {2}' -f $btnBt.Text, $btnWf.Text, $btnDb.Text)
     $form.Close(); exit
 }
+# Put the window where the saved layout left it before it is shown, so it does not appear centered and then jump.
+try {
+    $f = Join-Path $script:LayoutDir ((Get-Prefs).lastLayout + '.bop')
+    if (Test-Path -LiteralPath $f) { Set-WindowPlacement (Get-Content -LiteralPath $f -Raw | ConvertFrom-Json).window }
+} catch {}
 [void]$form.ShowDialog()

@@ -177,6 +177,26 @@
         @{ Group='Pause'; Pattern='^Windows\\Subscription\\' }
         @{ Group='Pause'; Pattern='^Windows\\ExploitGuard\\' }
         @{ Group='Pause'; Pattern='^Windows\\Management\\Provisioning\\' }
+        @{ Group='Pause'; Pattern='^Windows\\Setup\\' }                  # daily recovery snapshots, disk heavy
+        @{ Group='Pause'; Pattern='^XblGameSave\\' }                     # Xbox game save sync, runs when idle
+        @{ Group='Pause'; Pattern='^Windows\\AccountHealth\\' }          # account backup nag
+        # Windows Automatic Maintenance housekeeping. Runs in a batch when the PC looks idle, which a long hands-off session can trigger.
+        @{ Group='Pause'; Pattern='^Windows\\ApplicationData\\' }           # app data cleanups (Automatic Maintenance)
+        @{ Group='Pause'; Pattern='^Windows\\BrokerInfrastructure\\' }      # background task registration upkeep
+        @{ Group='Pause'; Pattern='^Windows\\capabilityaccessmanager\\' }   # capability access manager upkeep
+        @{ Group='Pause'; Pattern='^Windows\\Chkdsk\\SyspartRepair' }       # system partition repair check
+        @{ Group='Pause'; Pattern='^Windows\\CloudExperienceHost\\' }       # cloud experience setup
+        @{ Group='Pause'; Pattern='^Windows\\Kernel\\' }                    # kernel cleanup
+        @{ Group='Pause'; Pattern='^Windows\\MUI\\' }                       # language pack removal
+        @{ Group='Pause'; Pattern='^Windows\\PCRPF\\' }                     # firmware prediction update
+        @{ Group='Pause'; Pattern='^Windows\\Plug and Play\\(Device Install Group Policy|Sysprep Generalize Drivers)' }
+        @{ Group='Pause'; Pattern='^Windows\\ReFsDedupSvc\\' }              # ReFS dedup
+        @{ Group='Pause'; Pattern='^Windows\\Shell\\CreateObjectTask' }     # shell object task
+        @{ Group='Pause'; Pattern='^Windows\\StateRepository\\' }           # state repository maintenance
+        @{ Group='Pause'; Pattern='^Windows\\Storage Tiers Management\\' }  # storage tiers
+        @{ Group='Pause'; Pattern='^Windows\\Task Manager\\' }              # Task Manager interactive
+        @{ Group='Pause'; Pattern='^Windows\\AppID\\PolicyConverter' }      # app ID policy converter
+        @{ Group='Pause'; Pattern='^Windows\\DirectX\\DXGIAdapterCache' }   # DirectX adapter cache
     )
 
     # Words that mark something as audio-gear related, for the "Audio gear related" filter.
