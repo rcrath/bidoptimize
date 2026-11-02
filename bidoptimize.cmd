@@ -76,7 +76,7 @@ rem Data Usage
 NET STOP "DusmSvc"
 
 rem Dropbox Service
-NET STOP "DbxSvc"
+rem NET STOP "DbxSvc"
 
 rem Diagnostic Policy Service
 NET STOP "DPS"
@@ -197,7 +197,7 @@ GOTO Menu
 :BidDef
 CLS
 ECHO. Stop Dropbox and load Default patch
-NET STOP "DbxSvc"
+REM NET STOP "DbxSvc"
 C:\windows\system32\taskkill.exe /f /IM Dropbox.exe /T
 start /WAIT "" /D "C:\Program Files\Plogue\Bidule" /REALTIME "C:\Program Files\Plogue\Bidule\Bidule.exe"
 ECHO. Restarting Dropbox after exit. 
@@ -213,7 +213,7 @@ GOTO Menu
 :BidGit
 CLS
 ECHO. Stop dropbox and load and Run Big patch
-NET STOP "DbxSvc"
+REM NET STOP "DbxSvc"
 C:\windows\system32\taskkill.exe /f /IM Dropbox.exe /T
 start /WAIT "" /D "C:\Program Files\Plogue\Bidule" /REALTIME "C:\Program Files\Plogue\Bidule\Bidule.exe" "C:\Users\rich\Dropbox\audio\git\bidule-mobile\Mobile7-64.bidule"
 ECHO. Restarting Dropbox after exit. 
@@ -293,7 +293,7 @@ rem Data Usage
 NET START "DusmSvc"
 
 rem Dropbox Service
-NET START "DbxSvc"
+rem NET START "DbxSvc"
 
 rem Diagnostic Policy Service
 NET START "DPS"
