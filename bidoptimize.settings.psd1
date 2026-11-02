@@ -1,4 +1,4 @@
-﻿# bidoptimize11 settings. Edit this file, not the script.
+﻿# bidoptimize settings. Edit this file, not the script.
 # Group names and defaults are only the starting ticks; you can change every tick in the window.
 @{
     # Windows and third-party services. Mode 'stop' = stop now, comes back on its own at reboot.

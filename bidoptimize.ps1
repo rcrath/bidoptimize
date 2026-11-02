@@ -1,12 +1,12 @@
 #requires -Version 5.1
-# bidoptimize11 - real-time audio tuning for Windows 11.
+# bidoptimize - real-time audio tuning for Windows 11.
 # Every change is written to a journal first, so any single change or all of them can be undone.
 param([switch]$Check, [switch]$BuildOnly, [switch]$RebuildServices, [switch]$SelfTest)
 
 $ErrorActionPreference = 'Continue'
 $StateDir    = Join-Path $PSScriptRoot 'state'
 $JournalFile = Join-Path $StateDir 'journal.json'
-$LogFile     = Join-Path $StateDir 'bidoptimize11.log'
+$LogFile     = Join-Path $StateDir 'bidoptimize.log'
 New-Item -ItemType Directory -Force -Path $StateDir | Out-Null
 
 # ---- admin ------------------------------------------------------------------------------------
@@ -19,7 +19,7 @@ if (-not $isAdmin -and -not $Check -and -not $BuildOnly -and -not $RebuildServic
 Add-Type -AssemblyName System.Windows.Forms, System.Drawing
 [Windows.Forms.Application]::EnableVisualStyles()
 
-$Settings = Import-PowerShellDataFile -Path (Join-Path $PSScriptRoot 'bidoptimize11.settings.psd1')
+$Settings = Import-PowerShellDataFile -Path (Join-Path $PSScriptRoot 'bidoptimize.settings.psd1')
 
 # ---- log --------------------------------------------------------------------------------------
 $script:LogBox = $null
@@ -248,7 +248,7 @@ function Set-ProAudioPlan {
         $out = (powercfg /import $file 2>&1) | Out-String
         if ($out -notmatch 'GUID:\s*([0-9a-fA-F-]{36})') { Write-Log '  could not import the ProAudio power plan'; return }
         $new = $Matches[1]; $target = $new
-        powercfg -changename $new 'ProAudio' 'Made by bidoptimize11 from ProAudio.pow. Removed on undo.' | Out-Null
+        powercfg -changename $new 'ProAudio' 'Made by bidoptimize from ProAudio.pow. Removed on undo.' | Out-Null
     }
     Add-Entry 'power' 'proaudio' @{ prev = $prev; new = $null }
     powercfg /setactive $target | Out-Null
@@ -439,7 +439,7 @@ function Describe-Undo($e) {
 # Adds new things found on this PC to the settings file, unticked. Existing entries, notes, and
 # comments are left as they are. A backup is saved first.
 function Add-ToSettingsList([string]$listName, [string[]]$newLines) {
-    $path  = Join-Path $PSScriptRoot 'bidoptimize11.settings.psd1'
+    $path  = Join-Path $PSScriptRoot 'bidoptimize.settings.psd1'
     $lines = Get-Content -LiteralPath $path
     $start = ($lines | Select-String -Pattern ('^\s*' + $listName + '\s*=\s*@\(') | Select-Object -First 1).LineNumber
     if (-not $start) { Write-Log "could not find the $listName list in the settings file"; return $false }
@@ -535,7 +535,7 @@ if ($SelfTest) {
 
 # ---- window -----------------------------------------------------------------------------------
 $form = New-Object Windows.Forms.Form
-$form.Text = 'bidoptimize11'
+$form.Text = 'bidoptimize'
 $form.Size = New-Object Drawing.Size(1200, 820)
 $form.StartPosition = 'CenterScreen'
 $form.Font = New-Object Drawing.Font('Segoe UI', 9)
@@ -842,7 +842,7 @@ function Fill-Helpers {
 # The routine: close the ticked helpers that are open, then start the app.
 function Start-AppRoutine($row) {
     $d = $row.Data
-    if (-not $d.Exe) { Write-Log "$($row.Text.Trim()) was not found. Fix its path in bidoptimize11.settings.psd1"; return }
+    if (-not $d.Exe) { Write-Log "$($row.Text.Trim()) was not found. Fix its path in bidoptimize.settings.psd1"; return }
     foreach ($h in (Get-Ticked $tHelp)) {
         if ($h.Data.Proc -and (Get-Process -Name $h.Data.Proc -ErrorAction SilentlyContinue)) { Close-ProgramTracked $h.Data.Proc }
     }
@@ -851,7 +851,7 @@ function Start-AppRoutine($row) {
 # Just open it: no helpers are closed. You can open several apps this way.
 function Open-App($row) {
     $d = $row.Data
-    if (-not $d.Exe) { Write-Log "$($row.Text.Trim()) was not found. Fix its path in bidoptimize11.settings.psd1"; return }
+    if (-not $d.Exe) { Write-Log "$($row.Text.Trim()) was not found. Fix its path in bidoptimize.settings.psd1"; return }
     $arg = [Environment]::ExpandEnvironmentVariables([string]$d.Def.File)
     if ($arg -and -not (Test-Path -LiteralPath $arg)) { Write-Log "file not found: $arg"; return }
     $lt = Get-LaunchTuning 'Apps' $row
@@ -914,7 +914,7 @@ function Open-OtherProgram {
     $name = [IO.Path]::GetFileNameWithoutExtension($dlg.FileName)
     $known = @($Settings.Apps | ForEach-Object { Resolve-AppExe $_.Exe }) + @($Settings.Helpers | ForEach-Object { [Environment]::ExpandEnvironmentVariables([string]$_.Exe) })
     if ($known -notcontains $dlg.FileName -and
-        [Windows.Forms.MessageBox]::Show("Add '$name' to the Apps list so it is here next time?", 'bidoptimize11', 'YesNo', 'Question') -eq 'Yes') {
+        [Windows.Forms.MessageBox]::Show("Add '$name' to the Apps list so it is here next time?", 'bidoptimize', 'YesNo', 'Question') -eq 'Yes') {
         Add-ExeToList 'Apps' $dlg.FileName
     }
     Fill-Apps; Fill-Helpers
@@ -1295,7 +1295,7 @@ function Get-LayoutFolder {
 }
 $script:LayoutDir = Get-LayoutFolder
 function Get-LayoutNames { @(Get-ChildItem -LiteralPath $LayoutDir -Filter '*.bop' -ErrorAction SilentlyContinue | Sort-Object Name | ForEach-Object { $_.BaseName }) }
-function Update-LayoutTitle { $form.Text = "bidoptimize11 - layout: $($script:LayoutName)" }
+function Update-LayoutTitle { $form.Text = "bidoptimize - layout: $($script:LayoutName)" }
 function Update-LayoutList {
     $script:Loading = $true
     $layoutBox.Items.Clear()
@@ -1423,7 +1423,7 @@ $btnSaveAs.Add_Click({
     $n = Read-Name 'Name for this layout:' $script:LayoutName
     if (-not $n) { return }
     if ((Test-Path -LiteralPath (Join-Path $LayoutDir "$n.bop")) -and
-        [Windows.Forms.MessageBox]::Show("A layout named '$n' exists. Replace it?", 'bidoptimize11', 'YesNo', 'Question') -ne 'Yes') { return }
+        [Windows.Forms.MessageBox]::Show("A layout named '$n' exists. Replace it?", 'bidoptimize', 'YesNo', 'Question') -ne 'Yes') { return }
     Save-Layout $n
 })
 $chkAsk.Add_CheckedChanged({ if (-not $script:Loading) { Save-Prefs } })
@@ -1431,7 +1431,7 @@ $form.Add_FormClosing({
     param($s, $e)
     if ($BuildOnly) { return }
     if ($chkAsk.Checked) {
-        $r = [Windows.Forms.MessageBox]::Show("Save the current layout ('$($script:LayoutName)') before closing?", 'bidoptimize11', 'YesNoCancel', 'Question')
+        $r = [Windows.Forms.MessageBox]::Show("Save the current layout ('$($script:LayoutName)') before closing?", 'bidoptimize', 'YesNoCancel', 'Question')
         if ($r -eq 'Cancel') { $e.Cancel = $true; return }
         if ($r -eq 'Yes') { Save-Layout $script:LayoutName }
     }
@@ -1469,7 +1469,7 @@ $btnBack.Add_Click({ Write-Log '--- undoing everything ---'; Invoke-Undo @(Get-J
 # Re-reads the settings file, so edits you make to it show up without restarting.
 $btnRef.Add_Click({
     $form.Cursor = 'WaitCursor'
-    $script:Settings = Import-PowerShellDataFile -Path (Join-Path $PSScriptRoot 'bidoptimize11.settings.psd1')
+    $script:Settings = Import-PowerShellDataFile -Path (Join-Path $PSScriptRoot 'bidoptimize.settings.psd1')
     Fill-Tasks; Refresh-All
     Update-Toggles -Radios
     Write-Log 'settings file reloaded'
@@ -1481,7 +1481,7 @@ $btnAnalyze.Add_Click({
     $form.Cursor = 'WaitCursor'
     Write-Log '--- analyzing this PC ---'
     $bak = Join-Path $StateDir ('settings-backup-{0:yyyyMMdd-HHmmss}-before-analyze.psd1' -f (Get-Date))
-    Copy-Item -LiteralPath (Join-Path $PSScriptRoot 'bidoptimize11.settings.psd1') -Destination $bak
+    Copy-Item -LiteralPath (Join-Path $PSScriptRoot 'bidoptimize.settings.psd1') -Destination $bak
     Write-Log "backup of the settings file: $bak"
     Update-AllLists -All
     $tasks = @(Get-ScheduledTask | Where-Object { $_.State -ne 'Disabled' })
